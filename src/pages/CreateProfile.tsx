@@ -78,7 +78,7 @@ const CreateProfile = () => {
     if (file) {
       setIsUploading(true);
       
-      // Simuler délai de téléchargement
+      // Délai de téléchargement
       setTimeout(() => {
         const reader = new FileReader();
         reader.onloadend = () => {
