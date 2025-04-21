@@ -129,6 +129,7 @@ export const useAuth = (): AuthContextType => {
   return context;
 };
 
+export { MusicCategory };
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
