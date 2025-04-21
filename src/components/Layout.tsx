@@ -21,19 +21,21 @@ const Layout = ({ children }: LayoutProps) => {
       
       <header className="sticky top-0 z-30 w-full border-b border-white/20 bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl">
         <div className="container flex h-16 items-center justify-between px-4 md:px-6 lg:px-8">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md shadow-primary/20 overflow-hidden">
-              <div className="absolute inset-0 bg-white/10"></div>
-              <Music className="h-5 w-5 text-white relative z-10" />
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 animate-spin-slow"></div>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-heading text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Flowy</span>
-              <span className="text-xs text-muted-foreground -mt-1">Music Creation</span>
-            </div>
-          </Link>
+          <div className="flex-shrink-0 pl-0">
+            <Link to="/" className="flex items-center gap-2 group">
+              <div className="relative w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md shadow-primary/20 overflow-hidden">
+                <div className="absolute inset-0 bg-white/10"></div>
+                <Music className="h-5 w-5 text-white relative z-10" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 animate-spin-slow"></div>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-heading text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Flowy</span>
+                <span className="text-xs text-muted-foreground -mt-1">Music Creation</span>
+              </div>
+            </Link>
+          </div>
           
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-2 md:gap-3 justify-end flex-grow ml-4">
             <Link to="/shared-music" className="hidden md:block">
               <Button 
                 variant={location.pathname === "/shared-music" ? "default" : "outline"}
