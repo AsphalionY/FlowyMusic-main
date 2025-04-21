@@ -28,8 +28,8 @@ const Layout = ({ children }: LayoutProps) => {
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 animate-spin-slow"></div>
             </div>
             <div className="flex flex-col">
-              <span className="font-heading text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Flowy</span>
-              <span className="text-xs text-muted-foreground -mt-1">Music Creation</span>
+              <span className="font-heading text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent leading-tight">Flowy</span>
+              <span className="text-xs text-muted-foreground leading-normal">Music Creation</span>
             </div>
           </Link>
           
@@ -54,7 +54,7 @@ const Layout = ({ children }: LayoutProps) => {
       
       <main className="flex-grow container py-6 md:py-8 px-4 md:px-6 lg:px-8 relative z-10 mx-auto w-full">
         <div className="h-full">
-          {children}
+        {children}
         </div>
       </main>
     </div>
