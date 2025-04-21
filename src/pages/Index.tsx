@@ -123,31 +123,21 @@ const Index = () => {
             >
               <div
                 className={
-                  "relative w-full max-w-md mx-auto overflow-hidden " +
+                  "relative w-full max-w-md mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] " +
                   (isMobile ? "overflow-x-auto pr-2" : "")
                 }
                 style={{
-                  WebkitOverflowScrolling: 'touch',
-                  msOverflowStyle: 'none',
-                  scrollbarWidth: 'none',
-                  '&::-webkit-scrollbar': {
-                    display: 'none'
-                  }
+                  WebkitOverflowScrolling: 'touch'
                 }}
               >
                 <TabsList
                   className={
-                    "relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto overflow-hidden " +
+                    "relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] " +
                     (isMobile ? "flex gap-1 min-w-fit px-0.5" : "gap-2")
                   }
                   style={{
                     width: isMobile ? "fit-content" : undefined,
-                    minWidth: isMobile ? "100%" : undefined,
-                    msOverflowStyle: 'none',
-                    scrollbarWidth: 'none',
-                    '&::-webkit-scrollbar': {
-                      display: 'none'
-                    }
+                    minWidth: isMobile ? "100%" : undefined
                   }}
                 >
                   <motion.div
