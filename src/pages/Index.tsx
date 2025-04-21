@@ -132,18 +132,23 @@ const Index = () => {
               >
                 <TabsList
                   className={
-                    "bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto " +
-                    (isMobile ? "flex gap-2 min-w-fit" : "")
+                    "relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto " +
+                    (isMobile ? "flex gap-1 min-w-fit px-0.5" : "gap-2")
                   }
                   style={{
                     width: isMobile ? "fit-content" : undefined,
                     minWidth: isMobile ? "100%" : undefined
                   }}
                 >
+                  <motion.div
+                    className="absolute h-[calc(100%-8px)] top-1 rounded-full bg-white shadow-sm"
+                    layoutId="activeTabBackground"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
                   <TabsTrigger
                     value="discover"
                     ref={el => (triggerRefs.current['discover'] = el)}
-                    className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm"
+                    className="relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none"
                   >
                     <Music className="h-4 w-4 mr-2" />
                     <span className="whitespace-nowrap">Découvrir</span>
@@ -151,7 +156,7 @@ const Index = () => {
                   <TabsTrigger
                     value="search"
                     ref={el => (triggerRefs.current['search'] = el)}
-                    className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm"
+                    className="relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none"
                   >
                     <Search className="h-4 w-4 mr-2" />
                     <span className="whitespace-nowrap">Rechercher</span>
@@ -160,7 +165,7 @@ const Index = () => {
                     value="create"
                     ref={el => (triggerRefs.current['create'] = el)}
                     disabled={!isAuthenticated}
-                    className={`rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm
+                    className={`relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none
                       ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
                     }
                   >
@@ -171,7 +176,7 @@ const Index = () => {
                     value="playlist"
                     ref={el => (triggerRefs.current['playlist'] = el)}
                     disabled={!isAuthenticated}
-                    className={`rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm
+                    className={`relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none
                       ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
                     }
                   >
