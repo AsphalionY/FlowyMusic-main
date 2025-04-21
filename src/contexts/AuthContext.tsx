@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
-import MusicCategory from '@/types/music';
+import { MusicCategory } from '@/types/music';
 
 // Fonction de hachage simple (à remplacer par une vraie fonction de hachage côté serveur)
 const hashPassword = async (password: string): Promise<string> => {
@@ -129,7 +129,6 @@ export const useAuth = (): AuthContextType => {
   return context;
 };
 
-export { MusicCategory };
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
