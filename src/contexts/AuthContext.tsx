@@ -82,7 +82,7 @@ const separateSensitiveData = (userData: any) => {
 const getSecureRandomNumber = async (min: number, max: number): Promise<number> => {
   const range = max - min;
   const bytes = new Uint8Array(4);
-  await crypto.getRandomValues(bytes);
+  crypto.getRandomValues(bytes);
   const randomValue = new DataView(bytes.buffer).getUint32(0, true);
   return min + (randomValue % range);
 };
@@ -90,7 +90,7 @@ const getSecureRandomNumber = async (min: number, max: number): Promise<number> 
 // Fonction pour générer un ID sécurisé
 const generateSecureId = async (): Promise<string> => {
   const bytes = new Uint8Array(16);
-  await crypto.getRandomValues(bytes);
+  crypto.getRandomValues(bytes);
   return Array.from(bytes)
     .map(b => b.toString(16).padStart(2, '0'))
     .join('');
