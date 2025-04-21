@@ -1,8 +1,100 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
+import { MusicCategory } from '@/types/music';
 
-export type MusicCategory = 'rap' | 'rock' | 'pop' | 'electro' | 'jazz' | 'classique' | 'autre';
+// Fonction de hachage simple (à remplacer par une vraie fonction de hachage côté serveur)
+const hashPassword = async (password: string): Promise<string> => {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hash))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+};
+
+// Fonctions de chiffrement/déchiffrement avec Web Crypto API
+const generateKey = async (): Promise<CryptoKey> => {
+  return await crypto.subtle.generateKey(
+    {
+      name: 'AES-GCM',
+      length: 256,
+    },
+    true,
+    ['encrypt', 'decrypt']
+  );
+};
+
+const exportKey = async (key: CryptoKey): Promise<string> => {
+  const exported = await crypto.subtle.exportKey('raw', key);
+  return btoa(String.fromCharCode(...new Uint8Array(exported)));
+};
+
+const importKey = async (keyString: string): Promise<CryptoKey> => {
+  const keyData = Uint8Array.from(atob(keyString), c => c.charCodeAt(0));
+  return await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: 'AES-GCM', length: 256 },
+    true,
+    ['encrypt', 'decrypt']
+  );
+};
+
+const encryptData = async (data: string, key: CryptoKey): Promise<string> => {
+  const encoder = new TextEncoder();
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const encrypted = await crypto.subtle.encrypt(
+    {
+      name: 'AES-GCM',
+      iv: iv
+    },
+    key,
+    encoder.encode(data)
+  );
+  return btoa(String.fromCharCode(...iv) + String.fromCharCode(...new Uint8Array(encrypted)));
+};
+
+const decryptData = async (encryptedData: string, key: CryptoKey): Promise<string> => {
+  const decoded = atob(encryptedData);
+  const iv = new Uint8Array(Array.from(decoded.slice(0, 12)).map(c => c.charCodeAt(0)));
+  const data = new Uint8Array(Array.from(decoded.slice(12)).map(c => c.charCodeAt(0)));
+  const decrypted = await crypto.subtle.decrypt(
+    {
+      name: 'AES-GCM',
+      iv: iv
+    },
+    key,
+    data
+  );
+  return new TextDecoder().decode(decrypted);
+};
+
+// Fonction pour séparer les données sensibles
+const separateSensitiveData = (userData: any) => {
+  const { password, ...publicData } = userData;
+  return {
+    sensitiveData: { password },
+    publicData
+  };
+};
+
+// Fonction pour générer des nombres aléatoires sécurisés
+const getSecureRandomNumber = async (min: number, max: number): Promise<number> => {
+  const range = max - min;
+  const bytes = new Uint8Array(4);
+  await crypto.getRandomValues(bytes);
+  const randomValue = new DataView(bytes.buffer).getUint32(0, true);
+  return min + (randomValue % range);
+};
+
+// Fonction pour générer un ID sécurisé
+const generateSecureId = async (): Promise<string> => {
+  const bytes = new Uint8Array(16);
+  await crypto.getRandomValues(bytes);
+  return Array.from(bytes)
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+};
 
 type User = {
   id: string;
@@ -62,30 +154,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      // Simuler un appel API avec timeout
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Pour démonstration, récupérer les utilisateurs stockés
       const usersJSON = localStorage.getItem('harmonybot_users') || '[]';
       const users = JSON.parse(usersJSON);
       
-      const foundUser = users.find((u: any) => 
-        u.email === email && u.password === password
-      );
+      const hashedPassword = await hashPassword(password);
+      const foundUser = users.find((u: any) => u.email === email);
       
       if (foundUser) {
-        // Ne pas stocker le mot de passe dans l'état utilisateur
-        const { password, ...userWithoutPassword } = foundUser;
-        setUser(userWithoutPassword);
-        localStorage.setItem('harmonybot_user', JSON.stringify(userWithoutPassword));
-        toast.success('Connexion réussie');
-        setIsLoading(false);
-        return true;
-      } else {
-        toast.error('Email ou mot de passe incorrect');
-        setIsLoading(false);
-        return false;
+        // Récupérer la clé de chiffrement
+        const encryptionKey = await importKey(foundUser.encryptionKey);
+        
+        // Déchiffrer le mot de passe stocké
+        const decryptedPassword = await decryptData(foundUser.password, encryptionKey);
+        
+        if (decryptedPassword === hashedPassword) {
+          // Séparer les données sensibles et publiques
+          const { sensitiveData, publicData } = separateSensitiveData(foundUser);
+          
+          // Ne stocker que les données publiques
+          setUser(publicData);
+          localStorage.setItem('harmonybot_user', JSON.stringify(publicData));
+          
+          toast.success('Connexion réussie');
+          setIsLoading(false);
+          return true;
+        }
       }
+      
+      toast.error('Email ou mot de passe incorrect');
+      setIsLoading(false);
+      return false;
     } catch (error) {
       console.error('Erreur de connexion:', error);
       toast.error('Erreur lors de la connexion');
@@ -97,14 +197,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (email: string, password: string, username: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      // Simuler un appel API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Pour démonstration, récupérer les utilisateurs stockés
       const usersJSON = localStorage.getItem('harmonybot_users') || '[]';
       const users = JSON.parse(usersJSON);
       
-      // Vérifier si l'utilisateur existe déjà
       const userExists = users.some((u: any) => 
         u.email === email || u.username === username
       );
@@ -115,12 +212,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return false;
       }
       
-      // Créer nouvel utilisateur
+      const hashedPassword = await hashPassword(password);
+      const encryptionKey = await generateKey();
+      const keyString = await exportKey(encryptionKey);
+      const secureId = await generateSecureId();
+      
       const newUser = {
-        id: `user_${Date.now()}`,
+        id: secureId,
         username,
         email,
-        password, // Dans une vraie app, ce serait haché
+        password: hashedPassword,
         createdAt: new Date().toISOString(),
         followers: 0,
         following: 0,
@@ -128,14 +229,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         preferredCategories: []
       };
       
-      // Ajouter au tableau d'utilisateurs
-      users.push(newUser);
-      localStorage.setItem('harmonybot_users', JSON.stringify(users));
+      // Séparer les données sensibles et publiques
+      const { sensitiveData, publicData } = separateSensitiveData(newUser);
       
-      // Ne pas stocker le mot de passe dans l'état utilisateur
-      const { password: _, ...userWithoutPassword } = newUser;
-      setUser(userWithoutPassword);
-      localStorage.setItem('harmonybot_user', JSON.stringify(userWithoutPassword));
+      // Chiffrer les données sensibles
+      const encryptedPassword = await encryptData(sensitiveData.password, encryptionKey);
+      
+      // Stocker les données séparément
+      const encryptedUsers = users.map((u: any) => {
+        const { sensitiveData: uSensitive, publicData: uPublic } = separateSensitiveData(u);
+        return { ...uPublic, password: uSensitive.password };
+      });
+      
+      encryptedUsers.push({ ...publicData, password: encryptedPassword, encryptionKey: keyString });
+      
+      localStorage.setItem('harmonybot_users', JSON.stringify(encryptedUsers));
+      setUser(publicData);
+      localStorage.setItem('harmonybot_user', JSON.stringify(publicData));
       
       toast.success('Inscription réussie');
       setIsLoading(false);
@@ -159,21 +269,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     try {
       setIsLoading(true);
-      
-      // Simuler un appel API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Mettre à jour les données utilisateur
+      // Create updated user data
       const updatedUser = { ...user, ...profileData };
-      setUser(updatedUser);
-      localStorage.setItem('harmonybot_user', JSON.stringify(updatedUser));
       
-      // Mettre aussi à jour dans le tableau des utilisateurs
+      // Separate sensitive and public data
+      const { publicData } = separateSensitiveData(updatedUser);
+      
+      // Only store public data in user state and localStorage
+      setUser(publicData);
+      localStorage.setItem('harmonybot_user', JSON.stringify(publicData));
+      
+      // Update users array while preserving sensitive data
       const usersJSON = localStorage.getItem('harmonybot_users') || '[]';
       const users = JSON.parse(usersJSON);
-      const updatedUsers = users.map((u: any) => 
-        u.id === user.id ? { ...u, ...profileData, password: u.password } : u
-      );
+      const updatedUsers = users.map((u: any) => {
+        if (u.id === user.id) {
+          // Preserve existing sensitive data while updating public data
+          const { sensitiveData: existingSensitive } = separateSensitiveData(u);
+          return { ...publicData, password: existingSensitive.password };
+        }
+        return u;
+      });
       localStorage.setItem('harmonybot_users', JSON.stringify(updatedUsers));
       
       toast.success('Profil mis à jour');

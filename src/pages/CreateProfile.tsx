@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -9,7 +8,7 @@ import { useAuth, MusicCategory } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Upload, Check, Music } from 'lucide-react';
+import { Loader2, Upload, Check, Music, User } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -143,6 +142,31 @@ const CreateProfile = () => {
     }
   };
 
+  // Fonction pour valider et nettoyer les URLs d'images
+  const sanitizeImageUrl = (url: string | undefined): string | null => {
+    if (!url) return null;
+    
+    try {
+      // Vérifier que l'URL est valide
+      const parsedUrl = new URL(url);
+      
+      // Vérifier que c'est une URL d'image
+      const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+      const isImage = imageExtensions.some(ext => 
+        parsedUrl.pathname.toLowerCase().endsWith(ext)
+      );
+      
+      if (!isImage) return null;
+      
+      // Vérifier que le protocole est sécurisé
+      if (parsedUrl.protocol !== 'https:') return null;
+      
+      return url;
+    } catch {
+      return null;
+    }
+  };
+
   if (isLoading) {
     return (
       <Layout>
@@ -174,19 +198,16 @@ const CreateProfile = () => {
                   <div className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-4 overflow-hidden rounded-full bg-secondary relative">
                     {(imagePreview || user?.profileImage) ? (
                       <img 
-                        src={imagePreview || user?.profileImage} 
+                        src={sanitizeImageUrl(imagePreview || user?.profileImage) || ''} 
                         alt="Aperçu du profil" 
                         className="w-full h-full object-cover"
+                        crossOrigin="anonymous"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground text-4xl">
-                        {user?.username?.charAt(0).toUpperCase() || "?"}
-                      </div>
-                    )}
-                    
-                    {isUploading && (
-                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <Loader2 className="h-8 w-8 animate-spin text-white" />
+                      <div className="w-full h-full flex items-center justify-center">
+                        <User className="w-12 h-12 text-muted-foreground" />
                       </div>
                     )}
                   </div>
