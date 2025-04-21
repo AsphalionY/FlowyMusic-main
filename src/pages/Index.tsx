@@ -123,29 +123,31 @@ const Index = () => {
             >
               <div
                 className={
-                  "relative w-full max-w-md mx-auto scrollbar-none " +
+                  "relative w-full max-w-md mx-auto overflow-hidden " +
                   (isMobile ? "overflow-x-auto pr-2" : "")
                 }
                 style={{
                   WebkitOverflowScrolling: 'touch',
-                  msOverflowStyle: 'none',  // Pour IE/Edge
-                  scrollbarWidth: 'none'     // Pour Firefox
+                  msOverflowStyle: 'none',
+                  scrollbarWidth: 'none',
+                  '&::-webkit-scrollbar': {
+                    display: 'none'
+                  }
                 }}
               >
-                <style jsx global>{`
-                  /* Pour Chrome, Safari et Opera */
-                  .scrollbar-none::-webkit-scrollbar {
-                    display: none;
-                  }
-                `}</style>
                 <TabsList
                   className={
-                    "relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto " +
+                    "relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto overflow-hidden " +
                     (isMobile ? "flex gap-1 min-w-fit px-0.5" : "gap-2")
                   }
                   style={{
                     width: isMobile ? "fit-content" : undefined,
-                    minWidth: isMobile ? "100%" : undefined
+                    minWidth: isMobile ? "100%" : undefined,
+                    msOverflowStyle: 'none',
+                    scrollbarWidth: 'none',
+                    '&::-webkit-scrollbar': {
+                      display: 'none'
+                    }
                   }}
                 >
                   <motion.div
@@ -204,11 +206,11 @@ const Index = () => {
             <MusicSearch />
           </TabsContent>
           
-          <TabsContent value="create" className="px-4 md:px-0">
+          <TabsContent value="create" className="px-4 md:px-0 overflow-hidden">
             <RecordMusic key={activeCreateTab} activeInstrument="recorder" />
           </TabsContent>
           
-          <TabsContent value="playlist" className="px-4 md:px-0">
+          <TabsContent value="playlist" className="px-4 md:px-0 overflow-hidden">
             <CreatorProfile />
           </TabsContent>
         </Tabs>
