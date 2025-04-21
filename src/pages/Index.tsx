@@ -65,7 +65,7 @@ const Index = () => {
         animate="visible"
       >
         <motion.div variants={itemVariants} className="text-center mb-8 md:mb-10 px-4">
-          <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent py-1 leading-relaxed">
+          <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent py-2 leading-loose">
             Créez, Enregistrez, Partagez
           </h1>
           <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto">
