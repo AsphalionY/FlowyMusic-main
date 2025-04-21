@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -24,6 +24,23 @@ const Index = () => {
   const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState('discover');
   const [activeCreateTab, setActiveCreateTab] = useState('recorder');
+  
+  const tabKeys = ['discover', 'search', 'create', 'creator'];
+  const triggerRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+  const scrollWrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // Lors du changement de tab sur mobile: auto-scroll pour rendre le bouton visible
+  useEffect(() => {
+    if (!isMobile) return;
+    const ref = triggerRefs.current[activeTab];
+    if (ref && scrollWrapperRef.current) {
+      ref.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "nearest"
+      });
+    }
+  }, [activeTab, isMobile]);
   
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -65,7 +82,7 @@ const Index = () => {
         animate="visible"
       >
         <motion.div variants={itemVariants} className="text-center mb-8 md:mb-10 px-4">
-          <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent py-2 leading-loose">
+          <h1 className="text-3xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent py-1 md:py-2 leading-relaxed md:leading-loose">
             Créez, Enregistrez, Partagez
           </h1>
           <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto">
@@ -100,25 +117,69 @@ const Index = () => {
           className="w-full"
         >
           <motion.div variants={itemVariants} className="px-4 md:px-0">
-            <div className="flex justify-center mb-6">
-              <TabsList className="bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap">
-                <TabsTrigger value="discover" className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm">
-                  <Music className="h-4 w-4 mr-2" />
-                  <span className="whitespace-nowrap">Découvrir</span>
-                </TabsTrigger>
-                <TabsTrigger value="search" className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm">
-                  <Search className="h-4 w-4 mr-2" />
-                  <span className="whitespace-nowrap">Rechercher</span>
-                </TabsTrigger>
-                <TabsTrigger value="create" className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm">
-                  <FilePlus className="h-4 w-4 mr-2" />
-                  <span className="whitespace-nowrap">Créer</span>
-                </TabsTrigger>
-                <TabsTrigger value="creator" className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm">
-                  <UserSquare className="h-4 w-4 mr-2" />
-                  <span className="whitespace-nowrap">Profil</span>
-                </TabsTrigger>
-              </TabsList>
+            <div
+              ref={scrollWrapperRef}
+              className="flex justify-center mb-6 w-full"
+            >
+              <div
+                className={
+                  "relative w-full max-w-md mx-auto " +
+                  (isMobile ? "overflow-x-auto scrollbar-none pr-2" : "")
+                }
+                style={{
+                  WebkitOverflowScrolling: 'touch'
+                }}
+              >
+                <TabsList
+                  className={
+                    "bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto " +
+                    (isMobile ? "flex gap-2 min-w-fit" : "")
+                  }
+                  style={{
+                    width: isMobile ? "fit-content" : undefined,
+                    minWidth: isMobile ? "100%" : undefined
+                  }}
+                >
+                  <TabsTrigger
+                    value="discover"
+                    ref={el => (triggerRefs.current['discover'] = el)}
+                    className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm"
+                  >
+                    <Music className="h-4 w-4 mr-2" />
+                    <span className="whitespace-nowrap">Découvrir</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="search"
+                    ref={el => (triggerRefs.current['search'] = el)}
+                    className="rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm"
+                  >
+                    <Search className="h-4 w-4 mr-2" />
+                    <span className="whitespace-nowrap">Rechercher</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="create"
+                    ref={el => (triggerRefs.current['create'] = el)}
+                    disabled={!isAuthenticated}
+                    className={`rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm
+                      ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
+                    }
+                  >
+                    <FilePlus className="h-4 w-4 mr-2" />
+                    <span className="whitespace-nowrap">Créer</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="creator"
+                    ref={el => (triggerRefs.current['creator'] = el)}
+                    disabled={!isAuthenticated}
+                    className={`rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm
+                      ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
+                    }
+                  >
+                    <UserSquare className="h-4 w-4 mr-2" />
+                    <span className="whitespace-nowrap">Profil</span>
+                  </TabsTrigger>
+                </TabsList>
+              </div>
             </div>
           </motion.div>
           
