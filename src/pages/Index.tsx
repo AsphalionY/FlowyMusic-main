@@ -123,13 +123,21 @@ const Index = () => {
             >
               <div
                 className={
-                  "relative w-full max-w-md mx-auto " +
-                  (isMobile ? "overflow-x-auto scrollbar-none pr-2" : "")
+                  "relative w-full max-w-md mx-auto scrollbar-none " +
+                  (isMobile ? "overflow-x-auto pr-2" : "")
                 }
                 style={{
-                  WebkitOverflowScrolling: 'touch'
+                  WebkitOverflowScrolling: 'touch',
+                  msOverflowStyle: 'none',  // Pour IE/Edge
+                  scrollbarWidth: 'none'     // Pour Firefox
                 }}
               >
+                <style jsx global>{`
+                  /* Pour Chrome, Safari et Opera */
+                  .scrollbar-none::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
                 <TabsList
                   className={
                     "relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto " +
