@@ -12,7 +12,7 @@ import {
   Music, 
   Search, 
   Mic, 
-  UserSquare, 
+  ListMusic,
   FilePlus 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,7 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState('discover');
   const [activeCreateTab, setActiveCreateTab] = useState('recorder');
   
-  const tabKeys = ['discover', 'search', 'create', 'creator'];
+  const tabKeys = ['discover', 'search', 'create', 'playlist'];
   const triggerRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
   const scrollWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -168,15 +168,15 @@ const Index = () => {
                     <span className="whitespace-nowrap">Créer</span>
                   </TabsTrigger>
                   <TabsTrigger
-                    value="creator"
-                    ref={el => (triggerRefs.current['creator'] = el)}
+                    value="playlist"
+                    ref={el => (triggerRefs.current['playlist'] = el)}
                     disabled={!isAuthenticated}
                     className={`rounded-full data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm
                       ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
                     }
                   >
-                    <UserSquare className="h-4 w-4 mr-2" />
-                    <span className="whitespace-nowrap">Profil</span>
+                    <ListMusic className="h-4 w-4 mr-2" />
+                    <span className="whitespace-nowrap">Playlist</span>
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -195,7 +195,7 @@ const Index = () => {
             <RecordMusic key={activeCreateTab} activeInstrument="recorder" />
           </TabsContent>
           
-          <TabsContent value="creator" className="px-4 md:px-0">
+          <TabsContent value="playlist" className="px-4 md:px-0">
             <CreatorProfile />
           </TabsContent>
         </Tabs>
