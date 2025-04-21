@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -51,7 +50,7 @@ const Index = () => {
 
   const handleCreateClick = () => {
     if (!isAuthenticated) {
-      navigate('/auth?tab=register');
+      navigate('/auth?tab=register', { replace: true });
     } else {
       setActiveTab('create');
     }
