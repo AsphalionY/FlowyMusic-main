@@ -7,10 +7,9 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    historyApiFallback: true,
-    base: '/'
+    open: true,
+    strictPort: true
   },
-  base: '/',
   plugins: [
     react(),
   ],
