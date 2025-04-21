@@ -148,7 +148,7 @@ const Index = () => {
                   <TabsTrigger
                     value="discover"
                     ref={el => (triggerRefs.current['discover'] = el)}
-                    className="relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none"
+                    className="relative rounded-full text-muted-foreground data-[state=active]:text-primary data-[state=active]:shadow-none"
                   >
                     <Music className="h-4 w-4 mr-2" />
                     <span className="whitespace-nowrap">Découvrir</span>
@@ -156,7 +156,7 @@ const Index = () => {
                   <TabsTrigger
                     value="search"
                     ref={el => (triggerRefs.current['search'] = el)}
-                    className="relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none"
+                    className="relative rounded-full text-muted-foreground data-[state=active]:text-primary data-[state=active]:shadow-none"
                   >
                     <Search className="h-4 w-4 mr-2" />
                     <span className="whitespace-nowrap">Rechercher</span>
@@ -165,7 +165,7 @@ const Index = () => {
                     value="create"
                     ref={el => (triggerRefs.current['create'] = el)}
                     disabled={!isAuthenticated}
-                    className={`relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none
+                    className={`relative rounded-full text-muted-foreground data-[state=active]:text-primary data-[state=active]:shadow-none
                       ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
                     }
                   >
@@ -176,7 +176,7 @@ const Index = () => {
                     value="playlist"
                     ref={el => (triggerRefs.current['playlist'] = el)}
                     disabled={!isAuthenticated}
-                    className={`relative rounded-full text-primary/50 data-[state=active]:text-primary data-[state=active]:shadow-none
+                    className={`relative rounded-full text-muted-foreground data-[state=active]:text-primary data-[state=active]:shadow-none
                       ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
                     }
                   >
