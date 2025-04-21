@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'sonner';
-import { MusicCategory } from '@/types/music';
+import MusicCategory from '@/types/music';
 
 // Fonction de hachage simple (à remplacer par une vraie fonction de hachage côté serveur)
 const hashPassword = async (password: string): Promise<string> => {

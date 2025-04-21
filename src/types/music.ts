@@ -5,4 +5,6 @@ export type MusicCategory =
   | 'electro'
   | 'jazz'
   | 'classique'
-  | 'autre'; 
+  | 'autre';
+
+export default MusicCategory; 
