@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -13,8 +12,8 @@ const Layout = ({ children }: LayoutProps) => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950 overflow-x-hidden">
-      <div className="absolute inset-0 overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950 relative">
+      <div className="absolute inset-0 w-full h-full">
         <div className="wave-pattern absolute inset-x-0 h-40 top-0 opacity-70"></div>
         <div className="wave-pattern absolute inset-x-0 h-40 bottom-0 opacity-70 rotate-180"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-300/10 via-transparent to-blue-300/10 animate-flow"></div>
@@ -53,8 +52,10 @@ const Layout = ({ children }: LayoutProps) => {
         </div>
       </header>
       
-      <main className="container py-6 md:py-8 px-4 md:px-6 lg:px-8 relative z-10 mx-auto max-w-full">
-        {children}
+      <main className="flex-grow container py-6 md:py-8 px-4 md:px-6 lg:px-8 relative z-10 mx-auto w-full">
+        <div className="h-full">
+          {children}
+        </div>
       </main>
     </div>
   );
