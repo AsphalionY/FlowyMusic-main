@@ -11,7 +11,8 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
       useESM: true,
-      tsconfig: 'tsconfig.json'
+      tsconfig: 'tsconfig.json',
+      isolatedModules: true
     }],
   },
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
@@ -39,11 +40,6 @@ const config: Config = {
   },
   moduleDirectories: ['node_modules', 'src'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true,
-    },
-  },
 };
 
 export default config; 
