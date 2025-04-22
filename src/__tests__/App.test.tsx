@@ -4,11 +4,11 @@ import { describe, it, expect, jest } from '@jest/globals';
 import App from '../App';
 
 // Mock the components that use browser APIs
-jest.mock('../components/ui/sonner', () => ({
+jest.mock('@/components/ui/sonner', () => ({
   Toaster: () => null,
 }));
 
-jest.mock('../hooks/use-mobile', () => ({
+jest.mock('@/hooks/use-mobile', () => ({
   useIsMobile: () => false,
 }));
 
