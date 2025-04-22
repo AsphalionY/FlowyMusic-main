@@ -118,6 +118,7 @@ const FileDropzone = ({ onFileSelected, redirectToLogin, isAuthenticated }: File
           accept="audio/*" 
           className="hidden" 
           onChange={handleFileChange}
+          data-testid="file-input"
         />
       </div>
     </div>

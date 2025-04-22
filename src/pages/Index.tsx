@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -23,9 +23,7 @@ const Index = () => {
   const isMobile = useIsMobile();
   const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState('discover');
-  const [activeCreateTab, setActiveCreateTab] = useState('recorder');
   
-  const tabKeys = ['discover', 'search', 'create', 'playlist'];
   const triggerRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
   const scrollWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -94,6 +92,7 @@ const Index = () => {
               size={isMobile ? "default" : "lg"} 
               className="rounded-full bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-md shadow-primary/20"
               onClick={handleCreateClick}
+              data-testid="start-creating-button"
             >
               <Mic className="mr-2 h-5 w-5" />
               Commencer à créer
@@ -103,6 +102,7 @@ const Index = () => {
               size={isMobile ? "default" : "lg"} 
               className="rounded-full border-primary/20 hover:bg-primary/5"
               onClick={() => navigate('/shared-music')}
+              data-testid="library-link"
             >
               <Music className="mr-2 h-5 w-5 text-primary" />
               Explorer la bibliothèque
@@ -197,7 +197,7 @@ const Index = () => {
           </TabsContent>
           
           <TabsContent value="create" className="px-4 md:px-0 overflow-hidden">
-            <RecordMusic key={activeCreateTab} activeInstrument="recorder" />
+            <RecordMusic />
           </TabsContent>
           
           <TabsContent value="playlist" className="px-4 md:px-0 overflow-hidden">

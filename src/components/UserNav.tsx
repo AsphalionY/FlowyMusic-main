@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -31,6 +30,7 @@ const UserNav = () => {
           size="sm" 
           className="rounded-full px-4 hover:bg-primary/10"
           onClick={() => navigate('/auth')}
+          data-testid="login-button"
         >
           Connexion
         </Button>

@@ -13,8 +13,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\"",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test": "jest --coverage --coverageDirectory=coverage/jest",
+    "test:watch": "jest --watch",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
@@ -22,7 +22,7 @@
     "analyze": "vite build --mode analyze",
     "preview": "vite preview",
     "test:jest": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "test:cypress": "cypress run",
+    "test:cypress": "cypress run --coverage",
     "coverage:merge": "istanbul-merge coverage/jest/lcov.info coverage/cypress/lcov.info > coverage/lcov.info"
   },
   "dependencies": {

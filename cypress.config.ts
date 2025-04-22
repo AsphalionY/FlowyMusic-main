@@ -9,6 +9,13 @@ export default defineConfig({
     screenshotOnRunFailure: true,
     viewportWidth: 1280,
     viewportHeight: 720,
+    setupNodeEvents(on, config) {
+      require('@cypress/code-coverage/task')(on, config);
+      return config;
+    },
+    env: {
+      coverage: true
+    }
   },
   component: {
     devServer: {
@@ -18,4 +25,5 @@ export default defineConfig({
     supportFile: 'cypress/support/component.ts',
     specPattern: 'cypress/component/**/*.cy.{js,jsx,ts,tsx}',
   },
+  coverageDirectory: 'coverage/cypress'
 }); 

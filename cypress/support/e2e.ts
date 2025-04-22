@@ -6,6 +6,7 @@
 import '@testing-library/cypress/add-commands';
 import 'cypress-axe';
 import 'cypress-file-upload';
+import '@cypress/code-coverage/support';
 
 declare namespace Cypress {
   interface Chainable<Subject = any> {

@@ -163,7 +163,12 @@ const Auth = () => {
                             Email
                           </FormLabel>
                           <FormControl>
-                            <Input type="email" placeholder="votre@email.com" {...field} />
+                            <Input 
+                              type="email" 
+                              placeholder="votre@email.com" 
+                              {...field} 
+                              data-testid="email-input"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -180,14 +185,24 @@ const Auth = () => {
                             Mot de passe
                           </FormLabel>
                           <FormControl>
-                            <Input type="password" placeholder="••••••••" {...field} />
+                            <Input 
+                              type="password" 
+                              placeholder="••••••••" 
+                              {...field} 
+                              data-testid="password-input"
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
 
-                    <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90" disabled={isLoading}>
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90" 
+                      disabled={isLoading}
+                      data-testid="submit-login"
+                    >
                       {isLoading ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

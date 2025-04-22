@@ -1,7 +1,7 @@
 describe('Parcours utilisateur', () => {
   beforeEach(() => {
     // Configuration des logs Cypress
-    Cypress.on('uncaught:exception', (err, runnable) => {
+    Cypress.on('uncaught:exception', (err) => {
       console.error('Test error:', err);
       return false;
     });

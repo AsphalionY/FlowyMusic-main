@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { X, FileMusic, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -84,6 +83,7 @@ const FileDetails = ({
             className="w-full"
             disabled={isUploading}
             required
+            data-testid="title-input"
           />
         </div>
         
@@ -109,6 +109,7 @@ const FileDetails = ({
           type="submit" 
           className="w-full rounded-lg h-11 font-medium"
           disabled={isUploading || !title.trim()}
+          data-testid="submit-upload"
         >
           {isUploading ? (
             <>
