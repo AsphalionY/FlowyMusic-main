@@ -55,10 +55,22 @@ jobs:
           npm run coverage:merge || echo "Coverage merge failed but continuing..."
           cat coverage/lcov.info || true
 
+      - name: Check SonarCloud Token
+        run: |
+          if [ -z "${{ secrets.Sonar_Token_GitHub_FlowyMusic }}" ]; then
+            echo "SonarCloud token is not set"
+            exit 1
+          fi
+          echo "SonarCloud token is set"
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.Sonar_Token_GitHub_FlowyMusic }}
         with:
           projectBaseDir: .
-          args: -Dsonar.projectKey=AsphalionY_FlowyMusic-main -Dsonar.organization=AsphalionY -Dsonar.host.url=https://sonarcloud.io 
+          args: |
+            -Dsonar.projectKey=AsphalionY_FlowyMusic-main
+            -Dsonar.organization=AsphalionY
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.token=${{ secrets.Sonar_Token_GitHub_FlowyMusic }} 
