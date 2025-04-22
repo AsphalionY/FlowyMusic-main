@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect } from '@jest/globals';
 import Layout from '@/components/Layout';
@@ -10,16 +10,20 @@ jest.mock('@/components/UserNav', () => ({
 }));
 
 describe('Layout Component', () => {
-  const renderWithRouter = (component: React.ReactNode) => {
-    return render(
-      <BrowserRouter>
-        {component}
-      </BrowserRouter>
-    );
+  const renderWithRouter = async (component: React.ReactNode) => {
+    let result;
+    await act(async () => {
+      result = render(
+        <BrowserRouter>
+          {component}
+        </BrowserRouter>
+      );
+    });
+    return result;
   };
 
-  it('renders the layout with children', () => {
-    renderWithRouter(
+  it('renders the layout with children', async () => {
+    await renderWithRouter(
       <Layout>
         <div data-testid="test-child">Test Content</div>
       </Layout>
@@ -28,16 +32,16 @@ describe('Layout Component', () => {
     expect(screen.getByTestId('test-child')).toBeInTheDocument();
   });
 
-  it('renders the header with logo and navigation', () => {
-    renderWithRouter(<Layout><div>Test</div></Layout>);
+  it('renders the header with logo and navigation', async () => {
+    await renderWithRouter(<Layout><div>Test</div></Layout>);
 
     expect(screen.getByText('Flowy')).toBeInTheDocument();
     expect(screen.getByText('Music Creation')).toBeInTheDocument();
     expect(screen.getByTestId('user-nav')).toBeInTheDocument();
   });
 
-  it('renders the library link in header', () => {
-    renderWithRouter(<Layout><div>Test</div></Layout>);
+  it('renders the library link in header', async () => {
+    await renderWithRouter(<Layout><div>Test</div></Layout>);
 
     const libraryLink = screen.getByText('Bibliothèque');
     expect(libraryLink).toBeInTheDocument();

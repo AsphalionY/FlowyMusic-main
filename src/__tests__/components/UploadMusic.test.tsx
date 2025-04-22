@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { describe, it, expect, jest } from '@jest/globals';
 import UploadMusic from '@/components/UploadMusic';
 
@@ -52,29 +52,37 @@ jest.mock('@/components/upload/FileDetails', () => ({
 }));
 
 describe('UploadMusic Component', () => {
-  it('renders the upload form when authenticated', () => {
-    render(<UploadMusic />);
+  it('renders the upload form when authenticated', async () => {
+    await act(async () => {
+      render(<UploadMusic />);
+    });
     
     expect(screen.getByText('Ajouter une musique')).toBeInTheDocument();
     expect(screen.getByTestId('file-dropzone')).toBeInTheDocument();
   });
 
-  it('renders auth required message when not authenticated', () => {
+  it('renders auth required message when not authenticated', async () => {
     jest.spyOn(require('@/components/upload/useUploadMusic'), 'useUploadMusic')
       .mockImplementation(() => ({
         ...require('@/components/upload/useUploadMusic').useUploadMusic(),
         isAuthenticated: false
       }));
 
-    render(<UploadMusic />);
+    await act(async () => {
+      render(<UploadMusic />);
+    });
     
     expect(screen.getByTestId('auth-required')).toBeInTheDocument();
   });
 
-  it('shows file details after file selection', () => {
-    render(<UploadMusic />);
+  it('shows file details after file selection', async () => {
+    await act(async () => {
+      render(<UploadMusic />);
+    });
     
-    fireEvent.click(screen.getByTestId('file-dropzone'));
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('file-dropzone'));
+    });
     
     expect(screen.getByTestId('file-details')).toBeInTheDocument();
     expect(screen.getByTestId('title-input')).toBeInTheDocument();
