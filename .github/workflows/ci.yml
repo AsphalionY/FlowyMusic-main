@@ -59,9 +59,6 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.Sonar_Token_GitHub_FlowyMusic }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: >
-            -Dsonar.projectKey=AsphalionY_FlowyMusic-main
-            -Dsonar.organization=AsphalionY
-            -Dsonar.host.url=https://sonarcloud.io 
+          projectBaseDir: .
+          args: -Dsonar.projectKey=AsphalionY_FlowyMusic-main -Dsonar.organization=AsphalionY -Dsonar.host.url=https://sonarcloud.io 
