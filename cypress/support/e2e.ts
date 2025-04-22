@@ -1,17 +1,19 @@
 /// <reference types="cypress" />
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress-axe" />
+/// <reference types="cypress-file-upload" />
 
 import '@testing-library/cypress/add-commands';
 import 'cypress-axe';
+import 'cypress-file-upload';
 
 declare namespace Cypress {
-  interface Chainable {
+  interface Chainable<Subject = any> {
     /**
      * Custom command to login to the application
      * @example cy.login('email@example.com', 'password123')
      */
-    login(email: string, password: string): Chainable<void>
+    login(email: string, password: string): Chainable<Subject>
   }
 }
 
