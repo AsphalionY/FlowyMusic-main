@@ -37,6 +37,24 @@ jobs:
           npm run test:jest || echo "Tests failed but continuing..."
           cat coverage/clover.xml || true
 
+      - name: Start Vite server
+        run: npm run dev &
+        env:
+          CI: true
+
+      - name: Wait for Vite server
+        run: |
+          timeout=60
+          while ! curl -s http://localhost:5173 > /dev/null; do
+            sleep 1
+            timeout=$((timeout-1))
+            if [ $timeout -le 0 ]; then
+              echo "Timeout waiting for Vite server"
+              exit 1
+            fi
+          done
+          echo "Vite server is ready"
+
       - name: Run Cypress tests
         run: |
           npm run test:cypress || echo "Cypress tests failed but continuing..."
