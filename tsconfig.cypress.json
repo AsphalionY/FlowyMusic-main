@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "cypress", "@testing-library/cypress", "cypress-axe"],
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["cypress/**/*.ts", "cypress/**/*.tsx"],
+  "exclude": ["node_modules"]
+} 

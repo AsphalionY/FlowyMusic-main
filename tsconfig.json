@@ -20,12 +20,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["cypress", "@testing-library/cypress", "cypress-axe", "node", "jest"],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "typeRoots": ["./node_modules/@types", "./src/types"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "esModuleInterop": true
+    "outDir": "./dist",
+    "declaration": false,
+    "emitDeclarationOnly": false
   },
-  "include": ["src", "cypress"]
+  "include": ["src", "cypress"],
+  "exclude": ["dist", "node_modules", "**/*.d.ts"]
 }

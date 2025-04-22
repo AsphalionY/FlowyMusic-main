@@ -25,5 +25,8 @@ export default defineConfig({
     supportFile: 'cypress/support/component.ts',
     specPattern: 'cypress/component/**/*.cy.{js,jsx,ts,tsx}',
   },
-  coverageDirectory: 'coverage/cypress'
+  coverageDirectory: 'coverage/cypress',
+  typescript: {
+    tsconfig: 'tsconfig.cypress.json'
+  }
 }); 

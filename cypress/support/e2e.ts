@@ -8,13 +8,15 @@ import 'cypress-axe';
 import 'cypress-file-upload';
 import '@cypress/code-coverage/support';
 
-declare namespace Cypress {
-  interface Chainable<Subject = any> {
-    /**
-     * Custom command to login to the application
-     * @example cy.login('email@example.com', 'password123')
-     */
-    login(email: string, password: string): Chainable<Subject>
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Custom command to login to the application
+       * @example cy.login('email@example.com', 'password123')
+       */
+      login(email: string, password: string): Chainable<void>
+    }
   }
 }
 
