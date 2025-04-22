@@ -192,30 +192,6 @@
     transform: scale(0.95);
   }
 
-  .piano-key {
-    @apply relative h-24 sm:h-32 border border-gray-300 rounded-b-md bg-white flex items-end justify-center cursor-pointer select-none transition-colors;
-  }
-  
-  .piano-key:hover {
-    @apply bg-primary/5;
-  }
-  
-  .piano-key:active, .piano-key.active {
-    @apply bg-primary/20;
-  }
-  
-  .piano-key.black {
-    @apply absolute top-0 h-16 sm:h-20 w-6 sm:w-8 -mx-3 sm:-mx-4 z-10 bg-gray-800 border-gray-600 rounded-b-md;
-  }
-  
-  .piano-key.black:hover {
-    @apply bg-gray-700;
-  }
-  
-  .piano-key.black:active, .piano-key.black.active {
-    @apply bg-gray-600;
-  }
-  
   .drum-pad {
     @apply relative rounded-xl border border-white/40 bg-white/60 backdrop-blur-sm shadow-md flex items-center justify-center cursor-pointer transition-all duration-150;
   }

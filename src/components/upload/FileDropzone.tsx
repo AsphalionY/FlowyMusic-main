@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Upload } from 'lucide-react';
@@ -72,15 +71,24 @@ const FileDropzone = ({ onFileSelected, redirectToLogin, isAuthenticated }: File
   
   return (
     <div 
+      role="button"
+      tabIndex={0}
+      aria-label="Zone de dépôt de fichiers. Cliquez ou faites glisser un fichier pour l'uploader."
       className={cn(
         "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
-        "hover:bg-secondary/40",
+        "hover:bg-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         isDragging ? "border-primary bg-primary/5" : "border-muted"
       )}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       onClick={() => document.getElementById('file-upload')?.click()}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          document.getElementById('file-upload')?.click();
+        }
+      }}
     >
       <div className="mx-auto flex flex-col items-center">
         <div className="mb-4 h-14 w-14 rounded-full bg-secondary flex items-center justify-center">

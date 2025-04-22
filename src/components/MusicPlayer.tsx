@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -247,7 +246,9 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
   return (
     <>
       {/* Audio élément caché */}
-      <audio ref={audioRef} className="hidden" />
+      <audio ref={audioRef} className="hidden">
+        <track kind="captions" />
+      </audio>
     
       <motion.div 
         className={cn(

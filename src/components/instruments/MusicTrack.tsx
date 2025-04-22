@@ -214,7 +214,9 @@ const MusicTrack = ({ track, onRemove, onRename, className }: MusicTrackProps) =
         src={audioUrl.current}
         onEnded={() => setIsPlaying(false)}
         className="hidden"
-      />
+      >
+        <track kind="captions" />
+      </audio>
     </div>
   );
 };

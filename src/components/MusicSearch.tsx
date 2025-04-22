@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -189,12 +188,20 @@ const MusicSearch = () => {
                             alt={result.title} 
                             className="h-full w-full object-cover"
                           />
-                          <div 
-                            className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer"
+                          <button 
+                            type="button"
+                            className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center transition-all duration-200 opacity-0 group-hover:opacity-100 cursor-pointer focus:opacity-100 focus:bg-black/40 outline-none"
                             onClick={() => playTrack(result)}
+                            aria-label={`Lire ${result.title} par ${result.artist}`}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                playTrack(result);
+                              }
+                            }}
                           >
                             <Play className="h-5 w-5 text-white" />
-                          </div>
+                          </button>
                         </div>
                       </div>
                       
