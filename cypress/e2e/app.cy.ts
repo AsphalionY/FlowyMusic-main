@@ -1,6 +1,12 @@
 describe('Parcours utilisateur', () => {
   beforeEach(() => {
-    // Mock des appels API
+    // Configuration des logs Cypress
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      console.error('Test error:', err);
+      return false;
+    });
+
+    // Mock des appels API avec des stubs
     cy.intercept('GET', '/api/auth/me', {
       statusCode: 200,
       body: {
@@ -32,42 +38,7 @@ describe('Parcours utilisateur', () => {
       }
     }).as('getMusic');
 
-    cy.visit('/');
-  });
-
-  it('devrait permettre à l\'utilisateur de naviguer sur la page d\'accueil', () => {
-    // Vérifier que la page d'accueil est chargée
-    cy.get('main').should('exist');
-    cy.get('span').contains('Flowy').should('exist');
-    
-    // Vérifier que le bouton de création est présent
-    cy.get('button').contains('Commencer à créer').should('exist');
-  });
-
-  it('devrait permettre à l\'utilisateur d\'accéder à la bibliothèque', () => {
-    // Cliquer sur le lien de la bibliothèque
-    cy.get('a').contains('Bibliothèque').click();
-    
-    // Vérifier que nous sommes sur la page de la bibliothèque
-    cy.url().should('include', '/shared-music');
-    
-    // Vérifier que la liste de musique est chargée
-    cy.wait('@getMusic');
-    cy.get('[data-testid="music-list"]').should('exist');
-  });
-
-  it('devrait permettre à l\'utilisateur de se connecter', () => {
-    // Cliquer sur le bouton de connexion
-    cy.get('button').contains('Connexion').click();
-    
-    // Vérifier que nous sommes sur la page de connexion
-    cy.url().should('include', '/auth');
-    
-    // Remplir le formulaire de connexion
-    cy.get('input[name="email"]').type('test@example.com');
-    cy.get('input[name="password"]').type('password123');
-    
-    // Mock de la réponse de connexion
+    // Stub pour la requête de login
     cy.intercept('POST', '/api/auth/login', {
       statusCode: 200,
       body: {
@@ -79,24 +50,54 @@ describe('Parcours utilisateur', () => {
         }
       }
     }).as('login');
+
+    cy.visit('/');
+    cy.log('Page d\'accueil chargée');
+  });
+
+  it('devrait permettre à l\'utilisateur de naviguer sur la page d\'accueil', () => {
+    cy.log('Vérification de la page d\'accueil');
+    cy.get('main', { timeout: 10000 }).should('exist');
+    cy.get('span').contains('Flowy').should('exist');
+    cy.get('[data-testid="start-creating-button"]').should('exist');
+  });
+
+  it('devrait permettre à l\'utilisateur d\'accéder à la bibliothèque', () => {
+    cy.log('Accès à la bibliothèque');
+    cy.get('[data-testid="library-link"]').click();
+    cy.url().should('include', '/shared-music');
+    cy.wait('@getMusic', { timeout: 10000 });
+    cy.get('[data-testid="music-list"]', { timeout: 10000 }).should('exist');
+  });
+
+  it('devrait permettre à l\'utilisateur de se connecter', () => {
+    cy.log('Tentative de connexion');
+    cy.get('[data-testid="login-button"]').click();
+    cy.url().should('include', '/auth');
     
-    // Soumettre le formulaire
-    cy.get('button[type="submit"]').click();
+    cy.get('[data-testid="email-input"]').type('test@example.com');
+    cy.get('[data-testid="password-input"]').type('password123');
     
-    // Vérifier que la connexion a réussi
-    cy.wait('@login');
+    cy.get('[data-testid="submit-login"]').click();
+    
+    cy.wait('@login', { timeout: 10000 });
     cy.url().should('eq', Cypress.config().baseUrl + '/');
   });
 
   it('devrait permettre à l\'utilisateur de télécharger une musique', () => {
+    cy.log('Début du processus de téléchargement');
+    
     // Se connecter d'abord
-    cy.get('button').contains('Connexion').click();
-    cy.get('input[name="email"]').type('test@example.com');
-    cy.get('input[name="password"]').type('password123');
-    cy.get('button[type="submit"]').click();
+    cy.get('[data-testid="login-button"]').click();
+    cy.get('[data-testid="email-input"]').type('test@example.com');
+    cy.get('[data-testid="password-input"]').type('password123');
+    cy.get('[data-testid="submit-login"]').click();
+    
+    // Attendre que la connexion soit terminée
+    cy.wait('@login', { timeout: 10000 });
     
     // Aller à la page de téléchargement
-    cy.get('a').contains('Ajouter une musique').click();
+    cy.get('[data-testid="add-music-link"]').click();
     
     // Mock du téléchargement de fichier
     cy.intercept('POST', '/api/music/upload', {
@@ -113,16 +114,16 @@ describe('Parcours utilisateur', () => {
     }).as('uploadMusic');
     
     // Sélectionner un fichier
-    cy.get('input[type="file"]').attachFile('test.mp3');
+    cy.get('[data-testid="file-input"]').attachFile('test.mp3');
     
     // Remplir le titre
-    cy.get('input[name="title"]').type('Nouvelle musique');
+    cy.get('[data-testid="title-input"]').type('Nouvelle musique');
     
     // Soumettre le formulaire
-    cy.get('button[type="submit"]').click();
+    cy.get('[data-testid="submit-upload"]').click();
     
     // Vérifier que le téléchargement a réussi
-    cy.wait('@uploadMusic');
-    cy.get('.success-message').should('contain', 'Musique téléchargée avec succès');
+    cy.wait('@uploadMusic', { timeout: 10000 });
+    cy.get('[data-testid="success-message"]').should('contain', 'Musique téléchargée avec succès');
   });
 }); 

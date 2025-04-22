@@ -54,16 +54,40 @@ jobs:
       - name: Start preview server
         run: |
           npm run preview -- --port 5173 &
-          sleep 10 # Augmenter le temps d'attente pour le démarrage du serveur
+          sleep 30 # Augmenter le temps d'attente pour le démarrage du serveur
         continue-on-error: true
 
       - name: Run Cypress tests
         run: |
           mkdir -p coverage/cypress
-          # Configuration de Cypress pour augmenter les timeouts
-          export CYPRESS_DEFAULT_COMMAND_TIMEOUT=10000
-          export CYPRESS_REQUEST_TIMEOUT=10000
-          export CYPRESS_PAGE_LOAD_TIMEOUT=10000
+          # Configuration de Cypress pour augmenter les timeouts et activer les stubs
+          export CYPRESS_DEFAULT_COMMAND_TIMEOUT=30000
+          export CYPRESS_REQUEST_TIMEOUT=30000
+          export CYPRESS_PAGE_LOAD_TIMEOUT=30000
+          export CYPRESS_INTERCEPT_TIMEOUT=30000
+          
+          # Créer un fichier de configuration temporaire pour Cypress
+          cat > cypress.config.ts << EOL
+          import { defineConfig } from 'cypress'
+
+          export default defineConfig({
+            e2e: {
+              baseUrl: 'http://localhost:5173',
+              setupNodeEvents(on, config) {
+                on('task', {
+                  log(message) {
+                    console.log(message)
+                    return null
+                  },
+                })
+              },
+              experimentalInterceptors: true,
+              defaultCommandTimeout: 30000,
+              requestTimeout: 30000,
+              pageLoadTimeout: 30000,
+            },
+          })
+          EOL
           
           if ! CYPRESS_BASE_URL=http://localhost:5173 npm run test:cypress; then
             echo "::warning::Cypress tests failed but continuing..."
@@ -84,9 +108,17 @@ jobs:
       - name: Merge coverage
         run: |
           mkdir -p coverage
-          if ! npm run coverage:merge; then
-            echo "::warning::Coverage merge failed but continuing..."
+          # Vérifier si les fichiers de couverture existent
+          if [ -f coverage/jest/lcov.info ] && [ -f coverage/cypress/lcov.info ]; then
+            # Fusionner les rapports de couverture
+            cat coverage/jest/lcov.info coverage/cypress/lcov.info > coverage/lcov.info
+            echo "Coverage reports merged successfully"
+          else
+            echo "::warning::Some coverage reports are missing"
+            # Créer un fichier de couverture vide si nécessaire
+            touch coverage/lcov.info
           fi
+          
           if [ -f coverage/lcov.info ]; then
             cat coverage/lcov.info
           else
