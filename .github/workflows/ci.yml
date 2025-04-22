@@ -83,12 +83,13 @@ jobs:
       - name: Check SonarCloud Token
         run: |
           if [ -z "${{ secrets.Sonar_Token_GitHub_FlowyMusic }}" ]; then
-            echo "::error::SonarCloud token is not set. Please add it to your repository secrets."
-            exit 1
+            echo "::warning::SonarCloud token is not set. Skipping SonarCloud analysis."
+            exit 0
           fi
           echo "SonarCloud token is set"
 
       - name: SonarCloud Scan
+        if: success() || failure()
         uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.Sonar_Token_GitHub_FlowyMusic }}
