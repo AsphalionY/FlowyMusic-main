@@ -3,6 +3,15 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect } from '@jest/globals';
 import App from '../App';
 
+// Mock the components that use browser APIs
+jest.mock('../components/ui/sonner', () => ({
+  Toaster: () => null,
+}));
+
+jest.mock('../hooks/use-mobile', () => ({
+  useIsMobile: () => false,
+}));
+
 describe('App', () => {
   it('renders without crashing', () => {
     render(<App />);
