@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress';
+import codeCoverage from '@cypress/code-coverage/task';
 
 export default defineConfig({
   e2e: {
@@ -10,11 +11,17 @@ export default defineConfig({
     viewportWidth: 1280,
     viewportHeight: 720,
     setupNodeEvents(on, config) {
-      require('@cypress/code-coverage/task')(on, config);
+      codeCoverage(on, config);
       return config;
     },
     env: {
-      coverage: true
+      codeCoverage: {
+        url: '/coverage/cypress',
+        exclude: [
+          'cypress/**/*.*',
+          'coverage/**/*.*'
+        ]
+      }
     }
   },
   component: {
@@ -24,6 +31,10 @@ export default defineConfig({
     },
     supportFile: 'cypress/support/component.ts',
     specPattern: 'cypress/component/**/*.cy.{js,jsx,ts,tsx}',
+    setupNodeEvents(on, config) {
+      codeCoverage(on, config);
+      return config;
+    }
   },
   coverageDirectory: 'coverage/cypress',
   typescript: {
