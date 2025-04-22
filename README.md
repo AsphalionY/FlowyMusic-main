@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 # Flowy
+=======
+>>>>>>> 3a737a013710cb9b02d9d477062afedf07a7b011
 
 ![HTML](https://img.shields.io/badge/HTML-5-orange?logo=html5&style=flat)
 ![TAILWIND CSS](https://img.shields.io/badge/TAILWIND-CSS-blue?logo=tailwindcss&style=flat)
@@ -26,4 +29,8 @@
 **Pourquoi choisir Flowy** —
  Flowy ne se contente pas de vous permettre de créer de la musique, elle transforme la manière dont vous partagez vos créations. Grâce à sa technologie moderne (Vite, Tailwind CSS, TypeScript), l’application est non seulement ultra-rapide mais aussi parfaitement optimisée pour les performances sur tous les appareils. Vous pouvez vous concentrer sur votre art, sans être limité par la technologie.
 
+<<<<<<< HEAD
  **Pour qui?** — Flowy est conçu pour tout le monde. Si vous êtes un créateur de musique qui souhaite partager ses œuvres sans complications techniques, ou un professionnel à la recherche d'un outil simple pour collaborer avec d'autres artistes, Flowy est l'outil qu'il vous faut.
+=======
+ **Pour qui?** — Flowy est conçu pour tout le monde. Si vous êtes un créateur de musique qui souhaite partager ses œuvres sans complications techniques, ou un professionnel à la recherche d'un outil simple pour collaborer avec d'autres artistes, Flowy est l'outil qu'il vous faut.
+>>>>>>> 3a737a013710cb9b02d9d477062afedf07a7b011
