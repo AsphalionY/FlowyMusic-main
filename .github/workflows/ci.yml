@@ -57,9 +57,9 @@ jobs:
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.Sonar_Token_GitHub_FlowyMusic }}
         with:
           args: >
             -Dsonar.projectKey=AsphalionY_FlowyMusic-main
-            -Dsonar.organization=AsphalionY
-        env:
-          SONAR_TOKEN: ${{ secrets.Sonar_Token_GitHub_FlowyMusic }} 
+            -Dsonar.organization=AsphalionY 
