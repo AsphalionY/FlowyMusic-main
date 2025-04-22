@@ -88,6 +88,23 @@ jobs:
           fi
           echo "SonarCloud token is set"
 
+      - name: Check SonarCloud Configuration
+        run: |
+          echo "Checking SonarCloud configuration..."
+          echo "Organization: AsphalionY"
+          echo "Project Key: AsphalionY_FlowyMusic-main"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Event: ${{ github.event_name }}"
+
+      - name: Check SonarCloud Organization
+        run: |
+          if ! curl -s -u "${{ secrets.Sonar_Token_GitHub_FlowyMusic }}:" "https://sonarcloud.io/api/organizations/search?organizations=AsphalionY" | grep -q "AsphalionY"; then
+            echo "::warning::SonarCloud organization 'AsphalionY' does not exist. Please create it first."
+            exit 0
+          fi
+          echo "SonarCloud organization exists"
+
       - name: SonarCloud Scan
         if: success() || failure()
         uses: SonarSource/sonarcloud-github-action@v2
@@ -100,4 +117,5 @@ jobs:
             -Dsonar.organization=AsphalionY
             -Dsonar.host.url=https://sonarcloud.io
             -Dsonar.token=${{ secrets.Sonar_Token_GitHub_FlowyMusic }}
+            -Dsonar.verbose=true
         continue-on-error: true 
