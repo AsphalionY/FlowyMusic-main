@@ -1,100 +1,28 @@
-# FlowyMusic
 
-Une application de musique moderne construite avec React, TypeScript, et Vite.
+![HTML](https://img.shields.io/badge/HTML-5-orange?logo=html5&style=flat)
+![TAILWIND CSS](https://img.shields.io/badge/TAILWIND-CSS-blue?logo=tailwindcss&style=flat)
+![vite](https://img.shields.io/badge/VITE-blue?logo=vite&style=flat)
+![TYPESCRIPT](https://img.shields.io/badge/Type-Script-blue?logo=Typescript&style=flat)
+![TSX](https://img.shields.io/badge/TSX-TypeScript%20+%20JSX-blue?logo=typescript&style=flat)
 
-## Fonctionnalités
+##### Flowy est une application créée par l'organisation Codek. Flowy permet de créer et partager sa musique en ligne, sans problèmes. Il suffit d'un clic et votre musique est publiée instantanément !
 
-- Interface utilisateur moderne et responsive
-- Gestion de la musique en temps réel
-- Thème sombre/clair
-- Tests unitaires et E2E
-- Analyse de bundle
-- Accessibilité (a11y)
-- Sécurité renforcée
+##### Avec une interface simple, intuitive et rapide, Flowy transforme la création musicale en une expérience fluide et sans effort. Que vous soyez un musicien en herbe ou un pro, Flowy vous offre tout ce qu'il vous faut pour partager vos œuvres avec le monde entier.
 
-## Prérequis
+## Fonctionnalités principales:
+- **Creation de musique simplifiée**: Flowy permet l'utilisateur de publier leur musique sans difficulté et juste avec quelques clics, leur musique sera publié
+ 
+- **Partage immédiat**: Partagez vos compositions en 1 seul clic sur vos profils sociaux ou partagez-le avec vos amis!
 
-- Node.js 18+
-- npm 9+
+- **Bibliothèque d'effets et d'instruments**: Accédez à une vaste bibliothèque d'instruments virtuels et d'effets pour enrichir vos morceaux.
 
-## Installation
+- **Collaboration en temps réel**:  Invitez d'autres musiciens à travailler sur vos projets ensemble, peu importe où ils se trouvent.
 
-```bash
-npm install
-```
+- **Personnalisation**: Personnalisez l'interface et le thème pour une expérience unique, à votre image.
 
-## Scripts disponibles
+---
 
-- `npm run dev` - Lance le serveur de développement
-- `npm run build` - Crée une version de production
-- `npm run preview` - Prévisualise la version de production
-- `npm run lint` - Vérifie le code avec ESLint
-- `npm run lint:fix` - Corrige automatiquement les problèmes ESLint
-- `npm run format` - Formate le code avec Prettier
-- `npm run test` - Lance les tests unitaires
-- `npm run test:watch` - Lance les tests en mode watch
-- `npm run test:coverage` - Génère un rapport de couverture des tests
-- `npm run cypress:open` - Ouvre Cypress pour les tests E2E
-- `npm run cypress:run` - Lance les tests Cypress en mode headless
-- `npm run audit` - Vérifie les vulnérabilités de sécurité
-- `npm run analyze` - Analyse la taille du bundle
+**Pourquoi choisir Flowy** —
+ Flowy ne se contente pas de vous permettre de créer de la musique, elle transforme la manière dont vous partagez vos créations. Grâce à sa technologie moderne (Vite, Tailwind CSS, TypeScript), l’application est non seulement ultra-rapide mais aussi parfaitement optimisée pour les performances sur tous les appareils. Vous pouvez vous concentrer sur votre art, sans être limité par la technologie.
 
-## Structure du projet
-
-```
-src/
-  ├── components/     # Composants React
-  ├── hooks/         # Hooks personnalisés
-  ├── pages/         # Pages de l'application
-  ├── styles/        # Styles CSS
-  ├── utils/         # Utilitaires
-  └── __tests__/     # Tests unitaires
-cypress/
-  ├── e2e/          # Tests E2E
-  └── support/      # Configuration Cypress
-```
-
-## Tests
-
-### Tests unitaires
-
-Les tests unitaires sont écrits avec Jest et React Testing Library. Exécutez :
-
-```bash
-npm run test
-```
-
-### Tests E2E
-
-Les tests E2E sont écrits avec Cypress. Exécutez :
-
-```bash
-npm run cypress:open
-```
-
-## Qualité de code
-
-- ESLint pour le linting
-- Prettier pour le formatage
-- Jest pour les tests unitaires
-- Cypress pour les tests E2E
-- Bundle analyzer pour l'optimisation
-- Axe pour l'accessibilité
-
-## Sécurité
-
-- Vérification régulière des vulnérabilités avec `npm audit`
-- ESLint Security Plugin pour la détection des problèmes de sécurité
-- Bonnes pratiques de sécurité implémentées
-
-## Contribution
-
-1. Fork le projet
-2. Créez votre branche (`git checkout -b feature/amazing-feature`)
-3. Committez vos changements (`git commit -m 'Add some amazing feature'`)
-4. Push vers la branche (`git push origin feature/amazing-feature`)
-5. Ouvrez une Pull Request
-
-## Licence
-
-MIT
+ **Pour qui?** — Flowy est conçu pour tout le monde. Si vous êtes un créateur de musique qui souhaite partager ses œuvres sans complications techniques, ou un professionnel à la recherche d'un outil simple pour collaborer avec d'autres artistes, Flowy est l'outil qu'il vous faut.
