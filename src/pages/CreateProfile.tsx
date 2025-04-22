@@ -255,14 +255,23 @@ const CreateProfile = () => {
                   <FormLabel>Catégories musicales préférées</FormLabel>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {musicCategories.map((category) => (
-                      <div
+                      <button
                         key={category.id}
-                        className={`flex items-center space-x-2 border rounded-md px-3 py-2 cursor-pointer transition-colors ${
+                        type="button"
+                        role="checkbox"
+                        aria-checked={selectedCategories.includes(category.id)}
+                        className={`flex items-center space-x-2 border rounded-md px-3 py-2 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                           selectedCategories.includes(category.id)
                             ? "border-primary bg-primary/10"
                             : "border-border"
                         }`}
                         onClick={() => handleCategoryToggle(category.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleCategoryToggle(category.id);
+                          }
+                        }}
                       >
                         <Checkbox
                           checked={selectedCategories.includes(category.id)}
@@ -275,7 +284,7 @@ const CreateProfile = () => {
                         >
                           {category.label}
                         </label>
-                      </div>
+                      </button>
                     ))}
                   </div>
                 </div>

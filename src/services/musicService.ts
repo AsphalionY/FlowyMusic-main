@@ -1,4 +1,3 @@
-
 import { MusicCategory } from '../contexts/AuthContext';
 
 interface SharedMusic {
@@ -95,7 +94,7 @@ export const fileToBase64 = (file: File): Promise<string> => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result as string);
-    reader.onerror = error => reject(error);
+    reader.onerror = error => reject(new Error('Erreur lors de la lecture du fichier : ' + error.toString()));
   });
 };
 
