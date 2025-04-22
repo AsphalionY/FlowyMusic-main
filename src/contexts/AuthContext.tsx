@@ -78,15 +78,6 @@ const separateSensitiveData = (userData: any) => {
   };
 };
 
-// Fonction pour générer des nombres aléatoires sécurisés
-const getSecureRandomNumber = async (min: number, max: number): Promise<number> => {
-  const range = max - min;
-  const bytes = new Uint8Array(4);
-  crypto.getRandomValues(bytes);
-  const randomValue = new DataView(bytes.buffer).getUint32(0, true);
-  return min + (randomValue % range);
-};
-
 // Fonction pour générer un ID sécurisé
 const generateSecureId = async (): Promise<string> => {
   const bytes = new Uint8Array(16);
@@ -171,7 +162,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (decryptedPassword === hashedPassword) {
           // Séparer les données sensibles et publiques
-          const { sensitiveData, publicData } = separateSensitiveData(foundUser);
+          const { publicData } = separateSensitiveData(foundUser);
           
           // Ne stocker que les données publiques
           setUser(publicData);
@@ -230,10 +221,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
       
       // Séparer les données sensibles et publiques
-      const { sensitiveData, publicData } = separateSensitiveData(newUser);
+      const { publicData } = separateSensitiveData(newUser);
       
       // Chiffrer les données sensibles
-      const encryptedPassword = await encryptData(sensitiveData.password, encryptionKey);
+      const encryptedPassword = await encryptData(newUser.password, encryptionKey);
       
       // Stocker les données séparément
       const encryptedUsers = users.map((u: any) => {

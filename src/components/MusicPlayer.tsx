@@ -243,6 +243,27 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
     setWaveformReady(true);
   };
 
+  useEffect(() => {
+    if (isPlaying) {
+      const interval = setInterval(updateProgress, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [isPlaying, updateProgress]);
+
+  useEffect(() => {
+    if (currentTrack.id && isPlaying) {
+      // ... existing code ...
+    }
+  }, [currentTrack.id, isPlaying]);
+
+  const handleError = (error: Error) => {
+    console.error('Error playing track:', error);
+  };
+
+  const handleLoadError = (error: Error) => {
+    console.error('Error loading track:', error);
+  };
+
   return (
     <>
       {/* Audio élément caché */}

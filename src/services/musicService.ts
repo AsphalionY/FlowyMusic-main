@@ -120,4 +120,14 @@ export const calculateAudioDuration = (audioFile: File): Promise<string> => {
   });
 };
 
+interface MusicError extends Error {
+  code?: string;
+  status?: number;
+}
+
+export const handleMusicError = (error: MusicError): void => {
+  console.error('Music service error:', error);
+  // ... existing code ...
+};
+
 export type { SharedMusic };
