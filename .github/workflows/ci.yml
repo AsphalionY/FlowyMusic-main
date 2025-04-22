@@ -59,7 +59,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v2
         with:
           args: >
-            -Dsonar.projectKey=flowymusic
-            -Dsonar.organization=flowymusic
+            -Dsonar.projectKey=AsphalionY_FlowyMusic-main
+            -Dsonar.organization=AsphalionY
         env:
-          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }} 
+          SONAR_TOKEN: ${{ secrets.Sonar_Token_GitHub_FlowyMusic }} 
