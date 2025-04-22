@@ -1,0 +1,46 @@
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import { describe, it, expect } from '@jest/globals';
+import Layout from '@/components/Layout';
+
+// Mock UserNav component
+jest.mock('@/components/UserNav', () => ({
+  __esModule: true,
+  default: () => <div data-testid="user-nav">UserNav</div>
+}));
+
+describe('Layout Component', () => {
+  const renderWithRouter = (component: React.ReactNode) => {
+    return render(
+      <BrowserRouter>
+        {component}
+      </BrowserRouter>
+    );
+  };
+
+  it('renders the layout with children', () => {
+    renderWithRouter(
+      <Layout>
+        <div data-testid="test-child">Test Content</div>
+      </Layout>
+    );
+
+    expect(screen.getByTestId('test-child')).toBeInTheDocument();
+  });
+
+  it('renders the header with logo and navigation', () => {
+    renderWithRouter(<Layout><div>Test</div></Layout>);
+
+    expect(screen.getByText('Flowy')).toBeInTheDocument();
+    expect(screen.getByText('Music Creation')).toBeInTheDocument();
+    expect(screen.getByTestId('user-nav')).toBeInTheDocument();
+  });
+
+  it('renders the library link in header', () => {
+    renderWithRouter(<Layout><div>Test</div></Layout>);
+
+    const libraryLink = screen.getByText('Bibliothèque');
+    expect(libraryLink).toBeInTheDocument();
+    expect(libraryLink.closest('a')).toHaveAttribute('href', '/shared-music');
+  });
+}); 
