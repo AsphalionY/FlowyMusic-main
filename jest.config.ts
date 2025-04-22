@@ -11,6 +11,7 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
       useESM: true,
+      tsconfig: 'tsconfig.json'
     }],
   },
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
@@ -33,6 +34,9 @@ const config: Config = {
   transformIgnorePatterns: [
     '/node_modules/(?!(@testing-library|@radix-ui)/)',
   ],
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'node-addons'],
+  },
 };
 
 export default config; 
