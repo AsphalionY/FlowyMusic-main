@@ -20,11 +20,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["cypress", "@testing-library/cypress", "cypress-axe", "node"],
+    "types": ["cypress", "@testing-library/cypress", "cypress-axe", "node", "jest"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
     },
+    "esModuleInterop": true
+  },
   "include": ["src", "cypress"]
 }
