@@ -18,7 +18,7 @@
     "test:coverage": "jest --coverage --coverageDirectory=coverage/jest --coverageReporters=json --coverageReporters=lcov --coverageReporters=text",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:coverage": "start-server-and-test dev http://localhost:5173 'cypress run --env coverage=true'",
+    "cypress:coverage": "nyc --reporter=lcov start-server-and-test dev http://localhost:8080 'cypress run --env coverage=true --config-file cypress.config.ts'",
     "audit": "npm audit",
     "analyze": "vite build --mode analyze",
     "preview": "vite preview",
@@ -85,6 +85,7 @@
   "devDependencies": {
     "@cypress/code-coverage": "^3.14.0",
     "@eslint/js": "^8.57.0",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@tailwindcss/typography": "^0.5.15",
     "@testing-library/cypress": "^10.0.1",
     "@testing-library/jest-dom": "^6.4.2",
