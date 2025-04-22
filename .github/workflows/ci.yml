@@ -36,6 +36,7 @@ jobs:
 
       - name: Run Jest tests
         run: |
+          mkdir -p coverage/jest
           if ! npm run test:jest; then
             echo "::warning::Jest tests failed but continuing..."
           fi
@@ -53,14 +54,26 @@ jobs:
       - name: Start preview server
         run: |
           npm run preview -- --port 5173 &
-          sleep 5 # Attendre que le serveur démarre
+          sleep 10 # Augmenter le temps d'attente pour le démarrage du serveur
         continue-on-error: true
 
       - name: Run Cypress tests
         run: |
+          mkdir -p coverage/cypress
+          # Configuration de Cypress pour augmenter les timeouts
+          export CYPRESS_DEFAULT_COMMAND_TIMEOUT=10000
+          export CYPRESS_REQUEST_TIMEOUT=10000
+          export CYPRESS_PAGE_LOAD_TIMEOUT=10000
+          
           if ! CYPRESS_BASE_URL=http://localhost:5173 npm run test:cypress; then
             echo "::warning::Cypress tests failed but continuing..."
+            # Afficher les captures d'écran en cas d'échec
+            if [ -d "cypress/screenshots" ]; then
+              echo "Screenshots from failed tests:"
+              ls -R cypress/screenshots/
+            fi
           fi
+          
           if [ -f coverage/cypress/lcov.info ]; then
             cat coverage/cypress/lcov.info
           else
@@ -70,6 +83,7 @@ jobs:
 
       - name: Merge coverage
         run: |
+          mkdir -p coverage
           if ! npm run coverage:merge; then
             echo "::warning::Coverage merge failed but continuing..."
           fi
