@@ -15,7 +15,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\"",
     "test": "jest --coverage --coverageDirectory=coverage/jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --coverageDirectory=coverage/jest",
+    "test:coverage": "jest --coverage --coverageDirectory=coverage/jest --coverageReporters=json --coverageReporters=lcov --coverageReporters=text",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:coverage": "start-server-and-test dev http://localhost:5173 'cypress run --env coverage=true'",
@@ -25,7 +25,7 @@
     "test:jest": "jest --coverage --coverageDirectory=coverage/jest",
     "test:cypress": "start-server-and-test dev http://localhost:5173 'cypress run --env coverage=true'",
     "coverage:merge": "istanbul-merge --out coverage/coverage-final.json coverage/jest/coverage-final.json coverage/cypress/coverage-final.json",
-    "coverage:all": "npm run test:coverage && npm run test:cypress && npm run coverage:merge"
+    "coverage:all": "npm run test:coverage && npm run cypress:coverage && npm run coverage:merge"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
