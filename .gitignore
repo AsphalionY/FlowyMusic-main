@@ -7,10 +7,36 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+/coverage-jest
+/coverage-cypress
+/coverage-final.json
+.nyc_output
+/cypress/videos
+/cypress/screenshots
+/cypress/downloads
+/cypress/coverage
+/jest/coverage
+/test-results
+/test-report
+/__tests__/__snapshots__
+
+# Production
+/dist
+/build
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +48,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Netlify
+.netlify
