@@ -147,6 +147,11 @@ const CreateProfile = () => {
   const sanitizeImageUrl = (url: string | undefined): string | null => {
     if (!url) return null;
     
+    // Accepter les URLs de données base64
+    if (url.startsWith('data:image/')) {
+      return url;
+    }
+    
     try {
       // Vérifier que l'URL est valide
       const parsedUrl = new URL(url);
@@ -262,7 +267,7 @@ const CreateProfile = () => {
                         aria-checked={selectedCategories.includes(category.id)}
                         className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors rounded-md cursor-pointer ${
                           selectedCategories.includes(category.id)
-                            ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                            ? "border border-primary text-secondary-foreground hover:bg-secondary/80"
                             : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                         }`}
                         onClick={(e) => {
@@ -276,7 +281,11 @@ const CreateProfile = () => {
                           }
                         }}
                       >
-                        <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-primary mr-2">
+                        <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
+                          selectedCategories.includes(category.id)
+                            ? "border border-primary"
+                            : "border border-muted-foreground"
+                        } mr-2`}>
                           {selectedCategories.includes(category.id) && (
                             <div className="h-2 w-2 rounded-full bg-primary" />
                           )}

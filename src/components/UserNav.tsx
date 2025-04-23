@@ -58,7 +58,7 @@ const UserNav = () => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 fixed" align="start" alignOffset={-40} sideOffset={5} forceMount>
+      <DropdownMenuContent className="w-56 border-primary" align="center" alignOffset={-30} sideOffset={5} forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user?.username}</p>

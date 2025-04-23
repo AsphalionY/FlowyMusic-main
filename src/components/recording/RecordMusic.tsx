@@ -1,10 +1,12 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import RecordingWorkspace from './RecordingWorkspace';
 import ProjectControls from './ProjectControls';
 import { useRecorder, MusicTrackType } from '@/hooks/recording/useRecorder';
+import useUnsavedChangesWarning from '@/hooks/useUnsavedChangesWarning';
+import UnsavedChangesDialog from './UnsavedChangesDialog';
+import { useNavigate } from 'react-router-dom';
 
 interface RecordMusicProps {
   className?: string;
@@ -16,7 +18,8 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
   const [activeTab, setActiveTab] = useState(activeInstrument);
   const [projectTitle, setProjectTitle] = useState('');
   const [isSaving, setIsSaving] = useState(false);
-  
+  const navigate = useNavigate();
+
   const { 
     isRecording, 
     isPaused, 
@@ -94,14 +97,52 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
       });
     }
   };
-  
+
+  // Utiliser le hook pour détecter les tentatives de navigation
+  const { 
+    showDialog, 
+    navigateTo, 
+    confirmNavigation, 
+    saveAndNavigate, 
+    cancelNavigation 
+  } = useUnsavedChangesWarning({
+    hasUnsavedChanges: musicTracks.length > 0,
+    onSave: handleSaveProject
+  });
+
+  // Intercepter les clics sur les liens de navigation
+  useEffect(() => {
+    const handleLinkClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest('a');
+      
+      if (link && link.getAttribute('href')?.startsWith('/') && musicTracks.length > 0) {
+        e.preventDefault();
+        navigateTo(link.getAttribute('href') || '/');
+      }
+    };
+
+    document.addEventListener('click', handleLinkClick);
+    return () => {
+      document.removeEventListener('click', handleLinkClick);
+    };
+  }, [musicTracks.length, navigateTo]);
+
   return (
     <div className={cn("max-w-5xl mx-auto", className)}>
       <div className="mb-6">
         <h2 className="text-2xl font-semibold mb-2">Création</h2>
-        <p className="text-muted-foreground">Enregistrez et importez vos créations musicales</p>
+        <p className="text-muted-foreground">Créez votre musique en enregistrant, important ou utilisant des instruments virtuels</p>
       </div>
-      
+
+      {/* Boîte de dialogue pour les changements non sauvegardés */}
+      <UnsavedChangesDialog
+        open={showDialog}
+        onClose={cancelNavigation}
+        onSave={saveAndNavigate}
+        onQuit={confirmNavigation}
+      />
+
       <ProjectControls 
         projectTitle={projectTitle}
         setProjectTitle={setProjectTitle}

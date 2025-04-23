@@ -15,10 +15,18 @@ interface MusicTrackProps {
   };
   onRemove?: (id: string) => void;
   onRename?: (id: string, name: string) => void;
+  onTrackPosition?: {
+    isFirst: boolean;
+    isLast: boolean;
+    position: number;
+    moveUp: (id: string) => void;
+    moveDown: (id: string) => void;
+  };
   className?: string;
+  hideWaveformControls?: boolean;
 }
 
-const MusicTrack = ({ track, onRemove, onRename, className }: MusicTrackProps) => {
+const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className, hideWaveformControls }: MusicTrackProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(80);
   const [isEditing, setIsEditing] = useState(false);
@@ -41,6 +49,10 @@ const MusicTrack = ({ track, onRemove, onRename, className }: MusicTrackProps) =
     }
   }, []);
   
+  useEffect(() => {
+    setTrackName(track.name);
+  }, [track.name]);
+
   const formatTime = (timeInSeconds: number) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
@@ -115,38 +127,36 @@ const MusicTrack = ({ track, onRemove, onRename, className }: MusicTrackProps) =
   
   return (
     <div className={cn(
-      "rounded-lg p-3 flex flex-col gap-2", 
+      "rounded-lg p-3 flex flex-col gap-2 relative mt-8", 
       getBgColor(),
       className
     )}>
-      <div className="flex items-center gap-3">
+      <div 
+        className="absolute -top-6 left-0 right-0 py-1 px-1 text-primary font-medium text-sm truncate cursor-pointer"
+        onClick={() => setIsEditing(true)}
+      >
+        {isEditing ? (
+          <input
+            type="text"
+            value={trackName}
+            onChange={(e) => setTrackName(e.target.value)}
+            className="w-full bg-transparent border-b border-primary text-primary focus:outline-none"
+            autoFocus
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleRename();
+              if (e.key === 'Escape') setIsEditing(false);
+            }}
+            onBlur={handleRename}
+          />
+        ) : track.name}
+      </div>
+      
+      <div className="flex items-center gap-3 mt-2">
         <div className="h-10 w-10 rounded-full flex items-center justify-center bg-black/10">
           <AudioWaveform className="h-5 w-5 text-white" />
         </div>
         
         <div className="flex-1 min-w-0">
-          {isEditing ? (
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                value={trackName}
-                onChange={(e) => setTrackName(e.target.value)}
-                className="text-sm bg-black/10 rounded px-2 py-1 text-white focus:outline-none flex-1"
-                autoFocus
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleRename();
-                  if (e.key === 'Escape') setIsEditing(false);
-                }}
-              />
-              <Button variant="ghost" size="sm" onClick={handleRename} className="h-7 text-xs text-white/80">
-                Enregistrer
-              </Button>
-            </div>
-          ) : (
-            <div className="truncate text-sm font-medium">
-              {track.name}
-            </div>
-          )}
           <div className="text-xs opacity-60 truncate">
             {track.type === 'recording' ? 'Enregistrement' : 
             track.type === 'imported' ? 'Importé' : 'Instrument'}
@@ -206,7 +216,35 @@ const MusicTrack = ({ track, onRemove, onRename, className }: MusicTrackProps) =
           height={30}
           waveColor="rgba(255, 255, 255, 0.3)"
           progressColor="rgba(255, 255, 255, 0.7)"
+          hideControls={true}
         />
+        <div className="flex justify-between items-center mt-1 text-white/80">
+          <button 
+            className={cn(
+              "text-lg font-bold transition-colors",
+              onTrackPosition?.isFirst 
+                ? "opacity-30 cursor-not-allowed" 
+                : "text-primary hover:text-primary/80"
+            )}
+            disabled={onTrackPosition?.isFirst}
+            onClick={() => onTrackPosition?.moveUp(track.id)}
+          >
+            ←
+          </button>
+          <span className="text-xs text-primary">Piste {onTrackPosition?.position || 1}</span>
+          <button 
+            className={cn(
+              "text-lg font-bold transition-colors",
+              onTrackPosition?.isLast 
+                ? "opacity-30 cursor-not-allowed" 
+                : "text-primary hover:text-primary/80"
+            )}
+            disabled={onTrackPosition?.isLast}
+            onClick={() => onTrackPosition?.moveDown(track.id)}
+          >
+            →
+          </button>
+        </div>
       </div>
       
       <audio
