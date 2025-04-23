@@ -260,12 +260,15 @@ const CreateProfile = () => {
                         type="button"
                         role="checkbox"
                         aria-checked={selectedCategories.includes(category.id)}
-                        className={`flex items-center space-x-2 border rounded-md px-3 py-2 cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+                        className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors rounded-md cursor-pointer ${
                           selectedCategories.includes(category.id)
-                            ? "border-primary bg-primary/10"
-                            : "border-border"
+                            ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                            : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                         }`}
-                        onClick={() => handleCategoryToggle(category.id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleCategoryToggle(category.id);
+                        }}
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
@@ -273,17 +276,12 @@ const CreateProfile = () => {
                           }
                         }}
                       >
-                        <Checkbox
-                          checked={selectedCategories.includes(category.id)}
-                          onCheckedChange={() => handleCategoryToggle(category.id)}
-                          id={`category-${category.id}`}
-                        />
-                        <label
-                          htmlFor={`category-${category.id}`}
-                          className="text-sm cursor-pointer flex-1"
-                        >
-                          {category.label}
-                        </label>
+                        <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-primary mr-2">
+                          {selectedCategories.includes(category.id) && (
+                            <div className="h-2 w-2 rounded-full bg-primary" />
+                          )}
+                        </div>
+                        <span className="text-sm">{category.label}</span>
                       </button>
                     ))}
                   </div>

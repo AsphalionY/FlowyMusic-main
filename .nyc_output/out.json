@@ -1,1 +1,1172 @@
-{}
+{
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/eslint.config.js": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/eslint.config.js",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/postcss.config.js": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/postcss.config.js",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/cypress.config.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/cypress.config.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/cypress.d.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/cypress.d.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/jest.config.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/jest.config.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/tailwind.config.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/tailwind.config.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/vite.config.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/vite.config.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/setupTests.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/setupTests.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/vite-env.d.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/vite-env.d.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/use-toast.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/use-toast.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/lib/utils.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/lib/utils.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/services/musicService.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/services/musicService.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/types/global.d.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/types/global.d.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/types/music.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/types/music.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/types/testing-library__jest-dom.d.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/types/testing-library__jest-dom.d.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/useRecorder.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/useRecorder.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/use-toast.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/use-toast.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/useUploadMusic.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/useUploadMusic.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useAudioResources.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useAudioResources.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useMediaRecorder.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useMediaRecorder.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useRecorder.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useRecorder.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useRecordingTimer.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording/useRecordingTimer.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/audioCleanup.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/audioCleanup.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/formatTime.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/formatTime.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/index.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/index.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/types.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/types.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/useAudioRecorder.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/useAudioRecorder.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/useMediaRecorderSetup.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/useMediaRecorderSetup.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/useTimer.ts": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/recording-utils/useTimer.ts",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/App.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/App.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/main.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/main.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/CreatorProfile.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/CreatorProfile.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/FeaturedMusic.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/FeaturedMusic.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/Layout.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/Layout.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/MusicPlayer.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/MusicPlayer.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/MusicSearch.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/MusicSearch.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/UploadMusic.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/UploadMusic.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/UserMusicLibrary.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/UserMusicLibrary.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/UserNav.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/UserNav.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/WaveformPlayer.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/WaveformPlayer.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/contexts/AuthContext.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/contexts/AuthContext.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/use-mobile.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/hooks/use-mobile.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/Auth.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/Auth.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/CreateProfile.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/CreateProfile.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/Index.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/Index.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/NotFound.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/NotFound.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/Profile.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/Profile.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/SharedMusic.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/pages/SharedMusic.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/App.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/App.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/instruments/DrumPad.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/instruments/DrumPad.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/instruments/MusicImporter.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/instruments/MusicImporter.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/instruments/MusicTrack.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/instruments/MusicTrack.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/profile/ProfileAbout.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/profile/ProfileAbout.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/profile/ProfileHeader.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/profile/ProfileHeader.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/ProjectControls.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/ProjectControls.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordButton.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordButton.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecorderPanel.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecorderPanel.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingInfo.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingInfo.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingTabs.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingTabs.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingVisualizer.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingVisualizer.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingWorkspace.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordingWorkspace.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordMusic.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/RecordMusic.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/SaveProjectDialog.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/SaveProjectDialog.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/TipsPanel.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/TipsPanel.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/TracksList.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/recording/TracksList.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/accordion.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/accordion.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/alert-dialog.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/alert-dialog.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/alert.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/alert.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/aspect-ratio.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/aspect-ratio.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/avatar.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/avatar.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/badge.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/badge.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/breadcrumb.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/breadcrumb.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/button.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/button.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/calendar.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/calendar.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/card.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/card.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/carousel.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/carousel.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/chart.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/chart.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/checkbox.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/checkbox.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/collapsible.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/collapsible.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/command.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/command.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/context-menu.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/context-menu.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/dialog.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/dialog.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/drawer.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/drawer.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/dropdown-menu.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/dropdown-menu.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/form.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/form.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/hover-card.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/hover-card.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/input-otp.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/input-otp.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/input.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/input.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/label.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/label.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/menubar.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/menubar.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/navigation-menu.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/navigation-menu.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/pagination.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/pagination.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/popover.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/popover.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/progress.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/progress.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/radio-group.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/radio-group.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/resizable.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/resizable.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/scroll-area.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/scroll-area.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/select.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/select.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/separator.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/separator.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/sheet.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/sheet.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/sidebar.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/sidebar.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/skeleton.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/skeleton.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/slider.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/slider.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/sonner.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/sonner.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/switch.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/switch.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/table.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/table.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/tabs.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/tabs.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/textarea.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/textarea.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toast.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toast.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toaster.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toaster.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toggle-group.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toggle-group.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toggle.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/toggle.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/tooltip.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/ui/tooltip.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/AuthRequired.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/AuthRequired.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/CopyrightNotice.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/CopyrightNotice.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/FileDetails.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/FileDetails.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/FileDropzone.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/components/upload/FileDropzone.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Auth.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Auth.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Button.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Button.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/CreatorProfile.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/CreatorProfile.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/DrumPad.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/DrumPad.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/FeaturedMusic.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/FeaturedMusic.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Index.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Index.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Layout.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/Layout.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/MusicPlayer.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/MusicPlayer.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/MusicSearch.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/MusicSearch.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/UploadMusic.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/UploadMusic.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/UserMusicLibrary.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/UserMusicLibrary.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/UserNav.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/UserNav.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  },
+  "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/WaveformPlayer.test.tsx": {
+    "path": "C:/Users/Jordan/Desktop/FlowyMusic-main/src/__tests__/components/WaveformPlayer.test.tsx",
+    "statementMap": {},
+    "fnMap": {},
+    "branchMap": {},
+    "s": {},
+    "f": {},
+    "b": {}
+  }
+}
