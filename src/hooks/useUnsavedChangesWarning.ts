@@ -21,12 +21,14 @@ const useUnsavedChangesWarning = ({
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isBlockingNavigation) {
-        e.preventDefault();
-        // Note: Setting returnValue is deprecated but still required for compatibility with some browsers
-        // Modern browsers standardize on showing a generic message regardless of the string content
-        // @ts-ignore: TypeScript may flag this as deprecated
-        e.returnValue = true; // Using a boolean value is more modern than an empty string
-        return true; // For older browsers that require a return value
+        e.preventDefault(); // Modern browsers use this to show the confirmation dialog
+        
+        // For older browsers (Chrome/Edge < 119) that don't fully support preventDefault() in beforeunload
+        // We need to set returnValue as a fallback (the content is ignored by browsers)
+        // @ts-ignore: TypeScript flags this as deprecated, which is correct but we need it for compatibility
+        e.returnValue = ''; // Empty string is the standard practice for cross-browser compatibility
+        
+        return true; // For very old browsers that require a return value
       }
     };
 
