@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import AuthRequired from './upload/AuthRequired';
@@ -78,8 +76,7 @@ const UploadMusic = ({ className }: UploadMusicProps) => {
                   onRemoveFile={removeFile}
                   isUploading={isUploading}
                   uploadProgress={uploadProgress}
-                  username={user?.username || ''}
-                  onSubmit={handleSubmit}
+                  username={user?.username ?? ''}
                 />
               </motion.div>
             )}

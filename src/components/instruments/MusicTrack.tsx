@@ -40,10 +40,10 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, hideWaveformCo
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.addEventListener('loadedmetadata', () => {
-        setDuration(audioRef.current?.duration || 0);
+        setDuration(audioRef.current?.duration ?? 0);
       });
       audioRef.current.addEventListener('timeupdate', () => {
-        setCurrentTime(audioRef.current?.currentTime || 0);
+        setCurrentTime(audioRef.current?.currentTime ?? 0);
       });
     }
   }, []);
@@ -246,7 +246,7 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, hideWaveformCo
               </button>
             );
           })()}
-          <span className="text-xs text-primary">Piste {onTrackPosition?.position || 1}</span>
+          <span className="text-xs text-primary">Piste {onTrackPosition?.position ?? 1}</span>
           {/* Déterminer la classe du bouton "suivant" en fonction de sa position */}
           {(() => {
             const nextButtonClass = onTrackPosition?.isLast 

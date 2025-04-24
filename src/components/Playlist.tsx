@@ -111,9 +111,9 @@ const Playlist = ({ className }: PlaylistProps) => {
 
     const item: PlaylistItem = {
       id: `item-${Date.now()}`,
-      title: newItem.title || 'Sans titre',
-      imageUrl: newItem.imageUrl || null,
-      description: newItem.description || '',
+      title: newItem.title ?? 'Sans titre',
+      imageUrl: newItem.imageUrl ?? null,
+      description: newItem.description ?? '',
       songs: []
     };
 
@@ -176,8 +176,8 @@ const Playlist = ({ className }: PlaylistProps) => {
 
     const song: Song = {
       id: `song-${Date.now()}`,
-      title: newSong.title || 'Sans titre',
-      imageUrl: newSong.imageUrl || null
+      title: newSong.title ?? 'Sans titre',
+      imageUrl: newSong.imageUrl ?? null
     };
 
     const updatedPlaylist = {
@@ -265,9 +265,9 @@ const Playlist = ({ className }: PlaylistProps) => {
           </Avatar>
           
           <div className="flex-1">
-            <h2 className="text-xl font-semibold">{user?.username || 'Utilisateur'}</h2>
+            <h2 className="text-xl font-semibold">{user?.username ?? 'Utilisateur'}</h2>
             <p className="text-muted-foreground text-sm">
-              {user?.bio || 'Aucune biographie disponible'}
+              {user?.bio ?? 'Aucune biographie disponible'}
             </p>
             <div className="flex gap-2 mt-2">
               {user?.preferredCategories && user.preferredCategories.length > 0 ? (
@@ -378,7 +378,7 @@ const Playlist = ({ className }: PlaylistProps) => {
                   <Input 
                     id="newSongTitle"
                     placeholder="Titre de la musique"
-                    value={newSong.title || ''}
+                    value={newSong.title ?? ''}
                     onChange={(e) => setNewSong({ ...newSong, title: e.target.value })}
                   />
                 </div>
@@ -500,7 +500,7 @@ const Playlist = ({ className }: PlaylistProps) => {
                   <Input 
                     id="newPlaylistTitle"
                     placeholder="Titre de la playlist"
-                    value={newItem.title || ''}
+                    value={newItem.title ?? ''}
                     onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
                   />
                 </div>
@@ -541,7 +541,7 @@ const Playlist = ({ className }: PlaylistProps) => {
                   <Textarea 
                     id="newPlaylistDescription"
                     placeholder="Description de la playlist (optionnel)"
-                    value={newItem.description || ''}
+                    value={newItem.description ?? ''}
                     onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
                     className="min-h-[80px]"
                   />

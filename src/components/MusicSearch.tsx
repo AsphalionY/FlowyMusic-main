@@ -79,7 +79,7 @@ const MusicSearch = () => {
         title: track.title,
         artist: track.artist,
         duration: track.duration,
-        coverArt: track.coverArt || ''
+        coverArt: track.coverArt ?? ''
       });
       toast.success(`Lecture de ${track.title}`, {
         description: `Par ${track.artist}`
@@ -192,7 +192,7 @@ const MusicSearch = () => {
                       <div className="flex-shrink-0 mr-3">
                         <div className="relative group h-12 w-12 rounded-md overflow-hidden shadow-sm">
                           <img 
-                            src={result.coverArt || 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=300'} 
+                            src={result.coverArt ?? 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=300'} 
                             alt={result.title} 
                             className="h-full w-full object-cover"
                           />
