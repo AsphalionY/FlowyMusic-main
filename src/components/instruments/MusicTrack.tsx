@@ -22,10 +22,11 @@ interface MusicTrackProps {
     moveUp: (id: string) => void;
     moveDown: (id: string) => void;
   };
+  hideWaveformControls?: boolean;
   className?: string;
 }
 
-const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: MusicTrackProps) => {
+const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, hideWaveformControls = false, className }: MusicTrackProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(80);
   const [isEditing, setIsEditing] = useState(false);
@@ -223,7 +224,7 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: M
           height={30}
           waveColor="rgba(255, 255, 255, 0.3)"
           progressColor="rgba(255, 255, 255, 0.7)"
-          hideControls={true}
+          hideControls={hideWaveformControls}
         />
         <div className="flex justify-between items-center mt-1 text-white/80">
           {/* Déterminer la classe du bouton "précédent" en fonction de sa position */}

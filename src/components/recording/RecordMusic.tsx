@@ -99,14 +99,21 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
   // Utiliser le hook pour détecter les tentatives de navigation
   const { 
     showDialog, 
-    navigateTo, 
     confirmNavigation, 
     saveAndNavigate, 
-    cancelNavigation 
+    cancelNavigation,
+    enableNavigationBlocking,
+    navigateWithConfirmation
   } = useUnsavedChangesWarning({
-    hasUnsavedChanges: musicTracks.length > 0,
     onSave: handleSaveProject
   });
+  
+  // Activer le blocage de navigation si des pistes existent
+  useEffect(() => {
+    if (musicTracks.length > 0) {
+      enableNavigationBlocking();
+    }
+  }, [musicTracks.length, enableNavigationBlocking]);
 
   // Intercepter les clics sur les liens de navigation
   useEffect(() => {
@@ -116,7 +123,7 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
       
       if (link && link.getAttribute('href')?.startsWith('/') && musicTracks.length > 0) {
         e.preventDefault();
-        navigateTo(link.getAttribute('href') || '/');
+        navigateWithConfirmation(link.getAttribute('href') || '/');
       }
     };
 
@@ -124,7 +131,7 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
     return () => {
       document.removeEventListener('click', handleLinkClick);
     };
-  }, [musicTracks.length, navigateTo]);
+  }, [musicTracks.length, navigateWithConfirmation]);
 
   return (
     <div className={cn("max-w-5xl mx-auto", className)}>
