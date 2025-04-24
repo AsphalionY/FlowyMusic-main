@@ -22,8 +22,11 @@ const useUnsavedChangesWarning = ({
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isBlockingNavigation) {
         e.preventDefault();
-        e.returnValue = '';
-        return '';
+        // Note: Setting returnValue is deprecated but still required for compatibility with some browsers
+        // Modern browsers standardize on showing a generic message regardless of the string content
+        // @ts-ignore: TypeScript may flag this as deprecated
+        e.returnValue = true; // Using a boolean value is more modern than an empty string
+        return true; // For older browsers that require a return value
       }
     };
 

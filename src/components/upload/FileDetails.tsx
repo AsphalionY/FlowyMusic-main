@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+
 import { X, FileMusic, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,6 @@ interface FileDetailsProps {
   isUploading: boolean;
   uploadProgress: number;
   username: string;
-  onSubmit: (e: React.FormEvent) => void;
 }
 
 const FileDetails = ({ 
@@ -21,8 +20,7 @@ const FileDetails = ({
   onRemoveFile, 
   isUploading, 
   uploadProgress, 
-  username,
-  onSubmit 
+  username
 }: FileDetailsProps) => {
   return (
     <div className="space-y-5">
