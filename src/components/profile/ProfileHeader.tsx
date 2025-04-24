@@ -36,15 +36,15 @@ const ProfileHeader = ({ user, categoryLabels, onEditProfile, onLogout }: Profil
           
           <div className="flex flex-wrap gap-4 mt-3 justify-center md:justify-start">
             <div className="text-center">
-              <p className="text-lg font-semibold">{user.tracks || 0}</p>
+              <p className="text-lg font-semibold">{user.tracks ?? 0}</p>
               <p className="text-xs text-muted-foreground">Morceaux</p>
             </div>
             <div className="text-center">
-              <p className="text-lg font-semibold">{user.followers || 0}</p>
+              <p className="text-lg font-semibold">{user.followers ?? 0}</p>
               <p className="text-xs text-muted-foreground">Abonnés</p>
             </div>
             <div className="text-center">
-              <p className="text-lg font-semibold">{user.following || 0}</p>
+              <p className="text-lg font-semibold">{user.following ?? 0}</p>
               <p className="text-xs text-muted-foreground">Abonnements</p>
             </div>
           </div>

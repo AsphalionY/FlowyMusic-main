@@ -50,8 +50,8 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
   
   const handleMusicImported = (audioBlob: Blob, fileName: string) => {
     const newTrack: MusicTrackType = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: fileName.replace(/\.[^/.]+$/, "") || `Imported ${musicTracks.length + 1}`,
+      id: Math.random().toString(36).substring(2, 11),
+      name: fileName.replace(/\.[^/.]+$/, "") ?? `Imported ${musicTracks.length + 1}`,
       audioBlob,
       type: 'imported',
       color: 'bg-gradient-to-r from-blue-500/70 to-green-500/70'
@@ -123,7 +123,7 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
       
       if (link && link.getAttribute('href')?.startsWith('/') && musicTracks.length > 0) {
         e.preventDefault();
-        navigateWithConfirmation(link.getAttribute('href') || '/');
+        navigateWithConfirmation(link.getAttribute('href') ?? '/');
       }
     };
 
