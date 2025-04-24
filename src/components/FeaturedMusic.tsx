@@ -1,6 +1,3 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
 import { Music } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -9,29 +6,6 @@ interface FeaturedMusicProps {
 }
 
 const FeaturedMusic = ({ className }: FeaturedMusicProps) => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 24
-      }
-    }
-  };
-
   return (
     <div className={cn("space-y-10", className)}>
       <div className="text-center py-8">

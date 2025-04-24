@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Play, 
@@ -162,13 +162,11 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
       if (audioRef.current) {
         audioRef.current.pause();
       }
-    } else {
-      if (audioRef.current) {
-        audioRef.current.play().catch(err => {
-          console.error('Erreur de lecture:', err);
-          toast.error("Erreur lors de la lecture");
-        });
-      }
+    } else if (audioRef.current) {
+      audioRef.current.play().catch(err => {
+        console.error('Erreur de lecture:', err);
+        toast.error("Erreur lors de la lecture");
+      });
     }
     setIsPlaying(!isPlaying);
   };
@@ -255,14 +253,6 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
       // ... existing code ...
     }
   }, [currentTrack.id, isPlaying]);
-
-  const handleError = (error: Error) => {
-    console.error('Error playing track:', error);
-  };
-
-  const handleLoadError = (error: Error) => {
-    console.error('Error loading track:', error);
-  };
 
   return (
     <>

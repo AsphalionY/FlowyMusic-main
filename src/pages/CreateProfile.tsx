@@ -362,9 +362,19 @@ const CreateProfile = () => {
                             </div>
                             <span 
                               className="text-sm flex-grow truncate mr-2"
+                              role="button"
+                              tabIndex={0}
+                              aria-label={`Modifier la catégorie ${category.label}`}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 startEditingCategory(category.id, category.label);
+                              }}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  startEditingCategory(category.id, category.label);
+                                }
                               }}
                             >
                               {category.label}

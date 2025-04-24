@@ -3,12 +3,9 @@ import { motion } from 'framer-motion';
 import { 
   Plus, 
   Music, 
-  User, 
   Image as ImageIcon, 
   X, 
-  Edit2, 
   Share2,
-  Headphones,
   ListMusic,
   ChevronLeft
 } from 'lucide-react';
@@ -115,7 +112,7 @@ const Playlist = ({ className }: PlaylistProps) => {
     const item: PlaylistItem = {
       id: `item-${Date.now()}`,
       title: newItem.title || 'Sans titre',
-      imageUrl: newItem.imageUrl,
+      imageUrl: newItem.imageUrl || null,
       description: newItem.description || '',
       songs: []
     };
@@ -180,7 +177,7 @@ const Playlist = ({ className }: PlaylistProps) => {
     const song: Song = {
       id: `song-${Date.now()}`,
       title: newSong.title || 'Sans titre',
-      imageUrl: newSong.imageUrl
+      imageUrl: newSong.imageUrl || null
     };
 
     const updatedPlaylist = {
@@ -274,9 +271,9 @@ const Playlist = ({ className }: PlaylistProps) => {
             </p>
             <div className="flex gap-2 mt-2">
               {user?.preferredCategories && user.preferredCategories.length > 0 ? (
-                user.preferredCategories.slice(0, 3).map((category, index) => (
+                user.preferredCategories.slice(0, 3).map((category) => (
                   <span 
-                    key={index} 
+                    key={`category-${category}`} 
                     className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full"
                   >
                     {category}
@@ -377,8 +374,9 @@ const Playlist = ({ className }: PlaylistProps) => {
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Titre</label>
+                  <label htmlFor="newSongTitle" className="block text-sm font-medium mb-1">Titre</label>
                   <Input 
+                    id="newSongTitle"
                     placeholder="Titre de la musique"
                     value={newSong.title || ''}
                     onChange={(e) => setNewSong({ ...newSong, title: e.target.value })}
@@ -386,7 +384,7 @@ const Playlist = ({ className }: PlaylistProps) => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Image</label>
+                  <label htmlFor="newSongImage" className="block text-sm font-medium mb-1">Image</label>
                   <div className="flex items-center gap-4">
                     <div 
                       className="w-16 h-16 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden"
@@ -498,8 +496,9 @@ const Playlist = ({ className }: PlaylistProps) => {
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Titre</label>
+                  <label htmlFor="newPlaylistTitle" className="block text-sm font-medium mb-1">Titre</label>
                   <Input 
+                    id="newPlaylistTitle"
                     placeholder="Titre de la playlist"
                     value={newItem.title || ''}
                     onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
@@ -507,7 +506,7 @@ const Playlist = ({ className }: PlaylistProps) => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Image</label>
+                  <label htmlFor="newPlaylistImage" className="block text-sm font-medium mb-1">Image</label>
                   <div className="flex items-center gap-4">
                     <div 
                       className="w-20 h-20 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden"
@@ -538,8 +537,9 @@ const Playlist = ({ className }: PlaylistProps) => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Description</label>
+                  <label htmlFor="newPlaylistDescription" className="block text-sm font-medium mb-1">Description</label>
                   <Textarea 
+                    id="newPlaylistDescription"
                     placeholder="Description de la playlist (optionnel)"
                     value={newItem.description || ''}
                     onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}

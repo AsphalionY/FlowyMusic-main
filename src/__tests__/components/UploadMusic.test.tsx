@@ -28,21 +28,14 @@ jest.mock('@/components/upload/AuthRequired', () => ({
 jest.mock('@/components/upload/FileDropzone', () => ({
   __esModule: true,
   default: ({ onFileSelected }: any) => (
-    <div 
+    <button 
       data-testid="file-dropzone" 
       onClick={() => onFileSelected(new File([], 'test.mp3'))}
-      role="button"
-      tabIndex={0}
       aria-label="Sélectionner un fichier"
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onFileSelected(new File([], 'test.mp3'));
-        }
-      }}
+      type="button"
     >
       File Dropzone
-    </div>
+    </button>
   )
 }));
 

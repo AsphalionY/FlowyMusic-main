@@ -50,13 +50,19 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
         wavesurfer.current.destroy();
       }
 
+      // Déterminer la largeur du curseur en fonction des conditions
+      let cursorWidthValue = 0;
+      if (!hideControls) {
+        cursorWidthValue = isHovering ? 2 : 0;
+      }
+
       // Configuration haute qualité pour WaveSurfer
       const ws = WaveSurfer.create({
         container: waveformRef.current,
         waveColor: waveColor,
         progressColor: progressColor,
         height: height,
-        cursorWidth: hideControls ? 0 : (isHovering ? 2 : 0),
+        cursorWidth: cursorWidthValue,
         cursorColor: 'rgba(168, 85, 247, 0.8)', // Curseur violet (primary color)
         barWidth: 2,
         barGap: 1,
@@ -117,32 +123,36 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
     };
   }, [audioUrl, hideControls, isHovering]);
 
+  // Commenté car non implémenté actuellement
   // Contrôle de la lecture/pause en mode silencieux pour la visualisation uniquement
+  /*
   useEffect(() => {
     if (wavesurfer.current) {
+      // Code à implémenter pour le contrôle de lecture silencieux
     }
   }, []);
+  */
 
   return (
     <div className={cn("relative", className)}>
-      <div 
-        ref={waveformRef} 
-        className="w-full"
+      <button 
+        type="button"
+        className="w-full p-0 m-0 bg-transparent border-0"
         style={{ cursor: isHovering ? 'pointer' : 'default' }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        role="button"
-        tabIndex={0}
         aria-label="Contrôle de la forme d'onde audio"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            if (wavesurfer.current && onSeek) {
-              onSeek(wavesurfer.current.getCurrentTime() / wavesurfer.current.getDuration());
-            }
+        onClick={() => {
+          if (wavesurfer.current && onSeek) {
+            onSeek(wavesurfer.current.getCurrentTime() / wavesurfer.current.getDuration());
           }
         }}
-      ></div>
+      >
+        <div 
+          ref={waveformRef} 
+          className="w-full"
+        ></div>
+      </button>
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="animate-pulse text-xs text-white/60">Chargement...</div>
