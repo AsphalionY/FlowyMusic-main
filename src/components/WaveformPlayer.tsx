@@ -131,6 +131,17 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
         style={{ cursor: isHovering ? 'pointer' : 'default' }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        role="button"
+        tabIndex={0}
+        aria-label="Contrôle de la forme d'onde audio"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (wavesurfer.current && onSeek) {
+              onSeek(wavesurfer.current.getCurrentTime() / wavesurfer.current.getDuration());
+            }
+          }
+        }}
       ></div>
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center">

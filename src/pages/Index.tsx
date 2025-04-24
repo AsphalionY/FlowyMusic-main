@@ -6,7 +6,7 @@ import Layout from '@/components/Layout';
 import FeaturedMusic from '@/components/FeaturedMusic';
 import MusicSearch from '@/components/MusicSearch';
 import RecordMusic from '@/components/recording/RecordMusic';
-import CreatorProfile from '@/components/CreatorProfile';
+import Playlist from '@/components/Playlist';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { 
   Music, 
@@ -201,7 +201,7 @@ const Index = () => {
           </TabsContent>
           
           <TabsContent value="playlist" className="px-4 md:px-0 overflow-hidden">
-            <CreatorProfile />
+            <Playlist />
           </TabsContent>
         </Tabs>
       </motion.div>

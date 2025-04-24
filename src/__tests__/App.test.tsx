@@ -25,9 +25,9 @@ jest.mock('@/contexts/auth-context', () => ({
 
 // Mock the router
 jest.mock('react-router-dom', () => {
-  const actual = jest.requireActual('react-router-dom') as Record<string, unknown>;
+  const actual = jest.requireActual('react-router-dom');
   return {
-    ...actual,
+    ...(actual as object),
     useNavigate: () => jest.fn(),
     useLocation: () => ({ pathname: '/' }),
   };

@@ -7,9 +7,8 @@ import * as z from 'zod';
 import { useAuth } from '@/contexts/AuthContext';
 import { MusicCategory } from '@/types/music';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Upload, Check, Music, User } from 'lucide-react';
+import { Loader2, Upload, Check, User, Plus, X } from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -19,16 +18,8 @@ import {
   FormDescription,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import Layout from '@/components/Layout';
 import { toast } from 'sonner';
-import { Checkbox } from '@/components/ui/checkbox';
 
 const musicCategories = [
   { id: 'rap', label: 'Rap' },
@@ -37,7 +28,6 @@ const musicCategories = [
   { id: 'electro', label: 'Électronique' },
   { id: 'jazz', label: 'Jazz' },
   { id: 'classique', label: 'Classique' },
-  { id: 'autre', label: 'Autre' },
 ];
 
 const profileSchema = z.object({
@@ -56,6 +46,9 @@ const CreateProfile = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     user?.preferredCategories as string[] || []
   );
+  const [customCategories, setCustomCategories] = useState<{ id: string; label: string }[]>([]);
+  const [isEditingCategory, setIsEditingCategory] = useState<string | null>(null);
+  const [newCategoryName, setNewCategoryName] = useState('');
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -106,6 +99,36 @@ const CreateProfile = () => {
       : [...selectedCategories, category];
       
     form.setValue('preferredCategories', updatedCategories);
+  };
+
+  const addCustomCategory = () => {
+    if (customCategories.length < 3) {
+      const newId = `custom-${Date.now()}`;
+      const newCategory = { id: newId, label: 'Nouvelle catégorie' };
+      setCustomCategories([...customCategories, newCategory]);
+      setIsEditingCategory(newId);
+      setNewCategoryName('Nouvelle catégorie');
+    }
+  };
+
+  const removeCustomCategory = (id: string) => {
+    setCustomCategories(customCategories.filter(cat => cat.id !== id));
+    setSelectedCategories(selectedCategories.filter(cat => cat !== id));
+    setIsEditingCategory(null);
+  };
+
+  const startEditingCategory = (id: string, currentName: string) => {
+    setIsEditingCategory(id);
+    setNewCategoryName(currentName);
+  };
+
+  const saveCustomCategoryName = (id: string) => {
+    if (newCategoryName.trim()) {
+      setCustomCategories(customCategories.map(cat => 
+        cat.id === id ? { ...cat, label: newCategoryName.trim() } : cat
+      ));
+      setIsEditingCategory(null);
+    }
   };
 
   const onSubmit = async (data: ProfileFormValues) => {
@@ -293,6 +316,83 @@ const CreateProfile = () => {
                         <span className="text-sm">{category.label}</span>
                       </button>
                     ))}
+                    
+                    {/* Catégories personnalisées */}
+                    {customCategories.map((category) => (
+                      <div 
+                        key={category.id}
+                        className={`relative inline-flex items-center justify-between px-4 py-2 text-sm font-medium transition-colors rounded-md ${
+                          selectedCategories.includes(category.id)
+                            ? "border border-primary text-secondary-foreground hover:bg-secondary/80"
+                            : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                        }`}
+                      >
+                        {isEditingCategory === category.id ? (
+                          <input
+                            type="text"
+                            value={newCategoryName}
+                            onChange={(e) => setNewCategoryName(e.target.value)}
+                            className="w-full bg-transparent border-none focus:outline-none text-sm"
+                            autoFocus
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') saveCustomCategoryName(category.id);
+                              if (e.key === 'Escape') setIsEditingCategory(null);
+                            }}
+                            onBlur={() => saveCustomCategoryName(category.id)}
+                          />
+                        ) : (
+                          <button
+                            type="button"
+                            role="checkbox"
+                            aria-checked={selectedCategories.includes(category.id)}
+                            className="flex items-center w-full cursor-pointer"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleCategoryToggle(category.id);
+                            }}
+                          >
+                            <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
+                              selectedCategories.includes(category.id)
+                                ? "border border-primary"
+                                : "border border-muted-foreground"
+                            } mr-2`}>
+                              {selectedCategories.includes(category.id) && (
+                                <div className="h-2 w-2 rounded-full bg-primary" />
+                              )}
+                            </div>
+                            <span 
+                              className="text-sm flex-grow truncate mr-2"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                startEditingCategory(category.id, category.label);
+                              }}
+                            >
+                              {category.label}
+                            </span>
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          className="h-5 w-5 rounded-full bg-secondary-foreground/10 hover:bg-secondary-foreground/20 flex items-center justify-center"
+                          onClick={() => removeCustomCategory(category.id)}
+                          aria-label="Supprimer cette catégorie"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
+                    ))}
+                    
+                    {/* Bouton pour ajouter une catégorie personnalisée */}
+                    {customCategories.length < 3 && (
+                      <button
+                        type="button"
+                        className="flex items-center justify-center p-2 rounded-md border border-dashed border-muted-foreground/50 hover:border-primary/50 transition-colors"
+                        onClick={addCustomCategory}
+                        aria-label="Ajouter une catégorie personnalisée"
+                      >
+                        <Plus className="h-5 w-5" />
+                      </button>
+                    )}
                   </div>
                 </div>
 

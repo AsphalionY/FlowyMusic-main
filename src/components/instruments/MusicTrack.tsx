@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, XCircle, AudioWaveform, Volume2, Edit2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -23,15 +23,13 @@ interface MusicTrackProps {
     moveDown: (id: string) => void;
   };
   className?: string;
-  hideWaveformControls?: boolean;
 }
 
-const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className, hideWaveformControls }: MusicTrackProps) => {
+const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: MusicTrackProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(80);
   const [isEditing, setIsEditing] = useState(false);
   const [trackName, setTrackName] = useState(track.name);
-  const [waveformReady, setWaveformReady] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   
@@ -111,10 +109,6 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className, hid
     }
   };
 
-  const handleWaveformReady = () => {
-    setWaveformReady(true);
-  };
-
   const handleWaveformSeek = (progress: number) => {
     if (audioRef.current) {
       audioRef.current.currentTime = progress * audioRef.current.duration;
@@ -134,6 +128,15 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className, hid
       <div 
         className="absolute -top-6 left-0 right-0 py-1 px-1 text-primary font-medium text-sm truncate cursor-pointer"
         onClick={() => setIsEditing(true)}
+        role="button"
+        tabIndex={0}
+        aria-label="Modifier le nom de la piste"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsEditing(true);
+          }
+        }}
       >
         {isEditing ? (
           <input
@@ -210,7 +213,6 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className, hid
         <WaveformPlayer 
           audioUrl={audioUrl.current}
           playing={isPlaying}
-          onReady={handleWaveformReady}
           onFinish={handleTrackFinish}
           onSeek={handleWaveformSeek}
           height={30}

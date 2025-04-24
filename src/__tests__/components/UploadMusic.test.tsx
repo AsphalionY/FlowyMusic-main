@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, jest } from '@jest/globals';
 import UploadMusic from '@/components/UploadMusic';
 
@@ -28,7 +28,19 @@ jest.mock('@/components/upload/AuthRequired', () => ({
 jest.mock('@/components/upload/FileDropzone', () => ({
   __esModule: true,
   default: ({ onFileSelected }: any) => (
-    <div data-testid="file-dropzone" onClick={() => onFileSelected(new File([], 'test.mp3'))}>
+    <div 
+      data-testid="file-dropzone" 
+      onClick={() => onFileSelected(new File([], 'test.mp3'))}
+      role="button"
+      tabIndex={0}
+      aria-label="Sélectionner un fichier"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onFileSelected(new File([], 'test.mp3'));
+        }
+      }}
+    >
       File Dropzone
     </div>
   )
@@ -36,7 +48,7 @@ jest.mock('@/components/upload/FileDropzone', () => ({
 
 jest.mock('@/components/upload/FileDetails', () => ({
   __esModule: true,
-  default: ({ file, title, onTitleChange, onRemoveFile }: any) => (
+  default: ({ title, onTitleChange, onRemoveFile }: any) => (
     <div data-testid="file-details">
       <input
         type="text"
@@ -53,9 +65,7 @@ jest.mock('@/components/upload/FileDetails', () => ({
 
 describe('UploadMusic Component', () => {
   it('renders the upload form when authenticated', async () => {
-    await act(async () => {
-      render(<UploadMusic />);
-    });
+    render(<UploadMusic />);
     
     expect(screen.getByText('Ajouter une musique')).toBeInTheDocument();
     expect(screen.getByTestId('file-dropzone')).toBeInTheDocument();
@@ -68,21 +78,15 @@ describe('UploadMusic Component', () => {
         isAuthenticated: false
       }));
 
-    await act(async () => {
-      render(<UploadMusic />);
-    });
+    render(<UploadMusic />);
     
     expect(screen.getByTestId('auth-required')).toBeInTheDocument();
   });
 
   it('shows file details after file selection', async () => {
-    await act(async () => {
-      render(<UploadMusic />);
-    });
+    render(<UploadMusic />);
     
-    await act(async () => {
-      fireEvent.click(screen.getByTestId('file-dropzone'));
-    });
+    fireEvent.click(screen.getByTestId('file-dropzone'));
     
     expect(screen.getByTestId('file-details')).toBeInTheDocument();
     expect(screen.getByTestId('title-input')).toBeInTheDocument();

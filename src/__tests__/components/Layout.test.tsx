@@ -1,4 +1,4 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect } from '@jest/globals';
 import Layout from '@/components/Layout';
@@ -11,15 +11,11 @@ jest.mock('@/components/UserNav', () => ({
 
 describe('Layout Component', () => {
   const renderWithRouter = async (component: React.ReactNode) => {
-    let result;
-    await act(async () => {
-      result = render(
-        <BrowserRouter>
-          {component}
-        </BrowserRouter>
-      );
-    });
-    return result;
+    return render(
+      <BrowserRouter>
+        {component}
+      </BrowserRouter>
+    );
   };
 
   it('renders the layout with children', async () => {

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect, jest } from '@jest/globals';
 import UserNav from '@/components/UserNav';
@@ -18,15 +18,11 @@ jest.mock('@/contexts/AuthContext', () => ({
 
 describe('UserNav Component', () => {
   const renderWithRouter = async (component: React.ReactNode) => {
-    let result;
-    await act(async () => {
-      result = render(
-        <BrowserRouter>
-          {component}
-        </BrowserRouter>
-      );
-    });
-    return result;
+    return render(
+      <BrowserRouter>
+        {component}
+      </BrowserRouter>
+    );
   };
 
   it('renders user avatar when authenticated', async () => {
@@ -40,9 +36,7 @@ describe('UserNav Component', () => {
   it('shows user info in dropdown', async () => {
     await renderWithRouter(<UserNav />);
     
-    await act(async () => {
-      fireEvent.click(screen.getByRole('button'));
-    });
+    fireEvent.click(screen.getByRole('button'));
     
     expect(screen.getByText('testuser')).toBeInTheDocument();
     expect(screen.getByText('test@example.com')).toBeInTheDocument();
@@ -72,9 +66,7 @@ describe('UserNav Component', () => {
 
     await renderWithRouter(<UserNav />);
     
-    await act(async () => {
-      fireEvent.click(screen.getByText('Connexion'));
-    });
+    fireEvent.click(screen.getByText('Connexion'));
     
     expect(window.location.pathname).toBe('/auth');
   });
@@ -89,9 +81,7 @@ describe('UserNav Component', () => {
 
     await renderWithRouter(<UserNav />);
     
-    await act(async () => {
-      fireEvent.click(screen.getByText("S'inscrire"));
-    });
+    fireEvent.click(screen.getByText("S'inscrire"));
     
     expect(window.location.pathname).toBe('/auth');
     expect(window.location.search).toBe('?tab=register');
