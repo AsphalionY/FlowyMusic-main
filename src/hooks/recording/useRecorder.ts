@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 import { useAudioResources } from './useAudioResources';
@@ -20,10 +19,6 @@ export const useRecorder = ({ onTrackAdded }: UseRecorderOptions) => {
   const { recordingTime, startTimer, stopTimer, formatTime } = useRecordingTimer();
   
   const { 
-    audioContextRef, 
-    micStreamRef, 
-    audioSourceRef,
-    permissionState,
     requestMicrophoneAccess, 
     cleanupAudioResources
   } = useAudioResources();
@@ -31,9 +26,7 @@ export const useRecorder = ({ onTrackAdded }: UseRecorderOptions) => {
   const { 
     setupMediaRecorder, 
     stopRecording: stopMediaRecording, 
-    pauseRecording: pauseMediaRecording,
-    mediaRecorderRef,
-    isDataReceived
+    pauseRecording: pauseMediaRecording
   } = useMediaRecorder({ 
     onTrackAdded, 
     formatTime, 
@@ -60,7 +53,7 @@ export const useRecorder = ({ onTrackAdded }: UseRecorderOptions) => {
       
       const { micStream } = await requestMicrophoneAccess();
       
-      const recorder = setupMediaRecorder(micStream);
+      setupMediaRecorder(micStream);
       
       setIsRecording(true);
       setIsPaused(false);

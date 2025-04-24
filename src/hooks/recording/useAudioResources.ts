@@ -1,4 +1,3 @@
-
 import { useRef, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -6,7 +5,7 @@ export const useAudioResources = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const micStreamRef = useRef<MediaStream | null>(null);
   const audioSourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
-  const [permissionState, setPermissionState] = useState<PermissionState | null>(null);
+  const [permissionState] = useState<PermissionState | null>(null);
 
   useEffect(() => {
     return () => {

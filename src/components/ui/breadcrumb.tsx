@@ -58,15 +58,17 @@ const BreadcrumbLink = React.forwardRef<
 BreadcrumbLink.displayName = "BreadcrumbLink"
 
 const BreadcrumbPage = React.forwardRef<
-  HTMLSpanElement,
-  React.ComponentPropsWithoutRef<"span">
+  HTMLAnchorElement,
+  React.ComponentPropsWithoutRef<"a">
 >(({ className, ...props }, ref) => (
-  <span
+  <a
     ref={ref}
-    role="link"
     aria-disabled="true"
     aria-current="page"
-    className={cn("font-normal text-foreground", className)}
+    className={cn("font-normal text-foreground pointer-events-none", className)}
+    tabIndex={-1}
+    href="#"
+    onClick={(e) => e.preventDefault()}
     {...props}
   />
 ))
@@ -78,7 +80,6 @@ const BreadcrumbSeparator = ({
   ...props
 }: React.ComponentProps<"li">) => (
   <li
-    role="presentation"
     aria-hidden="true"
     className={cn("[&>svg]:size-3.5", className)}
     {...props}
@@ -93,7 +94,6 @@ const BreadcrumbEllipsis = ({
   ...props
 }: React.ComponentProps<"span">) => (
   <span
-    role="presentation"
     aria-hidden="true"
     className={cn("flex h-9 w-9 items-center justify-center", className)}
     {...props}
@@ -102,7 +102,7 @@ const BreadcrumbEllipsis = ({
     <span className="sr-only">More</span>
   </span>
 )
-BreadcrumbEllipsis.displayName = "BreadcrumbElipssis"
+BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis"
 
 export {
   Breadcrumb,

@@ -145,16 +145,16 @@ const Carousel = React.forwardRef<
 
     return (
       <CarouselContext.Provider value={contextValue}>
-        <div
+        <section
           ref={ref}
           onKeyDownCapture={handleKeyDown}
           className={cn("relative", className)}
-          role="region"
           aria-roledescription="carousel"
+          aria-label="Carousel"
           {...props}
         >
           {children}
-        </div>
+        </section>
       </CarouselContext.Provider>
     )
   }
@@ -184,15 +184,14 @@ const CarouselContent = React.forwardRef<
 CarouselContent.displayName = "CarouselContent"
 
 const CarouselItem = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+  HTMLElement,
+  React.HTMLAttributes<HTMLElement>
 >(({ className, ...props }, ref) => {
   const { orientation } = useCarousel()
 
   return (
-    <div
+    <article
       ref={ref}
-      role="group"
       aria-roledescription="slide"
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
@@ -200,7 +199,7 @@ const CarouselItem = React.forwardRef<
         className
       )}
       {...props}
-    />
+    ></article>
   )
 })
 CarouselItem.displayName = "CarouselItem"

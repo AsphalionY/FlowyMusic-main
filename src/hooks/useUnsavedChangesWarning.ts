@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface UseUnsavedChangesWarningProps {
   hasUnsavedChanges: boolean;
@@ -15,7 +15,6 @@ const useUnsavedChangesWarning = ({
   onSave 
 }: UseUnsavedChangesWarningProps) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [showDialog, setShowDialog] = useState(false);
   const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
 
