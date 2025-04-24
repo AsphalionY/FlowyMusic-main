@@ -336,10 +336,6 @@ const CreateProfile = () => {
                         ) : (
                           <label
                             className="flex items-center w-full cursor-pointer"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleCategoryToggle(category.id);
-                            }}
                           >
                             <input
                               type="checkbox"
@@ -356,25 +352,17 @@ const CreateProfile = () => {
                                 <div className="h-2 w-2 rounded-full bg-primary" />
                               )}
                             </div>
-                            <span 
-                              className="text-sm flex-grow truncate mr-2"
-                              role="button"
-                              tabIndex={0}
+                            <button 
+                              type="button"
+                              className="text-sm flex-grow truncate mr-2 text-left"
                               aria-label={`Modifier la catégorie ${category.label}`}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 startEditingCategory(category.id, category.label);
                               }}
-                              onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  startEditingCategory(category.id, category.label);
-                                }
-                              }}
                             >
                               {category.label}
-                            </span>
+                            </button>
                           </label>
                         )}
                         <button

@@ -129,11 +129,11 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
 
         // Create a new track by merging with current or default values
         const newTrack: Track = {
-          id: track.id || String(Math.random()),
-          title: track.title || "Titre inconnu",
-          artist: track.artist || "Artiste inconnu",
-          duration: track.duration || "0:00",
-          coverArt: track.coverArt || "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          id: track.id ?? String(Math.random()),
+          title: track.title ?? "Titre inconnu",
+          artist: track.artist ?? "Artiste inconnu",
+          duration: track.duration ?? "0:00",
+          coverArt: track.coverArt ?? "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           audioUrl: audioUrl
         };
         

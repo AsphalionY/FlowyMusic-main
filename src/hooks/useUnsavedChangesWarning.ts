@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface UseUnsavedChangesWarningProps {
-  hasUnsavedChanges: boolean;
   onSave: () => void;
 }
 
@@ -11,17 +10,17 @@ interface UseUnsavedChangesWarningProps {
  * et afficher une boîte de dialogue de confirmation.
  */
 const useUnsavedChangesWarning = ({ 
-  hasUnsavedChanges, 
   onSave 
 }: UseUnsavedChangesWarningProps) => {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
+  const [isBlockingNavigation, setIsBlockingNavigation] = useState(false);
 
   // Intercepter la navigation du navigateur (bouton retour, etc.)
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (hasUnsavedChanges) {
+      if (isBlockingNavigation) {
         e.preventDefault();
         e.returnValue = '';
         return '';
@@ -32,47 +31,66 @@ const useUnsavedChangesWarning = ({
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [hasUnsavedChanges]);
+  }, [isBlockingNavigation]);
 
-  // Fonction pour naviguer vers une autre page
-  const navigateTo = (path: string) => {
-    if (hasUnsavedChanges) {
+  // Activer le blocage de navigation
+  const enableNavigationBlocking = useCallback(() => {
+    setIsBlockingNavigation(true);
+  }, []);
+
+  // Désactiver le blocage de navigation
+  const disableNavigationBlocking = useCallback(() => {
+    setIsBlockingNavigation(false);
+  }, []);
+
+  // Fonction pour naviguer directement sans confirmation
+  const navigateWithoutConfirmation = useCallback((path: string) => {
+    navigate(path);
+  }, [navigate]);
+
+  // Fonction pour naviguer avec confirmation si nécessaire
+  const navigateWithConfirmation = useCallback((path: string) => {
+    if (isBlockingNavigation) {
       setPendingNavigation(path);
       setShowDialog(true);
     } else {
       navigate(path);
     }
-  };
+  }, [isBlockingNavigation, navigate]);
 
   // Fonction pour confirmer la navigation sans sauvegarder
-  const confirmNavigation = () => {
+  const confirmNavigation = useCallback(() => {
     setShowDialog(false);
     if (pendingNavigation) {
       navigate(pendingNavigation);
       setPendingNavigation(null);
     }
-  };
+  }, [navigate, pendingNavigation]);
 
   // Fonction pour sauvegarder puis naviguer
-  const saveAndNavigate = () => {
+  const saveAndNavigate = useCallback(() => {
     onSave();
     setShowDialog(false);
     if (pendingNavigation) {
       navigate(pendingNavigation);
       setPendingNavigation(null);
     }
-  };
+  }, [navigate, onSave, pendingNavigation]);
 
   // Fonction pour annuler la navigation
-  const cancelNavigation = () => {
+  const cancelNavigation = useCallback(() => {
     setShowDialog(false);
     setPendingNavigation(null);
-  };
+  }, []);
 
   return {
-    navigateTo,
     showDialog,
     pendingNavigation,
+    isBlockingNavigation,
+    enableNavigationBlocking,
+    disableNavigationBlocking,
+    navigateWithoutConfirmation,
+    navigateWithConfirmation,
     confirmNavigation,
     saveAndNavigate,
     cancelNavigation
