@@ -1,7 +1,4 @@
-
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Mic, Music } from 'lucide-react';
 import RecorderPanel from './RecorderPanel';
 import MusicImporter from '../instruments/MusicImporter';
@@ -12,7 +9,8 @@ interface RecordingTabsProps {
   setActiveTab: (tab: string) => void;
   isRecording: boolean;
   isPaused: boolean;
-  micPermissionError: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  micPermissionError: boolean; // Conservé pour la compatibilité avec les composants parents
   isInitializing?: boolean;
   recordingTime: number;
   formatTime: (seconds: number) => string;
@@ -27,7 +25,8 @@ const RecordingTabs = ({
   setActiveTab,
   isRecording,
   isPaused,
-  micPermissionError,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  micPermissionError, // Conservé pour la compatibilité avec les composants parents
   isInitializing = false,
   recordingTime,
   formatTime,
@@ -36,6 +35,7 @@ const RecordingTabs = ({
   stopRecording,
   onMusicImported
 }: RecordingTabsProps) => {
+
   return (
     <div className="flex-1 flex flex-col h-full">
       <div className="px-4 pt-3 flex justify-center gap-2">
@@ -62,7 +62,6 @@ const RecordingTabs = ({
           <RecorderPanel
             isRecording={isRecording}
             isPaused={isPaused}
-            micPermissionError={micPermissionError}
             isInitializing={isInitializing}
             recordingTime={recordingTime}
             formatTime={formatTime}

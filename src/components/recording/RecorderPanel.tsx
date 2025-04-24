@@ -1,8 +1,5 @@
-
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Mic } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import RecordButton from './RecordButton';
 import RecordingInfo from './RecordingInfo';
 import RecordingVisualizer from './RecordingVisualizer';
@@ -10,7 +7,6 @@ import RecordingVisualizer from './RecordingVisualizer';
 interface RecorderPanelProps {
   isRecording: boolean;
   isPaused: boolean;
-  micPermissionError: boolean;
   isInitializing?: boolean;
   recordingTime: number;
   formatTime: (seconds: number) => string;
@@ -22,7 +18,6 @@ interface RecorderPanelProps {
 const RecorderPanel = ({
   isRecording,
   isPaused,
-  micPermissionError,
   isInitializing = false,
   recordingTime,
   formatTime,
@@ -51,7 +46,6 @@ const RecorderPanel = ({
             <RecordButton
               isRecording={isRecording}
               isPaused={isPaused}
-              micPermissionError={micPermissionError}
               isInitializing={isInitializing}
               startRecording={startRecording}
               pauseRecording={pauseRecording}
@@ -71,7 +65,6 @@ const RecorderPanel = ({
             <RecordButton
               isRecording={isRecording}
               isPaused={isPaused}
-              micPermissionError={micPermissionError}
               isInitializing={isInitializing}
               startRecording={startRecording}
               pauseRecording={pauseRecording}

@@ -5,7 +5,6 @@ import {
   Play, 
   Plus, 
   Clock, 
-  Music, 
   X,
   Check,
   User,
@@ -16,6 +15,15 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { searchMusic, SharedMusic } from '@/services/musicService';
+
+// Déclaration pour étendre l'interface Window
+declare global {
+  interface Window {
+    musicPlayer?: {
+      playTrack: (track: any) => void;
+    }
+  }
+}
 
 const MusicSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');

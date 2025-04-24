@@ -59,8 +59,8 @@ BreadcrumbLink.displayName = "BreadcrumbLink"
 
 const BreadcrumbPage = React.forwardRef<
   HTMLAnchorElement,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<"a"> & { children?: React.ReactNode }
+>(({ className, children, ...props }, ref) => (
   <a
     ref={ref}
     aria-disabled="true"
@@ -70,7 +70,9 @@ const BreadcrumbPage = React.forwardRef<
     href="#"
     onClick={(e) => e.preventDefault()}
     {...props}
-  />
+  >
+    {children}
+  </a>
 ))
 BreadcrumbPage.displayName = "BreadcrumbPage"
 

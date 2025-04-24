@@ -1,13 +1,9 @@
-
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Mic, Square, Play, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 interface RecordButtonProps {
   isRecording: boolean;
   isPaused: boolean;
-  micPermissionError: boolean;
   isInitializing?: boolean;
   startRecording: () => void;
   pauseRecording: () => void;
@@ -17,7 +13,6 @@ interface RecordButtonProps {
 const RecordButton = ({ 
   isRecording,
   isPaused,
-  micPermissionError,
   isInitializing = false,
   startRecording,
   pauseRecording,
