@@ -53,9 +53,9 @@ const CreateProfile = () => {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      bio: user?.bio || "",
-      profileImage: user?.profileImage || "",
-      preferredCategories: user?.preferredCategories || [],
+      bio: user?.bio ?? "",
+      profileImage: user?.profileImage ?? "",
+      preferredCategories: user?.preferredCategories ?? [],
     },
   });
 
@@ -227,7 +227,7 @@ const CreateProfile = () => {
                   <div className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-4 overflow-hidden rounded-full bg-secondary relative">
                     {(imagePreview || user?.profileImage) ? (
                       <img 
-                        src={sanitizeImageUrl(imagePreview || user?.profileImage) || ''} 
+                        src={sanitizeImageUrl(imagePreview ?? user?.profileImage) ?? ''} 
                         alt="Aperçu du profil" 
                         className="w-full h-full object-cover"
                         crossOrigin="anonymous"

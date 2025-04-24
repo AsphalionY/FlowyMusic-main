@@ -5,7 +5,7 @@ import { useTimer } from './useTimer';
 import { formatTime } from './formatTime';
 import { useMediaRecorderSetup } from './useMediaRecorderSetup';
 import { cleanupAudioResources } from './audioCleanup';
-import { MusicTrackType, UseRecorderOptions } from './types';
+import { UseRecorderOptions } from './types';
 
 export const useAudioRecorder = ({ onTrackAdded }: UseRecorderOptions) => {
   const [isRecording, setIsRecording] = useState(false);

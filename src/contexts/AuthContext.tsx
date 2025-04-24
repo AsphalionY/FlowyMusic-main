@@ -147,7 +147,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      const usersJSON = localStorage.getItem('harmonybot_users') || '[]';
+      const usersJSON = localStorage.getItem('harmonybot_users') ?? '[]';
       const users = JSON.parse(usersJSON);
       
       const hashedPassword = await hashPassword(password);
@@ -190,7 +190,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      const usersJSON = localStorage.getItem('harmonybot_users') || '[]';
+      const usersJSON = localStorage.getItem('harmonybot_users') ?? '[]';
       const users = JSON.parse(usersJSON);
       
       const userExists = users.some((u: any) => 
@@ -273,7 +273,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('harmonybot_user', JSON.stringify(publicData));
       
       // Update users array while preserving sensitive data
-      const usersJSON = localStorage.getItem('harmonybot_users') || '[]';
+      const usersJSON = localStorage.getItem('harmonybot_users') ?? '[]';
       const users = JSON.parse(usersJSON);
       const updatedUsers = users.map((u: any) => {
         if (u.id === user.id) {

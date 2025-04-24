@@ -117,7 +117,7 @@ export const useUploadMusic = () => {
             title: newMusic.title,
             artist: newMusic.artist,
             duration: newMusic.duration,
-            coverArt: newMusic.coverArt || ''
+            coverArt: newMusic.coverArt ?? ''
           });
         }
       }, 500);
