@@ -19,6 +19,11 @@ interface WaveformPlayerProps {
 
 const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
   audioUrl,
+  playing, // Kept for API compatibility
+  onReady, // Kept for API compatibility
+  onPlay, // Kept for API compatibility
+  onPause, // Kept for API compatibility
+  onFinish, // Kept for API compatibility
   waveColor = 'rgba(255, 255, 255, 0.3)',
   progressColor = 'rgba(255, 255, 255, 0.8)',
   height = 60,
@@ -41,6 +46,17 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
   }, []);
 
   // Création et configuration de WaveSurfer
+  // Effet pour gérer l'état de lecture en fonction de la prop playing
+  useEffect(() => {
+    if (wavesurfer.current && playing !== undefined) {
+      if (playing) {
+        wavesurfer.current.play();
+      } else {
+        wavesurfer.current.pause();
+      }
+    }
+  }, [playing]);
+
   useEffect(() => {
     if (waveformRef.current && audioUrl) {
       setLoading(true);
@@ -92,15 +108,23 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
         if (wavesurfer.current) {
           wavesurfer.current.setVolume(0);
         }
+        // Appeler le callback onReady s'il est fourni
+        if (onReady) onReady();
       });
 
       ws.on('play', () => {
+        // Appeler le callback onPlay s'il est fourni
+        if (onPlay) onPlay();
       });
 
       ws.on('pause', () => {
+        // Appeler le callback onPause s'il est fourni
+        if (onPause) onPause();
       });
 
       ws.on('finish', () => {
+        // Appeler le callback onFinish s'il est fourni
+        if (onFinish) onFinish();
       });
 
       ws.on('seeking', () => {
@@ -121,7 +145,7 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
         wavesurfer.current.destroy();
       }
     };
-  }, [audioUrl, hideControls, isHovering]);
+  }, [audioUrl, hideControls, isHovering, onReady, onPlay, onPause, onFinish]);
 
   return (
     <div className={cn("relative", className)}>
