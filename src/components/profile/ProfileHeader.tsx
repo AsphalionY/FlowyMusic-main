@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Edit, LogOut } from 'lucide-react';
@@ -72,8 +70,8 @@ const ProfileHeader = ({ user, categoryLabels, onEditProfile, onLogout }: Profil
       
       {user.preferredCategories && user.preferredCategories.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-1.5">
-          {user.preferredCategories.map((category, index) => (
-            <Badge key={index} variant="outline" className="bg-primary/5 text-primary border-primary/30">
+          {user.preferredCategories.map((category) => (
+            <Badge key={category} variant="outline" className="bg-primary/5 text-primary border-primary/30">
               {categoryLabels[category] || category}
             </Badge>
           ))}

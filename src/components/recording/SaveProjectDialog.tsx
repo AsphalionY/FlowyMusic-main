@@ -44,7 +44,6 @@ const SaveProjectDialog = ({
   // Initialisation des valeurs par défaut pour selectedStyle et selectedComposition
   const [selectedStyle, setSelectedStyle] = useState<string>("Pop"); // Valeur par défaut
   const [selectedComposition, setSelectedComposition] = useState<string>("A cappella"); // Valeur par défaut
-  const [allowReuse, setAllowReuse] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

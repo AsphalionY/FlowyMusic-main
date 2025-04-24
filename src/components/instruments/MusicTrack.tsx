@@ -119,6 +119,19 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: M
     setIsPlaying(false);
   };
   
+  const getTrackTypeLabel = () => {
+    switch (track.type) {
+      case 'recording':
+        return 'Enregistrement';
+      case 'imported':
+        return 'Importé';
+      case 'instrument':
+        return 'Instrument';
+      default:
+        return 'Piste';
+    }
+  };
+
   return (
     <div className={cn(
       "rounded-lg p-3 flex flex-col gap-2 relative mt-8", 
@@ -154,8 +167,7 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: M
         
         <div className="flex-1 min-w-0">
           <div className="text-xs opacity-60 truncate">
-            {track.type === 'recording' ? 'Enregistrement' : 
-            track.type === 'imported' ? 'Importé' : 'Instrument'}
+            {getTrackTypeLabel()}
           </div>
         </div>
         

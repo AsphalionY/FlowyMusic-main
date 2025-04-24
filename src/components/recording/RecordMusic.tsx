@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import RecordingWorkspace from './RecordingWorkspace';
@@ -6,7 +6,6 @@ import ProjectControls from './ProjectControls';
 import { useRecorder, MusicTrackType } from '@/hooks/recording/useRecorder';
 import useUnsavedChangesWarning from '@/hooks/useUnsavedChangesWarning';
 import UnsavedChangesDialog from './UnsavedChangesDialog';
-import { useNavigate } from 'react-router-dom';
 
 interface RecordMusicProps {
   className?: string;
@@ -18,7 +17,6 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
   const [activeTab, setActiveTab] = useState(activeInstrument);
   const [projectTitle, setProjectTitle] = useState('');
   const [isSaving, setIsSaving] = useState(false);
-  const navigate = useNavigate();
 
   const { 
     isRecording, 

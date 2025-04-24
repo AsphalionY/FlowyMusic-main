@@ -283,27 +283,20 @@ const CreateProfile = () => {
                   <FormLabel>Catégories musicales préférées</FormLabel>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {musicCategories.map((category) => (
-                      <button
+                      <label
                         key={category.id}
-                        type="button"
-                        role="checkbox"
-                        aria-checked={selectedCategories.includes(category.id)}
                         className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors rounded-md cursor-pointer ${
                           selectedCategories.includes(category.id)
                             ? "border border-primary text-secondary-foreground hover:bg-secondary/80"
                             : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                         }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleCategoryToggle(category.id);
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            handleCategoryToggle(category.id);
-                          }
-                        }}
                       >
+                        <input
+                          type="checkbox"
+                          className="sr-only"
+                          checked={selectedCategories.includes(category.id)}
+                          onChange={() => handleCategoryToggle(category.id)}
+                        />
                         <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
                           selectedCategories.includes(category.id)
                             ? "border border-primary"
@@ -314,7 +307,7 @@ const CreateProfile = () => {
                           )}
                         </div>
                         <span className="text-sm">{category.label}</span>
-                      </button>
+                      </label>
                     ))}
                     
                     {/* Catégories personnalisées */}
@@ -341,16 +334,19 @@ const CreateProfile = () => {
                             onBlur={() => saveCustomCategoryName(category.id)}
                           />
                         ) : (
-                          <button
-                            type="button"
-                            role="checkbox"
-                            aria-checked={selectedCategories.includes(category.id)}
+                          <label
                             className="flex items-center w-full cursor-pointer"
                             onClick={(e) => {
                               e.preventDefault();
                               handleCategoryToggle(category.id);
                             }}
                           >
+                            <input
+                              type="checkbox"
+                              className="sr-only"
+                              checked={selectedCategories.includes(category.id)}
+                              onChange={() => handleCategoryToggle(category.id)}
+                            />
                             <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
                               selectedCategories.includes(category.id)
                                 ? "border border-primary"
@@ -379,7 +375,7 @@ const CreateProfile = () => {
                             >
                               {category.label}
                             </span>
-                          </button>
+                          </label>
                         )}
                         <button
                           type="button"

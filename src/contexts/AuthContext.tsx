@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { toast } from 'sonner';
 import { MusicCategory } from '@/types/music';
 
@@ -296,8 +296,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  return (
-    <AuthContext.Provider value={{ 
+  // Mémoriser la valeur du contexte pour éviter des rendus inutiles
+  const contextValue = useMemo(
+    () => ({
       user, 
       isLoading, 
       isAuthenticated: !!user,
@@ -305,7 +306,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       register, 
       logout,
       updateProfile
-    }}>
+    }),
+    [user, isLoading, login, register, logout, updateProfile]
+  );
+
+  return (
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

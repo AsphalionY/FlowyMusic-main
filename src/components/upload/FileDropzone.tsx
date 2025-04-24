@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Upload } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -70,12 +69,11 @@ const FileDropzone = ({ onFileSelected, redirectToLogin, isAuthenticated }: File
   };
   
   return (
-    <div 
-      role="button"
-      tabIndex={0}
+    <button 
+      type="button"
       aria-label="Zone de dépôt de fichiers. Cliquez ou faites glisser un fichier pour l'uploader."
       className={cn(
-        "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
+        "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors w-full",
         "hover:bg-secondary/40 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         isDragging ? "border-primary bg-primary/5" : "border-muted"
       )}
@@ -83,12 +81,6 @@ const FileDropzone = ({ onFileSelected, redirectToLogin, isAuthenticated }: File
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       onClick={() => document.getElementById('file-upload')?.click()}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          document.getElementById('file-upload')?.click();
-        }
-      }}
     >
       <div className="mx-auto flex flex-col items-center">
         <div className="mb-4 h-14 w-14 rounded-full bg-secondary flex items-center justify-center">
@@ -108,6 +100,10 @@ const FileDropzone = ({ onFileSelected, redirectToLogin, isAuthenticated }: File
           variant="outline" 
           size="sm"
           className="rounded-full h-9"
+          onClick={(e) => {
+            e.stopPropagation(); // Empêcher le déclenchement du onClick du parent
+            document.getElementById('file-upload')?.click();
+          }}
         >
           Parcourir
         </Button>
@@ -121,7 +117,7 @@ const FileDropzone = ({ onFileSelected, redirectToLogin, isAuthenticated }: File
           data-testid="file-input"
         />
       </div>
-    </div>
+    </button>
   );
 };
 

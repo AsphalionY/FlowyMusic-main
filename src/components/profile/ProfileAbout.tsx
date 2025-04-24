@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Tag, Users } from 'lucide-react';
 
@@ -40,8 +38,8 @@ const ProfileAbout = ({ user, formattedDate, categoryLabels }: ProfileAboutProps
             <div>
               <p className="font-medium">Genres préférés</p>
               <div className="flex flex-wrap gap-1.5 mt-1">
-                {user.preferredCategories.map((category, index) => (
-                  <Badge key={index} variant="outline" className="bg-primary/5 text-primary border-primary/30">
+                {user.preferredCategories.map((category) => (
+                  <Badge key={category} variant="outline" className="bg-primary/5 text-primary border-primary/30">
                     {categoryLabels[category] || category}
                   </Badge>
                 ))}
