@@ -123,16 +123,6 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
     };
   }, [audioUrl, hideControls, isHovering]);
 
-  // Commenté car non implémenté actuellement
-  // Contrôle de la lecture/pause en mode silencieux pour la visualisation uniquement
-  /*
-  useEffect(() => {
-    if (wavesurfer.current) {
-      // Code à implémenter pour le contrôle de lecture silencieux
-    }
-  }, []);
-  */
-
   return (
     <div className={cn("relative", className)}>
       <button 

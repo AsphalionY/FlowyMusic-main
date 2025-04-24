@@ -125,18 +125,11 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: M
       getBgColor(),
       className
     )}>
-      <div 
-        className="absolute -top-6 left-0 right-0 py-1 px-1 text-primary font-medium text-sm truncate cursor-pointer"
+      <button 
+        type="button"
+        className="absolute -top-6 left-0 right-0 py-1 px-1 text-primary font-medium text-sm truncate cursor-pointer bg-transparent border-0 text-left w-full"
         onClick={() => setIsEditing(true)}
-        role="button"
-        tabIndex={0}
         aria-label="Modifier le nom de la piste"
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setIsEditing(true);
-          }
-        }}
       >
         {isEditing ? (
           <input
@@ -152,7 +145,7 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: M
             onBlur={handleRename}
           />
         ) : track.name}
-      </div>
+      </button>
       
       <div className="flex items-center gap-3 mt-2">
         <div className="h-10 w-10 rounded-full flex items-center justify-center bg-black/10">
@@ -221,31 +214,45 @@ const MusicTrack = ({ track, onRemove, onRename, onTrackPosition, className }: M
           hideControls={true}
         />
         <div className="flex justify-between items-center mt-1 text-white/80">
-          <button 
-            className={cn(
-              "text-lg font-bold transition-colors",
-              onTrackPosition?.isFirst 
-                ? "opacity-30 cursor-not-allowed" 
-                : "text-primary hover:text-primary/80"
-            )}
-            disabled={onTrackPosition?.isFirst}
-            onClick={() => onTrackPosition?.moveUp(track.id)}
-          >
-            ←
-          </button>
+          {/* Déterminer la classe du bouton "précédent" en fonction de sa position */}
+          {(() => {
+            const prevButtonClass = onTrackPosition?.isFirst 
+              ? "opacity-30 cursor-not-allowed" 
+              : "text-primary hover:text-primary/80";
+              
+            return (
+              <button 
+                className={cn(
+                  "text-lg font-bold transition-colors",
+                  prevButtonClass
+                )}
+                disabled={onTrackPosition?.isFirst}
+                onClick={() => onTrackPosition?.moveUp(track.id)}
+              >
+                ←
+              </button>
+            );
+          })()}
           <span className="text-xs text-primary">Piste {onTrackPosition?.position || 1}</span>
-          <button 
-            className={cn(
-              "text-lg font-bold transition-colors",
-              onTrackPosition?.isLast 
-                ? "opacity-30 cursor-not-allowed" 
-                : "text-primary hover:text-primary/80"
-            )}
-            disabled={onTrackPosition?.isLast}
-            onClick={() => onTrackPosition?.moveDown(track.id)}
-          >
-            →
-          </button>
+          {/* Déterminer la classe du bouton "suivant" en fonction de sa position */}
+          {(() => {
+            const nextButtonClass = onTrackPosition?.isLast 
+              ? "opacity-30 cursor-not-allowed" 
+              : "text-primary hover:text-primary/80";
+              
+            return (
+              <button 
+                className={cn(
+                  "text-lg font-bold transition-colors",
+                  nextButtonClass
+                )}
+                disabled={onTrackPosition?.isLast}
+                onClick={() => onTrackPosition?.moveDown(track.id)}
+              >
+                →
+              </button>
+            );
+          })()}
         </div>
       </div>
       
