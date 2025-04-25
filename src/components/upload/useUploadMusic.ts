@@ -117,6 +117,11 @@ export const useUploadMusic = () => {
             artist: newMusic.artist,
             duration: newMusic.duration,
             coverArt: newMusic.coverArt ?? '',
+            audioUrl: audioBase64, // Ajout de la propriété manquante
+            uploadDate: new Date(), // Ajout de la propriété manquante
+            uploadedBy: user?.id || 'anonymous', // Ajout de la propriété manquante
+            uploadedByName: user?.username || 'Utilisateur anonyme', // Ajout de la propriété manquante
+            plays: 0 // Ajout de la propriété manquante
           });
         }
       }, 500);

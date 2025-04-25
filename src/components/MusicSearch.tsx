@@ -7,6 +7,13 @@ import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { searchMusic, SharedMusic } from '@/services/musicService';
 
+// Interface pour les props du composant MusicSearch
+interface MusicSearchProps {
+  onSearch?: (query: string) => void;
+  onSelect?: (filter: string) => void;
+  isLoading?: boolean;
+}
+
 // Déclaration pour étendre l'interface Window
 declare global {
   interface Window {
@@ -16,9 +23,9 @@ declare global {
   }
 }
 
-const MusicSearch = () => {
+const MusicSearch = ({ onSearch, onSelect, isLoading = false }: MusicSearchProps = {}) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
+  const [isSearching, setIsSearching] = useState(isLoading);
   const [searchResults, setSearchResults] = useState<SharedMusic[]>([]);
   const [selectedTracks, setSelectedTracks] = useState<string[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
@@ -28,14 +35,16 @@ const MusicSearch = () => {
     const searchTimer = setTimeout(() => {
       if (searchQuery.trim().length >= 2) {
         performSearch();
+        if (onSearch) onSearch(searchQuery);
       } else if (searchQuery.trim().length === 0) {
         setSearchResults([]);
         setHasSearched(false);
+        if (onSearch) onSearch('');
       }
     }, 300);
 
     return () => clearTimeout(searchTimer);
-  }, [searchQuery]);
+  }, [searchQuery, onSearch]);
 
   const performSearch = () => {
     setIsSearching(true);
@@ -51,6 +60,7 @@ const MusicSearch = () => {
     e.preventDefault();
     if (searchQuery.trim()) {
       performSearch();
+      if (onSearch) onSearch(searchQuery);
     }
   };
 
@@ -141,14 +151,26 @@ const MusicSearch = () => {
               </h3>
 
               {selectedTracks.length > 0 && (
-                <Button
-                  variant="default"
-                  size="sm"
-                  onClick={addToQueue}
-                  className="rounded-full h-8 px-3 text-xs font-medium bg-primary/90"
-                >
-                  Ajouter {selectedTracks.length} à la file
-                </Button>
+                <div className="flex items-center gap-2">
+                  <select
+                    className="h-11 rounded-lg border-muted bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                    defaultValue="all"
+                    onChange={(e) => onSelect && onSelect(e.target.value)}
+                    disabled={isLoading || isSearching}
+                  >
+                    <option value="all">Tous</option>
+                    <option value="artist">Artistes</option>
+                    <option value="title">Titres</option>
+                  </select>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={addToQueue}
+                    className="rounded-full h-8 px-3 text-xs font-medium bg-primary/90"
+                  >
+                    Ajouter {selectedTracks.length} à la file
+                  </Button>
+                </div>
               )}
             </div>
 

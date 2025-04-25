@@ -22,7 +22,8 @@ jest.mock('wavesurfer.js', () => ({
 
 describe('WaveformPlayer Component', () => {
   const mockProps = {
-    url: 'test.mp3',
+    audioUrl: 'test.mp3',
+    playing: false,
     height: 100,
     waveColor: '#000',
     progressColor: '#fff',
@@ -91,9 +92,12 @@ describe('WaveformPlayer Component', () => {
     await user.click(waveform);
 
     // Simule un événement de recherche
+    // Créer un événement de clic avec les propriétés correctes
     const seekEvent = new MouseEvent('click', {
       clientX: 100,
-      target: waveform,
+      bubbles: true,
+      cancelable: true,
+      view: window
     });
     waveform.dispatchEvent(seekEvent);
 

@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect, jest } from '@jest/globals';
 import '@testing-library/jest-dom';
 import App from '../App';
+import * as authContext from '@/contexts/AuthContext';
 
 // Mock the components that use browser APIs
 jest.mock('@/components/ui/sonner', () => ({
@@ -14,12 +15,15 @@ jest.mock('@/hooks/use-mobile', () => ({
 }));
 
 // Mock the authentication context
-jest.mock('@/contexts/auth-context', () => ({
+jest.mock('@/contexts/AuthContext', () => ({
   useAuth: () => ({
     user: null,
     isAuthenticated: false,
-    login: jest.fn(),
+    isLoading: false,
+    login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+    register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     logout: jest.fn(),
+    updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
   }),
 }));
 
@@ -70,16 +74,19 @@ describe('App', () => {
 
   it('handles authentication state changes', async () => {
     const mockAuth = {
-      user: { id: '1', name: 'Test User' },
+      user: { id: '1', username: 'Test User', email: 'test@example.com', createdAt: new Date().toISOString() },
       isAuthenticated: true,
-      login: jest.fn(),
+      isLoading: false,
+      login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
       logout: jest.fn(),
+      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     };
 
-    jest.spyOn(require('@/contexts/auth-context'), 'useAuth').mockImplementation(() => mockAuth);
+    jest.spyOn(authContext, 'useAuth').mockImplementation(() => mockAuth);
 
     render(<App />);
-    const userElement = screen.getByText(/test user/i);
+    const userElement = screen.getByText(/Test User/i);
     expect(userElement).toBeTruthy();
   });
 });

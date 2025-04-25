@@ -25,8 +25,7 @@ const RecordingTabs = ({
   setActiveTab,
   isRecording,
   isPaused,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  micPermissionError, // Conservé pour la compatibilité avec les composants parents
+  // micPermissionError supprimé car inutilisé
   isInitializing = false,
   recordingTime,
   formatTime,

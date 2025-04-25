@@ -31,6 +31,7 @@ declare global {
 
 interface MusicPlayerProps {
   className?: string;
+  currentTrack?: SharedMusic;
 }
 
 // Type definition for a track
@@ -229,7 +230,7 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
       >
         <div className="container mx-auto flex flex-col">
           {/* Waveform visualisation */}
-          {audioRef.current && audioRef.current.src && (
+          {audioRef.current?.src && (
             <div className="mb-2 md:px-3">
               <WaveformPlayer
                 audioUrl={audioRef.current.src}
@@ -336,8 +337,8 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
                     />
                   </div>
                   <span className="text-muted-foreground w-8">
-                    {audioRef.current && audioRef.current.duration
-                      ? convertSecondsToTime(audioRef.current.duration)
+                    {audioRef.current?.duration
+                      ? convertSecondsToTime(audioRef.current?.duration)
                       : '0:00'}
                   </span>
                 </div>

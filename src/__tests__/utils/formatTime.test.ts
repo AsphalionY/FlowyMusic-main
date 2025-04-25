@@ -1,4 +1,4 @@
-import { formatTime } from '@/lib/utils';
+import { formatTime } from '@/hooks/recording-utils/formatTime';
 
 describe('formatTime', () => {
   it('devrait formater correctement les secondes en minutes:secondes', () => {

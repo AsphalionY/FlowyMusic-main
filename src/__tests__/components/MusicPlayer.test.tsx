@@ -23,8 +23,13 @@ describe('MusicPlayer Component', () => {
     id: '1',
     title: 'Test Track',
     artist: 'Test Artist',
-    duration: 180,
-    url: 'test.mp3',
+    duration: '03:00',
+    audioUrl: 'test.mp3',
+    uploadDate: new Date(),
+    uploadedBy: 'user123',
+    uploadedByName: 'Test User',
+    plays: 0,
+    coverArt: 'cover.jpg'
   };
 
   it('renders player controls', () => {

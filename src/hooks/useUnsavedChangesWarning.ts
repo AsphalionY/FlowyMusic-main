@@ -23,7 +23,7 @@ const useUnsavedChangesWarning = ({ onSave }: UseUnsavedChangesWarningProps) => 
 
         // For older browsers (Chrome/Edge < 119) that don't fully support preventDefault() in beforeunload
         // We need to set returnValue as a fallback (the content is ignored by browsers)
-        // @ts-ignore: TypeScript flags this as deprecated, which is correct but we need it for compatibility
+        // @ts-ignore: TypeScript flags e.returnValue as deprecated, which is correct but we need it for compatibility
         e.returnValue = ''; // Empty string is the standard practice for cross-browser compatibility
 
         return true; // For very old browsers that require a return value

@@ -1,6 +1,13 @@
 import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, jest } from '@jest/globals';
+import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { useAudioPlayer } from '@/hooks/useAudioPlayer';
+
+// Définir le type global pour window.Audio
+declare global {
+  interface Window {
+    Audio: typeof HTMLAudioElement;
+  }
+}
 
 describe('useAudioPlayer', () => {
   const mockAudio = {
@@ -15,7 +22,8 @@ describe('useAudioPlayer', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    window.Audio = jest.fn(() => mockAudio);
+    // Utiliser une assertion de type pour éviter l'erreur de typage
+    window.Audio = jest.fn(() => mockAudio) as unknown as typeof HTMLAudioElement;
   });
 
   it("devrait initialiser correctement l'état du lecteur", () => {

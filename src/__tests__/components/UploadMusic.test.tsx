@@ -2,6 +2,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, jest } from '@jest/globals';
 import UploadMusic from '@/components/UploadMusic';
 
+// Import the module to mock
+import * as useUploadMusicModule from '@/components/upload/useUploadMusic';
+
 // Mock the useUploadMusic hook
 jest.mock('@/components/upload/useUploadMusic', () => ({
   useUploadMusic: () => ({
@@ -74,9 +77,9 @@ describe('UploadMusic Component', () => {
 
   it('renders auth required message when not authenticated', async () => {
     jest
-      .spyOn(require('@/components/upload/useUploadMusic'), 'useUploadMusic')
+      .spyOn(useUploadMusicModule, 'useUploadMusic')
       .mockImplementation(() => ({
-        ...require('@/components/upload/useUploadMusic').useUploadMusic(),
+        ...jest.requireActual<{useUploadMusic: () => ReturnType<typeof useUploadMusicModule.useUploadMusic>}>('@/components/upload/useUploadMusic').useUploadMusic(),
         isAuthenticated: false,
       }));
 

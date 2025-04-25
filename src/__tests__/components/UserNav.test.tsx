@@ -2,17 +2,24 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect, jest } from '@jest/globals';
 import UserNav from '@/components/UserNav';
+import * as AuthContext from '@/contexts/AuthContext';
 
 // Mock useAuth hook
 jest.mock('@/contexts/AuthContext', () => ({
   useAuth: () => ({
     user: {
+      id: '123',
       username: 'testuser',
       email: 'test@example.com',
       profileImage: 'test.jpg',
+      createdAt: new Date().toISOString(),
     },
     logout: jest.fn(),
     isAuthenticated: true,
+    isLoading: false,
+    login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+    register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+    updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
   }),
 }));
 
@@ -39,10 +46,14 @@ describe('UserNav Component', () => {
   });
 
   it('renders login/register buttons when not authenticated', async () => {
-    jest.spyOn(require('@/contexts/AuthContext'), 'useAuth').mockImplementation(() => ({
+    jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => ({
       user: null,
       logout: jest.fn(),
       isAuthenticated: false,
+      isLoading: false,
+      login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     }));
 
     await renderWithRouter(<UserNav />);
@@ -52,10 +63,14 @@ describe('UserNav Component', () => {
   });
 
   it('navigates to auth page when login button is clicked', async () => {
-    jest.spyOn(require('@/contexts/AuthContext'), 'useAuth').mockImplementation(() => ({
+    jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => ({
       user: null,
       logout: jest.fn(),
       isAuthenticated: false,
+      isLoading: false,
+      login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     }));
 
     await renderWithRouter(<UserNav />);
@@ -66,10 +81,14 @@ describe('UserNav Component', () => {
   });
 
   it('navigates to auth page with register tab when register button is clicked', async () => {
-    jest.spyOn(require('@/contexts/AuthContext'), 'useAuth').mockImplementation(() => ({
+    jest.spyOn(AuthContext, 'useAuth').mockImplementation(() => ({
       user: null,
       logout: jest.fn(),
       isAuthenticated: false,
+      isLoading: false,
+      login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     }));
 
     await renderWithRouter(<UserNav />);
