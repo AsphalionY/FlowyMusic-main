@@ -3,14 +3,22 @@ import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, jest } from '@jest/globals';
 
 // Mock AuthContext
+type User = {
+  id: string;
+  username: string;
+  email: string;
+  profileImage?: string;
+  bio?: string;
+};
+
 interface AuthContextType {
-  user: { id: string; username: string; email: string } | null;
+  user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   register: (email: string, password: string, username: string) => Promise<boolean>;
   logout: () => void;
-  updateProfile: (profileData: any) => Promise<boolean>;
+  updateProfile: (profileData: Partial<User>) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,7 +39,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(false)),
     register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(false)),
     logout: jest.fn(),
-    updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(false)),
+    updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(false)),
   };
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;

@@ -5,6 +5,16 @@ import '@testing-library/jest-dom';
 import App from '../App';
 import * as authContext from '@/contexts/AuthContext';
 
+// Définition du type User pour les tests
+type User = {
+  id: string;
+  username: string;
+  email: string;
+  profileImage?: string;
+  createdAt: string;
+  bio?: string;
+};
+
 // Mock the components that use browser APIs
 jest.mock('@/components/ui/sonner', () => ({
   Toaster: () => null,
@@ -23,7 +33,7 @@ jest.mock('@/contexts/AuthContext', () => ({
     login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     logout: jest.fn(),
-    updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+    updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
   }),
 }));
 
@@ -80,7 +90,7 @@ describe('App', () => {
       login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
       register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
       logout: jest.fn(),
-      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     };
 
     jest.spyOn(authContext, 'useAuth').mockImplementation(() => mockAuth);

@@ -24,7 +24,8 @@ const Command = React.forwardRef<React.ElementRef<typeof CommandPrimitive>, Comm
 );
 Command.displayName = CommandPrimitive.displayName;
 
-interface CommandDialogProps extends DialogProps {}
+// Utiliser directement le type parent au lieu de créer une interface vide
+type CommandDialogProps = DialogProps;
 
 const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (

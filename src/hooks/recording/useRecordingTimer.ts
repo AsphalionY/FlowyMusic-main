@@ -4,9 +4,22 @@ export const useRecordingTimer = () => {
   const [recordingTime, setRecordingTime] = useState(0);
   const timerRef = useRef<number | null>(null);
 
+  // Déclarer une référence à la fonction stopTimer pour éviter les références circulaires
+  const stopTimerRef = useRef(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  });
+
+  // Définir stopTimer en utilisant la référence
+  const stopTimer = useCallback(() => {
+    stopTimerRef.current();
+  }, []);
+
   const startTimer = useCallback(() => {
     // Clear any existing timer first
-    stopTimer();
+    stopTimerRef.current();
 
     // Reset recording time
     setRecordingTime(0);
@@ -15,14 +28,9 @@ export const useRecordingTimer = () => {
     timerRef.current = window.setInterval(() => {
       setRecordingTime(prev => prev + 1);
     }, 1000);
-  }, []);
+  }, [setRecordingTime, stopTimerRef]);
 
-  const stopTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
+  // La fonction stopTimer est définie plus haut
 
   const formatTime = useCallback((seconds: number) => {
     const mins = Math.floor(seconds / 60);

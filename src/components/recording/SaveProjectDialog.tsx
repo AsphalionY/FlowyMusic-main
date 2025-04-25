@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Music, Loader2, ListMusic, Share2 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { ToggleGroupSingle, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 interface SaveProjectDialogProps {
   open: boolean;
@@ -77,8 +77,7 @@ const SaveProjectDialog = ({
               <Music className="h-4 w-4 text-primary" />
               Style musical
             </Label>
-            <ToggleGroup
-              type="single"
+            <ToggleGroupSingle
               value={selectedStyle}
               onValueChange={setSelectedStyle}
               className="flex flex-wrap gap-2"
@@ -94,7 +93,7 @@ const SaveProjectDialog = ({
                   {style}
                 </ToggleGroupItem>
               ))}
-            </ToggleGroup>
+            </ToggleGroupSingle>
           </div>
 
           <div className="grid gap-3">
@@ -102,8 +101,7 @@ const SaveProjectDialog = ({
               <ListMusic className="h-4 w-4 text-primary" />
               Composition musicale
             </Label>
-            <ToggleGroup
-              type="single"
+            <ToggleGroupSingle
               value={selectedComposition}
               onValueChange={setSelectedComposition}
               className="flex flex-wrap gap-2"
@@ -119,7 +117,7 @@ const SaveProjectDialog = ({
                   {type}
                 </ToggleGroupItem>
               ))}
-            </ToggleGroup>
+            </ToggleGroupSingle>
           </div>
 
           <div className="flex items-center space-x-2">

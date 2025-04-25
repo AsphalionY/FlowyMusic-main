@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { toast } from 'sonner';
 import { useAudioResources } from './useAudioResources';
 import { useRecordingTimer } from './useRecordingTimer';
@@ -30,14 +30,51 @@ export const useRecorder = ({ onTrackAdded }: UseRecorderOptions) => {
     recordingTime,
   });
 
+  // Déclarer une référence à la fonction stopRecording pour éviter les références circulaires
+  const stopRecordingRef = useRef<() => void>(() => {});
+  
+  // Utiliser useRef pour stocker les fonctions de nettoyage et éviter les références circulaires
+  const cleanupRef = useRef(() => {
+    if (isRecording) {
+      stopRecordingRef.current();
+    }
+    cleanupAudioResources();
+  });
+
+  // Définir stopRecording en utilisant la référence
+  const stopRecording = useCallback(() => {
+    if (!isRecording) return;
+
+    stopMediaRecording();
+    stopTimer();
+    setIsRecording(false);
+    setIsPaused(false);
+
+    setTimeout(() => {
+      cleanupAudioResources();
+    }, 500);
+  }, [isRecording, stopMediaRecording, stopTimer, cleanupAudioResources]);
+
+  // Mettre à jour les références quand les dépendances changent
   useEffect(() => {
-    return () => {
+    stopRecordingRef.current = stopRecording;
+  }, [stopRecording]);
+  
+  useEffect(() => {
+    cleanupRef.current = () => {
       if (isRecording) {
-        stopRecording();
+        stopRecordingRef.current();
       }
       cleanupAudioResources();
     };
-  }, [isRecording]);
+  }, [isRecording, cleanupAudioResources]);
+
+  // Utiliser la référence dans le hook de nettoyage
+  useEffect(() => {
+    return () => {
+      cleanupRef.current();
+    };
+  }, [cleanupRef]);
 
   const startRecording = useCallback(async () => {
     if (isInitializing || isRecording) {
@@ -93,18 +130,7 @@ export const useRecorder = ({ onTrackAdded }: UseRecorderOptions) => {
     }
   }, [isRecording, pauseMediaRecording, startTimer, stopTimer]);
 
-  const stopRecording = useCallback(() => {
-    if (!isRecording) return;
-
-    stopMediaRecording();
-    stopTimer();
-    setIsRecording(false);
-    setIsPaused(false);
-
-    setTimeout(() => {
-      cleanupAudioResources();
-    }, 500);
-  }, [isRecording, stopMediaRecording, stopTimer, cleanupAudioResources]);
+  // La fonction stopRecording est définie plus haut
 
   return {
     isRecording,

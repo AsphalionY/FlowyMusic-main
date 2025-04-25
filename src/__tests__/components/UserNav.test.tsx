@@ -4,6 +4,16 @@ import { describe, it, expect, jest } from '@jest/globals';
 import UserNav from '@/components/UserNav';
 import * as AuthContext from '@/contexts/AuthContext';
 
+// Définition du type User pour les tests
+type User = {
+  id: string;
+  username: string;
+  email: string;
+  profileImage?: string;
+  createdAt: string;
+  bio?: string;
+};
+
 // Mock useAuth hook
 jest.mock('@/contexts/AuthContext', () => ({
   useAuth: () => ({
@@ -19,7 +29,7 @@ jest.mock('@/contexts/AuthContext', () => ({
     isLoading: false,
     login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
-    updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+    updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
   }),
 }));
 
@@ -53,7 +63,7 @@ describe('UserNav Component', () => {
       isLoading: false,
       login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
       register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
-      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     }));
 
     await renderWithRouter(<UserNav />);
@@ -70,7 +80,7 @@ describe('UserNav Component', () => {
       isLoading: false,
       login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
       register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
-      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     }));
 
     await renderWithRouter(<UserNav />);
@@ -88,7 +98,7 @@ describe('UserNav Component', () => {
       isLoading: false,
       login: jest.fn<(email: string, password: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
       register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
-      updateProfile: jest.fn<(profileData: any) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
+      updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(true)),
     }));
 
     await renderWithRouter(<UserNav />);

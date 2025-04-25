@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Music } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SaveProjectDialog from './SaveProjectDialog';
+import { MusicTrackType } from '@/hooks/recording-utils/types';
 
 interface ProjectControlsProps {
   projectTitle: string;
   setProjectTitle: (title: string) => void;
   handleSaveProject: () => void;
   isSaving: boolean;
-  musicTracks: any[];
+  musicTracks: MusicTrackType[];
 }
 
 const ProjectControls = ({
