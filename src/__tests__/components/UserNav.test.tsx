@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, it, expect, jest } from '@jest/globals';
 import UserNav from '@/components/UserNav';
-import * as AuthContext from '@/contexts/AuthContext';
+import * as AuthContext from '@/contexts';
 
 // Définition du type User pour les tests
 type User = {
@@ -15,7 +15,7 @@ type User = {
 };
 
 // Mock useAuth hook
-jest.mock('@/contexts/AuthContext', () => ({
+jest.mock('@/contexts', () => ({
   useAuth: () => ({
     user: {
       id: '123',

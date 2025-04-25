@@ -10,7 +10,7 @@ import Playlist from '@/components/Playlist';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Music, Search, Mic, ListMusic, FilePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts';
 
 const Index = () => {
   const navigate = useNavigate();

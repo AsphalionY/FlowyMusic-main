@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, jest } from '@jest/globals';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider } from '@/contexts';
 import Index from '@/pages/Index';
 
 // Mock the components that use browser APIs

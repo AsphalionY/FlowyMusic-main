@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect, jest } from '@jest/globals';
 import '@testing-library/jest-dom';
 import App from '../App';
-import * as authContext from '@/contexts/AuthContext';
+import * as authContext from '@/contexts';
 
 // Définition du type User pour les tests
 type User = {
@@ -25,7 +25,7 @@ jest.mock('@/hooks/use-mobile', () => ({
 }));
 
 // Mock the authentication context
-jest.mock('@/contexts/AuthContext', () => ({
+jest.mock('@/contexts', () => ({
   useAuth: () => ({
     user: null,
     isAuthenticated: false,

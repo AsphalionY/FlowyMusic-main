@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Play,
@@ -44,7 +44,7 @@ export interface Track {
   audioUrl?: string; // URL or base64 encoded audio
 }
 
-const MusicPlayer = ({ className }: MusicPlayerProps) => {
+const MusicPlayer = ({ className, currentTrack }: MusicPlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(80);
@@ -52,6 +52,28 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [waveformReady, setWaveformReady] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Définir updateProgress avec useCallback pour éviter qu'elle soit recréée à chaque rendu
+  const updateProgress = useCallback(() => {
+    if (audioRef.current) {
+      const currentSeconds = audioRef.current.currentTime;
+      const duration = audioRef.current.duration;
+
+      if (duration) {
+        // Mettre à jour la progression en pourcentage
+        setProgress((currentSeconds / duration) * 100);
+      }
+    }
+  }, [setProgress]);
+
+  // Définir handleTrackEnd avec useCallback pour éviter qu'elle soit recréée à chaque rendu
+  const handleTrackEnd = useCallback(() => {
+    setIsPlaying(false);
+    setProgress(0);
+
+    // Ici on pourrait ajouter une logique pour passer à la piste suivante
+    // si nous avions une file d'attente
+  }, [setIsPlaying, setProgress]);
 
   useEffect(() => {
     // Créer l'élément audio
@@ -75,7 +97,7 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
         audioRef.current = null;
       }
     };
-  }, []);
+  }, [isPlaying, updateProgress, handleTrackEnd]);
 
   // Make the player available globally for the bot to control
   useEffect(() => {
@@ -138,28 +160,6 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
     setIsPlaying(!isPlaying);
   };
 
-  const updateProgress = () => {
-    if (audioRef.current) {
-      const currentSeconds = audioRef.current.currentTime;
-      const duration = audioRef.current.duration;
-
-      if (duration) {
-        // Mettre à jour la progression en pourcentage
-        setProgress((currentSeconds / duration) * 100);
-
-        // Pas besoin de mettre à jour l'affichage du temps car currentTime a été supprimé
-      }
-    }
-  };
-
-  const handleTrackEnd = () => {
-    setIsPlaying(false);
-    setProgress(0);
-
-    // Ici on pourrait ajouter une logique pour passer à la piste suivante
-    // si nous avions une file d'attente
-  };
-
   const handleSeek = (value: number[]) => {
     if (audioRef.current) {
       const newTime = (value[0] / 100) * audioRef.current.duration;
@@ -203,6 +203,15 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
   const handleWaveformReady = () => {
     setWaveformReady(true);
   };
+
+  // Charger l'URL audio de currentTrack lorsque la prop change
+  useEffect(() => {
+    if (currentTrack?.audioUrl && audioRef.current) {
+      audioRef.current.src = currentTrack.audioUrl;
+      audioRef.current.load();
+      setWaveformReady(false);
+    }
+  }, [currentTrack]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -253,15 +262,15 @@ const MusicPlayer = ({ className }: MusicPlayerProps) => {
                 transition={{ duration: 0.2 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  src={currentTrack?.coverArt || "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                   alt="Album cover"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
 
               <div className="hidden sm:block">
-                <h4 className="font-medium text-sm line-clamp-1">Titre de la musique</h4>
-                <p className="text-xs text-muted-foreground">Artiste</p>
+                <h4 className="font-medium text-sm line-clamp-1">{currentTrack?.title || "Titre de la musique"}</h4>
+                <p className="text-xs text-muted-foreground">{currentTrack?.artist || "Artiste"}</p>
               </div>
             </div>
 

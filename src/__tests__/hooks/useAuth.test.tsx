@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, useMemo } from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, jest } from '@jest/globals';
 
@@ -32,7 +32,8 @@ const useAuth = (): AuthContextType => {
 };
 
 const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const authValue: AuthContextType = {
+  // Utiliser useMemo pour éviter de recréer l'objet à chaque rendu
+  const authValue = useMemo<AuthContextType>(() => ({
     user: null,
     isLoading: false,
     isAuthenticated: false,
@@ -40,7 +41,7 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     register: jest.fn<(email: string, password: string, username: string) => Promise<boolean>>().mockImplementation(() => Promise.resolve(false)),
     logout: jest.fn(),
     updateProfile: jest.fn<(profileData: Partial<User>) => Promise<boolean>>().mockImplementation(() => Promise.resolve(false)),
-  };
+  }), []);
 
   return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 };
@@ -67,10 +68,14 @@ describe('useAuth Hook', () => {
 
     const { result } = renderHook(() => useAuth(), { wrapper });
 
-    await act(async () => {
-      const success = await result.current.login('test@example.com', 'password123');
-      expect(success).toBe(false); // Should be false as credentials are not valid
+    // Utiliser act sans await pour éviter la signature obsolète
+    act(() => {
+      // Appeler login sans await
+      result.current.login('test@example.com', 'password123');
     });
+    
+    // Attendre que la promesse soit résolue
+    await expect(result.current.login('test@example.com', 'password123')).resolves.toBe(false);
 
     expect(result.current.isAuthenticated).toBe(false);
   });

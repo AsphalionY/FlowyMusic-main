@@ -145,7 +145,7 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
         wavesurfer.current.destroy();
       }
     };
-  }, [audioUrl, hideControls, isHovering, onReady, onPlay, onPause, onFinish]);
+  }, [audioUrl, hideControls, isHovering, onReady, onPlay, onPause, onFinish, height, onSeek, progressColor, waveColor]);
 
   return (
     <div className={cn('relative', className)}>

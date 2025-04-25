@@ -6,8 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts';
 import { toast } from 'sonner';
+import { MusicCategory } from '@/types/music';
 
 interface PlaylistProps {
   className?: string;
@@ -263,7 +264,7 @@ const Playlist = ({ className }: PlaylistProps) => {
             </p>
             <div className="flex gap-2 mt-2">
               {user?.preferredCategories && user.preferredCategories.length > 0 ? (
-                user.preferredCategories.slice(0, 3).map(category => (
+                user.preferredCategories.slice(0, 3).map((category: MusicCategory) => (
                   <span
                     key={`category-${category}`}
                     className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full"

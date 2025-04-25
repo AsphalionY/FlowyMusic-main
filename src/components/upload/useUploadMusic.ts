@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts';
 import { addSharedMusic, fileToBase64, calculateAudioDuration } from '@/services/musicService';
 
 export const useUploadMusic = () => {
@@ -117,11 +117,11 @@ export const useUploadMusic = () => {
             artist: newMusic.artist,
             duration: newMusic.duration,
             coverArt: newMusic.coverArt ?? '',
-            audioUrl: audioBase64, // Ajout de la propriété manquante
-            uploadDate: new Date(), // Ajout de la propriété manquante
-            uploadedBy: user?.id || 'anonymous', // Ajout de la propriété manquante
-            uploadedByName: user?.username || 'Utilisateur anonyme', // Ajout de la propriété manquante
-            plays: 0 // Ajout de la propriété manquante
+            audioUrl: audioBase64,
+            uploadDate: new Date(),
+            uploadedBy: user?.id || 'anonymous', 
+            uploadedByName: user?.username || 'Utilisateur anonyme',
+            plays: 0 
           });
         }
       }, 500);

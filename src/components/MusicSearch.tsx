@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Play, Plus, Clock, X, Check, User, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -30,6 +30,17 @@ const MusicSearch = ({ onSearch, onSelect, isLoading = false }: MusicSearchProps
   const [selectedTracks, setSelectedTracks] = useState<string[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
 
+  // Définir performSearch avec useCallback pour éviter qu'elle soit recréée à chaque rendu
+  const performSearch = useCallback(() => {
+    setIsSearching(true);
+    setHasSearched(true);
+
+    // Utiliser le service de recherche
+    const results = searchMusic(searchQuery);
+    setSearchResults(results);
+    setIsSearching(false);
+  }, [searchQuery, setIsSearching, setHasSearched, setSearchResults]);
+
   // Effectuer une recherche lorsque l'utilisateur tape
   useEffect(() => {
     const searchTimer = setTimeout(() => {
@@ -44,17 +55,7 @@ const MusicSearch = ({ onSearch, onSelect, isLoading = false }: MusicSearchProps
     }, 300);
 
     return () => clearTimeout(searchTimer);
-  }, [searchQuery, onSearch]);
-
-  const performSearch = () => {
-    setIsSearching(true);
-    setHasSearched(true);
-
-    // Utiliser le service de recherche
-    const results = searchMusic(searchQuery);
-    setSearchResults(results);
-    setIsSearching(false);
-  };
+  }, [searchQuery, onSearch, performSearch]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

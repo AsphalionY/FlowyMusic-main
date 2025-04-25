@@ -10,7 +10,7 @@ import Auth from './pages/Auth';
 import Profile from './pages/Profile';
 import CreateProfile from './pages/CreateProfile';
 import SharedMusic from './pages/SharedMusic';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './contexts';
 
 const queryClient = new QueryClient();
 

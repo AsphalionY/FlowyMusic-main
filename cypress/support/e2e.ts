@@ -1,24 +1,12 @@
-/// <reference types="cypress" />
-/// <reference types="@testing-library/cypress" />
-/// <reference types="cypress-axe" />
-/// <reference types="cypress-file-upload" />
-
+// Import des types Cypress
+import 'cypress';
+import '@testing-library/cypress';
 import '@testing-library/cypress/add-commands';
 import 'cypress-axe';
 import 'cypress-file-upload';
 import '@cypress/code-coverage/support';
 
-declare global {
-  namespace Cypress {
-    interface Chainable {
-      /**
-       * Custom command to login to the application
-       * @example cy.login('email@example.com', 'password123')
-       */
-      login(email: string, password: string): Chainable<void>
-    }
-  }
-}
+// Les types personnalisés sont définis dans cypress.d.ts
 
 // Add custom command implementation
 Cypress.Commands.add('login', (email: string, password: string) => {
