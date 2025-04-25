@@ -1,4 +1,3 @@
-
 export interface MusicTrackType {
   id: string;
   name: string;

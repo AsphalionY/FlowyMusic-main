@@ -1,9 +1,8 @@
-
 interface Window {
   musicPlayer?: {
     play: () => void;
     pause: () => void;
-    playTrack: (track: { 
+    playTrack: (track: {
       id: string;
       title: string;
       artist: string;

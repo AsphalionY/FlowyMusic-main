@@ -148,8 +148,8 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
   }, [audioUrl, hideControls, isHovering, onReady, onPlay, onPause, onFinish]);
 
   return (
-    <div className={cn("relative", className)}>
-      <button 
+    <div className={cn('relative', className)}>
+      <button
         type="button"
         className="w-full p-0 m-0 bg-transparent border-0"
         style={{ cursor: isHovering ? 'pointer' : 'default' }}
@@ -162,10 +162,7 @@ const WaveformPlayer: React.FC<WaveformPlayerProps> = ({
           }
         }}
       >
-        <div 
-          ref={waveformRef} 
-          className="w-full"
-        ></div>
+        <div ref={waveformRef} className="w-full"></div>
       </button>
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center">

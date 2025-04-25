@@ -36,9 +36,9 @@ const Profile = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -47,11 +47,11 @@ const Profile = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   if (isLoading || !user) {
@@ -64,18 +64,18 @@ const Profile = () => {
     );
   }
 
-  const formattedDate = user.createdAt 
+  const formattedDate = user.createdAt
     ? format(new Date(user.createdAt), 'MMMM yyyy', { locale: fr })
     : '';
 
-  const categoryLabels: {[key: string]: string} = {
-    'rap': 'Rap',
-    'rock': 'Rock',
-    'pop': 'Pop',
-    'electro': 'Électronique',
-    'jazz': 'Jazz',
-    'classique': 'Classique',
-    'autre': 'Autre'
+  const categoryLabels: { [key: string]: string } = {
+    rap: 'Rap',
+    rock: 'Rock',
+    pop: 'Pop',
+    electro: 'Électronique',
+    jazz: 'Jazz',
+    classique: 'Classique',
+    autre: 'Autre',
   };
 
   return (
@@ -102,11 +102,11 @@ const Profile = () => {
               <TabsTrigger value="favorites">Mes favoris</TabsTrigger>
               <TabsTrigger value="about">À propos</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="tracks">
               <UserMusicLibrary />
             </TabsContent>
-            
+
             <TabsContent value="favorites">
               <div className="bg-white/50 backdrop-blur-sm rounded-lg border border-border p-6 text-center">
                 <Music className="h-12 w-12 mx-auto text-muted-foreground/50" />
@@ -119,9 +119,9 @@ const Profile = () => {
                 </Button>
               </div>
             </TabsContent>
-            
+
             <TabsContent value="about">
-              <ProfileAbout 
+              <ProfileAbout
                 user={user}
                 formattedDate={formattedDate}
                 categoryLabels={categoryLabels}

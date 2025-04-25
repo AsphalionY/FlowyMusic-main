@@ -18,96 +18,96 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
   const [projectTitle, setProjectTitle] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
-  const { 
-    isRecording, 
-    isPaused, 
-    recordingTime, 
-    micPermissionError, 
-    formatTime, 
-    startRecording, 
-    pauseRecording, 
+  const {
+    isRecording,
+    isPaused,
+    recordingTime,
+    micPermissionError,
+    formatTime,
+    startRecording,
+    pauseRecording,
     stopRecording,
-    isInitializing
+    isInitializing,
   } = useRecorder({
-    onTrackAdded: (newTrack) => {
-      setMusicTracks((prev) => [...prev, newTrack]);
-    }
+    onTrackAdded: newTrack => {
+      setMusicTracks(prev => [...prev, newTrack]);
+    },
   });
-  
+
   useEffect(() => {
     setActiveTab(activeInstrument);
   }, [activeInstrument]);
-  
+
   const handleRemoveTrack = (id: string) => {
-    setMusicTracks((prev) => prev.filter(track => track.id !== id));
+    setMusicTracks(prev => prev.filter(track => track.id !== id));
   };
-  
+
   const handleRenameTrack = (id: string, newName: string) => {
-    setMusicTracks((prev) => 
-      prev.map(track => track.id === id ? { ...track, name: newName } : track)
+    setMusicTracks(prev =>
+      prev.map(track => (track.id === id ? { ...track, name: newName } : track))
     );
   };
-  
+
   const handleMusicImported = (audioBlob: Blob, fileName: string) => {
     const newTrack: MusicTrackType = {
       id: Math.random().toString(36).substring(2, 11),
-      name: fileName.replace(/\.[^/.]+$/, "") ?? `Imported ${musicTracks.length + 1}`,
+      name: fileName.replace(/\.[^/.]+$/, '') ?? `Imported ${musicTracks.length + 1}`,
       audioBlob,
       type: 'imported',
-      color: 'bg-gradient-to-r from-blue-500/70 to-green-500/70'
+      color: 'bg-gradient-to-r from-blue-500/70 to-green-500/70',
     };
-    
-    setMusicTracks((prev) => [...prev, newTrack]);
+
+    setMusicTracks(prev => [...prev, newTrack]);
     toast.success('Music imported', {
-      description: 'Your track has been added'
+      description: 'Your track has been added',
     });
   };
-  
+
   const handleSaveProject = () => {
     if (!projectTitle.trim()) {
       toast.error('Please add a title');
       return;
     }
-    
+
     if (musicTracks.length === 0) {
       toast.error('Your project has no tracks');
       return;
     }
-    
+
     setIsSaving(true);
     setTimeout(() => {
       setIsSaving(false);
       toast.success('Project saved', {
-        description: 'Your musical project has been added to your library.'
+        description: 'Your musical project has been added to your library.',
       });
       setMusicTracks([]);
       setProjectTitle('');
     }, 1500);
   };
-  
+
   const clearProject = () => {
     if (musicTracks.length === 0) return;
-    
+
     if (window.confirm('Are you sure you want to delete all tracks from this project?')) {
       setMusicTracks([]);
       toast.info('Project cleared', {
-        description: 'All tracks have been removed'
+        description: 'All tracks have been removed',
       });
     }
   };
 
   // Utiliser le hook pour détecter les tentatives de navigation
-  const { 
-    showDialog, 
-    confirmNavigation, 
-    saveAndNavigate, 
+  const {
+    showDialog,
+    confirmNavigation,
+    saveAndNavigate,
     cancelNavigation,
     enableNavigationBlocking,
-    navigateWithConfirmation
+    navigateWithConfirmation,
   } = useUnsavedChangesWarning({
-    onSave: handleSaveProject
+    onSave: handleSaveProject,
   });
-  
+
   // Activer le blocage de navigation si des pistes existent
   useEffect(() => {
     if (musicTracks.length > 0) {
@@ -120,7 +120,7 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
     const handleLinkClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const link = target.closest('a');
-      
+
       if (link && link.getAttribute('href')?.startsWith('/') && musicTracks.length > 0) {
         e.preventDefault();
         navigateWithConfirmation(link.getAttribute('href') ?? '/');
@@ -134,10 +134,12 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
   }, [musicTracks.length, navigateWithConfirmation]);
 
   return (
-    <div className={cn("max-w-5xl mx-auto", className)}>
+    <div className={cn('max-w-5xl mx-auto', className)}>
       <div className="mb-6">
         <h2 className="text-2xl font-semibold mb-2">Création</h2>
-        <p className="text-muted-foreground">Créez votre musique en enregistrant, important ou utilisant des instruments virtuels</p>
+        <p className="text-muted-foreground">
+          Créez votre musique en enregistrant, important ou utilisant des instruments virtuels
+        </p>
       </div>
 
       {/* Boîte de dialogue pour les changements non sauvegardés */}
@@ -148,15 +150,15 @@ const RecordMusic = ({ className, activeInstrument = 'recorder' }: RecordMusicPr
         onQuit={confirmNavigation}
       />
 
-      <ProjectControls 
+      <ProjectControls
         projectTitle={projectTitle}
         setProjectTitle={setProjectTitle}
         handleSaveProject={handleSaveProject}
         isSaving={isSaving}
         musicTracks={musicTracks}
       />
-      
-      <RecordingWorkspace 
+
+      <RecordingWorkspace
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         musicTracks={musicTracks}

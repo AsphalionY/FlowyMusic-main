@@ -9,7 +9,7 @@ declare global {
       toBeDisabled(): R;
       toHaveAttribute(attr: string, value?: string): R;
       toHaveClass(className: string): R;
-      toHaveStyle(style: Record<string, any>): R;
+      toHaveStyle(style: Record<string, string | number>): R;
       toBeEmpty(): R;
       toBeEmptyDOMElement(): R;
       toHaveFocus(): R;
@@ -26,8 +26,8 @@ declare global {
       toHaveDescription(text: string | RegExp): R;
       toHaveDisplayValue(value: string | string[]): R;
       toHaveErrorMessage(text: string | RegExp): R;
-      toHaveFormValues(values: Record<string, any>): R;
+      toHaveFormValues(values: Record<string, string | number | boolean>): R;
       toHaveValue(value: string | string[] | number): R;
     }
   }
-} 
+}

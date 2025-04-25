@@ -10,13 +10,13 @@ interface RecordButtonProps {
   stopRecording: () => void;
 }
 
-const RecordButton = ({ 
+const RecordButton = ({
   isRecording,
   isPaused,
   isInitializing = false,
   startRecording,
   pauseRecording,
-  stopRecording
+  stopRecording,
 }: RecordButtonProps) => {
   if (isInitializing) {
     return (
@@ -28,7 +28,7 @@ const RecordButton = ({
       </Button>
     );
   }
-  
+
   if (isRecording) {
     return (
       <div className="flex items-center gap-3">
@@ -39,7 +39,7 @@ const RecordButton = ({
         >
           {isPaused ? <Play className="h-5 w-5 ml-0.5" /> : <Square className="h-4 w-4" />}
         </Button>
-        
+
         <Button
           onClick={stopRecording}
           className="rounded-full h-14 w-14 flex items-center justify-center p-0 bg-red-500 hover:bg-red-600"
@@ -49,7 +49,7 @@ const RecordButton = ({
       </div>
     );
   }
-  
+
   return (
     <Button
       onClick={startRecording}

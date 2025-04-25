@@ -31,13 +31,10 @@ const exportKey = async (key: CryptoKey): Promise<string> => {
 
 const importKey = async (keyString: string): Promise<CryptoKey> => {
   const keyData = Uint8Array.from(atob(keyString), c => c.charCodeAt(0));
-  return await crypto.subtle.importKey(
-    'raw',
-    keyData,
-    { name: 'AES-GCM', length: 256 },
-    true,
-    ['encrypt', 'decrypt']
-  );
+  return await crypto.subtle.importKey('raw', keyData, { name: 'AES-GCM', length: 256 }, true, [
+    'encrypt',
+    'decrypt',
+  ]);
 };
 
 const encryptData = async (data: string, key: CryptoKey): Promise<string> => {
@@ -46,7 +43,7 @@ const encryptData = async (data: string, key: CryptoKey): Promise<string> => {
   const encrypted = await crypto.subtle.encrypt(
     {
       name: 'AES-GCM',
-      iv: iv
+      iv: iv,
     },
     key,
     encoder.encode(data)
@@ -61,7 +58,7 @@ const decryptData = async (encryptedData: string, key: CryptoKey): Promise<strin
   const decrypted = await crypto.subtle.decrypt(
     {
       name: 'AES-GCM',
-      iv: iv
+      iv: iv,
     },
     key,
     data
@@ -74,7 +71,7 @@ const separateSensitiveData = (userData: any) => {
   const { password, ...publicData } = userData;
   return {
     sensitiveData: { password },
-    publicData
+    publicData,
   };
 };
 
@@ -133,12 +130,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setUser(JSON.parse(storedUser));
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+        console.error("Erreur lors de la récupération de l'utilisateur:", error);
       } finally {
         setIsLoading(false);
       }
     };
-    
+
     checkAuth();
   }, []);
 
@@ -146,34 +143,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       const usersJSON = localStorage.getItem('harmonybot_users') ?? '[]';
       const users = JSON.parse(usersJSON);
-      
+
       const hashedPassword = await hashPassword(password);
       const foundUser = users.find((u: any) => u.email === email);
-      
+
       if (foundUser) {
         // Récupérer la clé de chiffrement
         const encryptionKey = await importKey(foundUser.encryptionKey);
-        
+
         // Déchiffrer le mot de passe stocké
         const decryptedPassword = await decryptData(foundUser.password, encryptionKey);
-        
+
         if (decryptedPassword === hashedPassword) {
           // Séparer les données sensibles et publiques
           const { publicData } = separateSensitiveData(foundUser);
-          
+
           // Ne stocker que les données publiques
           setUser(publicData);
           localStorage.setItem('harmonybot_user', JSON.stringify(publicData));
-          
+
           toast.success('Connexion réussie');
           setIsLoading(false);
           return true;
         }
       }
-      
+
       toast.error('Email ou mot de passe incorrect');
       setIsLoading(false);
       return false;
@@ -189,25 +186,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setIsLoading(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       const usersJSON = localStorage.getItem('harmonybot_users') ?? '[]';
       const users = JSON.parse(usersJSON);
-      
-      const userExists = users.some((u: any) => 
-        u.email === email || u.username === username
-      );
-      
+
+      const userExists = users.some((u: any) => u.email === email || u.username === username);
+
       if (userExists) {
-        toast.error('Un utilisateur avec cet email ou nom d\'utilisateur existe déjà');
+        toast.error("Un utilisateur avec cet email ou nom d'utilisateur existe déjà");
         setIsLoading(false);
         return false;
       }
-      
+
       const hashedPassword = await hashPassword(password);
       const encryptionKey = await generateKey();
       const keyString = await exportKey(encryptionKey);
       const secureId = await generateSecureId();
-      
+
       const newUser = {
         id: secureId,
         username,
@@ -217,33 +212,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         followers: 0,
         following: 0,
         tracks: 0,
-        preferredCategories: []
+        preferredCategories: [],
       };
-      
+
       // Séparer les données sensibles et publiques
       const { publicData } = separateSensitiveData(newUser);
-      
+
       // Chiffrer les données sensibles
       const encryptedPassword = await encryptData(newUser.password, encryptionKey);
-      
+
       // Stocker les données séparément
       const encryptedUsers = users.map((u: any) => {
         const { sensitiveData: uSensitive, publicData: uPublic } = separateSensitiveData(u);
         return { ...uPublic, password: uSensitive.password };
       });
-      
+
       encryptedUsers.push({ ...publicData, password: encryptedPassword, encryptionKey: keyString });
-      
+
       localStorage.setItem('harmonybot_users', JSON.stringify(encryptedUsers));
       setUser(publicData);
       localStorage.setItem('harmonybot_user', JSON.stringify(publicData));
-      
+
       toast.success('Inscription réussie');
       setIsLoading(false);
       return true;
     } catch (error) {
-      console.error('Erreur d\'inscription:', error);
-      toast.error('Erreur lors de l\'inscription');
+      console.error("Erreur d'inscription:", error);
+      toast.error("Erreur lors de l'inscription");
       setIsLoading(false);
       return false;
     }
@@ -257,21 +252,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateProfile = async (profileData: Partial<User>): Promise<boolean> => {
     if (!user) return false;
-    
+
     try {
       setIsLoading(true);
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Create updated user data
       const updatedUser = { ...user, ...profileData };
-      
+
       // Separate sensitive and public data
       const { publicData } = separateSensitiveData(updatedUser);
-      
+
       // Only store public data in user state and localStorage
       setUser(publicData);
       localStorage.setItem('harmonybot_user', JSON.stringify(publicData));
-      
+
       // Update users array while preserving sensitive data
       const usersJSON = localStorage.getItem('harmonybot_users') ?? '[]';
       const users = JSON.parse(usersJSON);
@@ -284,7 +279,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return u;
       });
       localStorage.setItem('harmonybot_users', JSON.stringify(updatedUsers));
-      
+
       toast.success('Profil mis à jour');
       setIsLoading(false);
       return true;
@@ -299,20 +294,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Mémoriser la valeur du contexte pour éviter des rendus inutiles
   const contextValue = useMemo(
     () => ({
-      user, 
-      isLoading, 
+      user,
+      isLoading,
       isAuthenticated: !!user,
-      login, 
-      register, 
+      login,
+      register,
       logout,
-      updateProfile
+      updateProfile,
     }),
     [user, isLoading, login, register, logout, updateProfile]
   );
 
-  return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };

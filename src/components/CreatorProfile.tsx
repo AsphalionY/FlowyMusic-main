@@ -7,7 +7,7 @@ interface CreatorProfileProps {
 
 const CreatorProfile = ({ className }: CreatorProfileProps) => {
   return (
-    <div className={cn("space-y-6", className)}>
+    <div className={cn('space-y-6', className)}>
       <div className="text-center py-8">
         <div className="mx-auto bg-secondary/30 w-16 h-16 rounded-full flex items-center justify-center mb-4">
           <Users className="h-8 w-8 text-muted-foreground" />

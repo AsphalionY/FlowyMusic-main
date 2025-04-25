@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import TracksList from './TracksList';
@@ -40,7 +39,7 @@ const RecordingWorkspace = ({
   startRecording,
   pauseRecording,
   stopRecording,
-  onMusicImported
+  onMusicImported,
 }: RecordingWorkspaceProps) => {
   return (
     <ResizablePanelGroup
@@ -48,19 +47,19 @@ const RecordingWorkspace = ({
       className="min-h-[600px] rounded-lg border neo-morphism"
     >
       <ResizablePanel defaultSize={30} minSize={20}>
-        <TracksList 
+        <TracksList
           musicTracks={musicTracks}
           handleRemoveTrack={handleRemoveTrack}
           handleRenameTrack={handleRenameTrack}
           clearProject={clearProject}
         />
       </ResizablePanel>
-      
+
       <ResizableHandle withHandle />
-      
+
       <ResizablePanel defaultSize={70}>
         <div className="h-full flex flex-col overflow-hidden bg-background/40 backdrop-blur-sm">
-          <RecordingTabs 
+          <RecordingTabs
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             isRecording={isRecording}

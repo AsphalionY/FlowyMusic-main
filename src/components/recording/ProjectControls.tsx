@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Music } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,15 +11,15 @@ interface ProjectControlsProps {
   musicTracks: any[];
 }
 
-const ProjectControls = ({ 
-  projectTitle, 
-  setProjectTitle, 
-  handleSaveProject, 
-  isSaving, 
-  musicTracks 
+const ProjectControls = ({
+  projectTitle,
+  setProjectTitle,
+  handleSaveProject,
+  isSaving,
+  musicTracks,
 }: ProjectControlsProps) => {
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
-  
+
   return (
     <>
       <div className="pt-4 flex">
@@ -33,8 +32,8 @@ const ProjectControls = ({
           Sauvegarder le projet
         </Button>
       </div>
-      
-      <SaveProjectDialog 
+
+      <SaveProjectDialog
         open={saveDialogOpen}
         onOpenChange={setSaveDialogOpen}
         projectTitle={projectTitle}

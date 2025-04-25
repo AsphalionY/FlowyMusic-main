@@ -6,16 +6,12 @@ import Layout from '@/components/Layout';
 // Mock UserNav component
 jest.mock('@/components/UserNav', () => ({
   __esModule: true,
-  default: () => <div data-testid="user-nav">UserNav</div>
+  default: () => <div data-testid="user-nav">UserNav</div>,
 }));
 
 describe('Layout Component', () => {
   const renderWithRouter = async (component: React.ReactNode) => {
-    return render(
-      <BrowserRouter>
-        {component}
-      </BrowserRouter>
-    );
+    return render(<BrowserRouter>{component}</BrowserRouter>);
   };
 
   it('renders the layout with children', async () => {
@@ -29,7 +25,11 @@ describe('Layout Component', () => {
   });
 
   it('renders the header with logo and navigation', async () => {
-    await renderWithRouter(<Layout><div>Test</div></Layout>);
+    await renderWithRouter(
+      <Layout>
+        <div>Test</div>
+      </Layout>
+    );
 
     expect(screen.getByText('Flowy')).toBeInTheDocument();
     expect(screen.getByText('Music Creation')).toBeInTheDocument();
@@ -37,10 +37,14 @@ describe('Layout Component', () => {
   });
 
   it('renders the library link in header', async () => {
-    await renderWithRouter(<Layout><div>Test</div></Layout>);
+    await renderWithRouter(
+      <Layout>
+        <div>Test</div>
+      </Layout>
+    );
 
     const libraryLink = screen.getByText('Bibliothèque');
     expect(libraryLink).toBeInTheDocument();
     expect(libraryLink.closest('a')).toHaveAttribute('href', '/shared-music');
   });
-}); 
+});

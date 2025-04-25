@@ -18,4 +18,4 @@ describe('formatTime', () => {
     expect(formatTime(30.5)).toBe('0:30');
     expect(formatTime(60.7)).toBe('1:00');
   });
-}); 
+});

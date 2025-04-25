@@ -27,7 +27,7 @@ describe('DrumPad Component', () => {
 
   it('renders drum pads', () => {
     render(<DrumPad drumSounds={mockDrumSounds} />);
-    
+
     mockDrumSounds.forEach(sound => {
       expect(screen.getByText(sound.name)).toBeInTheDocument();
       expect(screen.getByText(sound.key.toUpperCase())).toBeInTheDocument();
@@ -89,4 +89,4 @@ describe('DrumPad Component', () => {
     unmount();
     expect(mockAudio.pause).toHaveBeenCalled();
   });
-}); 
+});

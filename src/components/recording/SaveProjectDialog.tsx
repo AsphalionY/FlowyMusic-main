@@ -6,13 +6,13 @@ import {
   DialogTitle,
   DialogFooter,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Music, Loader2, ListMusic, Share2 } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Music, Loader2, ListMusic, Share2 } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 interface SaveProjectDialogProps {
   open: boolean;
@@ -24,13 +24,18 @@ interface SaveProjectDialogProps {
 }
 
 const musicStyles = [
-  "Pop", "Rock", "Jazz", "Classique", "Hip-Hop", "Électronique", 
-  "R&B", "Folk", "Autre"
+  'Pop',
+  'Rock',
+  'Jazz',
+  'Classique',
+  'Hip-Hop',
+  'Électronique',
+  'R&B',
+  'Folk',
+  'Autre',
 ];
 
-const compositionTypes = [
-  "A cappella", "Instrumentale", "Mixte"
-];
+const compositionTypes = ['A cappella', 'Instrumentale', 'Mixte'];
 
 const SaveProjectDialog = ({
   open,
@@ -38,12 +43,11 @@ const SaveProjectDialog = ({
   projectTitle,
   setProjectTitle,
   isSaving,
-  onSave
+  onSave,
 }: SaveProjectDialogProps) => {
-
   // Initialisation des valeurs par défaut pour selectedStyle et selectedComposition
-  const [selectedStyle, setSelectedStyle] = useState<string>("Pop"); // Valeur par défaut
-  const [selectedComposition, setSelectedComposition] = useState<string>("A cappella"); // Valeur par défaut
+  const [selectedStyle, setSelectedStyle] = useState<string>('Pop'); // Valeur par défaut
+  const [selectedComposition, setSelectedComposition] = useState<string>('A cappella'); // Valeur par défaut
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -53,35 +57,33 @@ const SaveProjectDialog = ({
             <Music className="h-5 w-5" />
             Sauvegarder le projet
           </DialogTitle>
-          <DialogDescription>
-            Définissez les informations de votre projet musical
-          </DialogDescription>
+          <DialogDescription>Définissez les informations de votre projet musical</DialogDescription>
         </DialogHeader>
-        
+
         <div className="grid gap-6 py-4">
           <div className="grid gap-2">
             <Label htmlFor="title">Titre du projet</Label>
             <Input
               id="title"
-              value={projectTitle || ''}  // S'assurer que ce n'est jamais undefined
-              onChange={(e) => setProjectTitle(e.target.value)}
+              value={projectTitle || ''} // S'assurer que ce n'est jamais undefined
+              onChange={e => setProjectTitle(e.target.value)}
               placeholder="Donnez un titre à votre création"
               className="col-span-3"
             />
           </div>
-          
+
           <div className="grid gap-3">
             <Label className="flex items-center gap-2">
               <Music className="h-4 w-4 text-primary" />
               Style musical
             </Label>
-            <ToggleGroup 
-              type="single" 
-              value={selectedStyle} 
+            <ToggleGroup
+              type="single"
+              value={selectedStyle}
               onValueChange={setSelectedStyle}
               className="flex flex-wrap gap-2"
             >
-              {musicStyles.map((style) => (
+              {musicStyles.map(style => (
                 <ToggleGroupItem
                   key={style}
                   value={style}
@@ -94,19 +96,19 @@ const SaveProjectDialog = ({
               ))}
             </ToggleGroup>
           </div>
-          
+
           <div className="grid gap-3">
             <Label className="flex items-center gap-2">
               <ListMusic className="h-4 w-4 text-primary" />
               Composition musicale
             </Label>
-            <ToggleGroup 
-              type="single" 
-              value={selectedComposition} 
+            <ToggleGroup
+              type="single"
+              value={selectedComposition}
               onValueChange={setSelectedComposition}
               className="flex flex-wrap gap-2"
             >
-              {compositionTypes.map((type) => (
+              {compositionTypes.map(type => (
                 <ToggleGroupItem
                   key={type}
                   value={type}
@@ -119,7 +121,7 @@ const SaveProjectDialog = ({
               ))}
             </ToggleGroup>
           </div>
-          
+
           <div className="flex items-center space-x-2">
             <Checkbox id="reuse" />
             <Label htmlFor="reuse" className="flex items-center gap-2">
@@ -128,11 +130,11 @@ const SaveProjectDialog = ({
             </Label>
           </div>
         </div>
-        
+
         <DialogFooter>
-          <Button 
-            onClick={onSave} 
-            className="w-full gap-2" 
+          <Button
+            onClick={onSave}
+            className="w-full gap-2"
             disabled={isSaving || !projectTitle || !selectedStyle || !selectedComposition}
           >
             {isSaving ? (

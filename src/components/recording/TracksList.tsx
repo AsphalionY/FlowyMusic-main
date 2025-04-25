@@ -17,11 +17,11 @@ interface TracksListProps {
   clearProject: () => void;
 }
 
-const TracksList = ({ 
-  musicTracks, 
-  handleRemoveTrack, 
+const TracksList = ({
+  musicTracks,
+  handleRemoveTrack,
   handleRenameTrack,
-  clearProject 
+  clearProject,
 }: TracksListProps) => {
   const [tracks, setTracks] = useState(musicTracks);
 
@@ -34,7 +34,7 @@ const TracksList = ({
   const moveTrackUp = (id: string) => {
     const index = tracks.findIndex(track => track.id === id);
     if (index <= 0) return;
-    
+
     const newTracks = [...tracks];
     const temp = newTracks[index];
     newTracks[index] = newTracks[index - 1];
@@ -46,7 +46,7 @@ const TracksList = ({
   const moveTrackDown = (id: string) => {
     const index = tracks.findIndex(track => track.id === id);
     if (index === -1 || index >= tracks.length - 1) return;
-    
+
     const newTracks = [...tracks];
     const temp = newTracks[index];
     newTracks[index] = newTracks[index + 1];
@@ -61,7 +61,7 @@ const TracksList = ({
           <Layers className="h-4 w-4 text-primary" />
           Pistes
         </div>
-        
+
         {tracks.length > 0 && (
           <Button
             variant="ghost"
@@ -74,7 +74,7 @@ const TracksList = ({
           </Button>
         )}
       </div>
-      
+
       <div className="flex-1 overflow-y-auto overflow-x-hidden w-full pr-4">
         <div className="space-y-6 min-w-[300px] w-full">
           <AnimatePresence>
@@ -104,14 +104,12 @@ const TracksList = ({
                       isLast: index === tracks.length - 1,
                       position: index + 1,
                       moveUp: moveTrackUp,
-                      moveDown: moveTrackDown
+                      moveDown: moveTrackDown,
                     }}
                   />
-                  
+
                   {/* Séparation violette entre les pistes */}
-                  {index < tracks.length - 1 && (
-                    <div className="h-0.5 bg-primary/30 w-full mt-6" />
-                  )}
+                  {index < tracks.length - 1 && <div className="h-0.5 bg-primary/30 w-full mt-6" />}
                 </motion.div>
               ))
             )}

@@ -29,11 +29,11 @@ const ProfileHeader = ({ user, categoryLabels, onEditProfile, onLogout }: Profil
             {user.username.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        
+
         <div className="flex-grow text-center md:text-left">
           <h1 className="text-xl md:text-2xl font-bold">{user.username}</h1>
           <p className="text-muted-foreground mt-1 text-sm">{user.email}</p>
-          
+
           <div className="flex flex-wrap gap-4 mt-3 justify-center md:justify-start">
             <div className="text-center">
               <p className="text-lg font-semibold">{user.tracks ?? 0}</p>
@@ -49,7 +49,7 @@ const ProfileHeader = ({ user, categoryLabels, onEditProfile, onLogout }: Profil
             </div>
           </div>
         </div>
-        
+
         <div className="flex flex-row md:flex-col gap-2 mt-2 md:mt-0">
           <Button onClick={onEditProfile} variant="outline" size="sm">
             <Edit className="h-4 w-4 mr-2" />
@@ -61,17 +61,21 @@ const ProfileHeader = ({ user, categoryLabels, onEditProfile, onLogout }: Profil
           </Button>
         </div>
       </div>
-      
+
       {user.bio && (
         <div className="mt-4 px-0 md:px-4">
           <p className="text-sm text-muted-foreground">{user.bio}</p>
         </div>
       )}
-      
+
       {user.preferredCategories && user.preferredCategories.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-1.5">
-          {user.preferredCategories.map((category) => (
-            <Badge key={category} variant="outline" className="bg-primary/5 text-primary border-primary/30">
+          {user.preferredCategories.map(category => (
+            <Badge
+              key={category}
+              variant="outline"
+              className="bg-primary/5 text-primary border-primary/30"
+            >
               {categoryLabels[category] || category}
             </Badge>
           ))}

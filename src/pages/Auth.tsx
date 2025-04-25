@@ -21,20 +21,22 @@ import Layout from '@/components/Layout';
 
 // Login form schema
 const loginSchema = z.object({
-  email: z.string().email("Email invalide"),
-  password: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères"),
+  email: z.string().email('Email invalide'),
+  password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
 });
 
 // Register form schema
-const registerSchema = z.object({
-  username: z.string().min(3, "Le nom d'utilisateur doit contenir au moins 3 caractères"),
-  email: z.string().email("Email invalide"),
-  password: z.string().min(6, "Le mot de passe doit contenir au moins 6 caractères"),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Les mots de passe ne correspondent pas",
-  path: ["confirmPassword"],
-});
+const registerSchema = z
+  .object({
+    username: z.string().min(3, "Le nom d'utilisateur doit contenir au moins 3 caractères"),
+    email: z.string().email('Email invalide'),
+    password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
+    confirmPassword: z.string(),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Les mots de passe ne correspondent pas',
+    path: ['confirmPassword'],
+  });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 type RegisterFormValues = z.infer<typeof registerSchema>;
@@ -51,18 +53,18 @@ const Auth = () => {
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
   const registerForm = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
@@ -103,9 +105,9 @@ const Auth = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -114,11 +116,11 @@ const Auth = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   return (
@@ -133,19 +135,21 @@ const Auth = () => {
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/20">
             <Music className="h-8 w-8 text-white" />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Flowy</h1>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            Flowy
+          </h1>
           <p className="text-muted-foreground mt-2">Créez ou connectez-vous à votre compte</p>
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Tabs
-            value={activeTab}
-            onValueChange={setActiveTab}
-            className="w-full"
-          >
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid grid-cols-2 w-full mb-8 p-1 bg-secondary/30 rounded-xl">
-              <TabsTrigger value="login" className="rounded-lg">Connexion</TabsTrigger>
-              <TabsTrigger value="register" className="rounded-lg">Inscription</TabsTrigger>
+              <TabsTrigger value="login" className="rounded-lg">
+                Connexion
+              </TabsTrigger>
+              <TabsTrigger value="register" className="rounded-lg">
+                Inscription
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="login" className="space-y-4">
@@ -163,10 +167,10 @@ const Auth = () => {
                             Email
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              type="email" 
-                              placeholder="votre@email.com" 
-                              {...field} 
+                            <Input
+                              type="email"
+                              placeholder="votre@email.com"
+                              {...field}
                               data-testid="email-input"
                             />
                           </FormControl>
@@ -185,10 +189,10 @@ const Auth = () => {
                             Mot de passe
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              type="password" 
-                              placeholder="••••••••" 
-                              {...field} 
+                            <Input
+                              type="password"
+                              placeholder="••••••••"
+                              {...field}
                               data-testid="password-input"
                             />
                           </FormControl>
@@ -197,9 +201,9 @@ const Auth = () => {
                       )}
                     />
 
-                    <Button 
-                      type="submit" 
-                      className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90" 
+                    <Button
+                      type="submit"
+                      className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90"
                       disabled={isLoading}
                       data-testid="submit-login"
                     >
@@ -209,7 +213,7 @@ const Auth = () => {
                           Connexion en cours...
                         </>
                       ) : (
-                        "Se connecter"
+                        'Se connecter'
                       )}
                     </Button>
                   </form>
@@ -221,7 +225,10 @@ const Auth = () => {
               <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-white/40 p-6 shadow-subtle">
                 <h2 className="text-xl font-semibold mb-4">Créer un compte</h2>
                 <Form {...registerForm}>
-                  <form onSubmit={registerForm.handleSubmit(onRegisterSubmit)} className="space-y-4">
+                  <form
+                    onSubmit={registerForm.handleSubmit(onRegisterSubmit)}
+                    className="space-y-4"
+                  >
                     <FormField
                       control={registerForm.control}
                       name="username"
@@ -290,7 +297,11 @@ const Auth = () => {
                       )}
                     />
 
-                    <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90" disabled={isLoading}>
+                    <Button
+                      type="submit"
+                      className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90"
+                      disabled={isLoading}
+                    >
                       {isLoading ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />

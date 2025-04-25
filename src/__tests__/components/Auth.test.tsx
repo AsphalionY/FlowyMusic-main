@@ -16,7 +16,7 @@ describe('Auth Component', () => {
         <Auth />
       </AuthProvider>
     );
-    
+
     expect(screen.getByRole('tab', { name: /connexion/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /inscription/i })).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
@@ -37,4 +37,4 @@ describe('Auth Component', () => {
     expect(screen.getByLabelText(/nom d'utilisateur/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/confirmer le mot de passe/i)).toBeInTheDocument();
   });
-}); 
+});

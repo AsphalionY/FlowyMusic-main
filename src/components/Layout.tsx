@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
         <div className="wave-pattern absolute inset-x-0 h-40 bottom-0 opacity-70 rotate-180"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-300/10 via-transparent to-blue-300/10 animate-flow"></div>
       </div>
-      
+
       <header className="sticky top-0 z-30 w-full border-b border-white/20 bg-white/60 dark:bg-gray-900/60 backdrop-blur-xl">
         <div className="w-full flex h-16 items-center justify-between px-4">
           <Link to="/" className="flex items-center gap-2 group">
@@ -28,16 +28,18 @@ const Layout = ({ children }: LayoutProps) => {
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 animate-spin-slow"></div>
             </div>
             <div className="flex flex-col">
-              <span className="font-heading text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent leading-tight">Flowy</span>
+              <span className="font-heading text-xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent leading-tight">
+                Flowy
+              </span>
               <span className="text-xs text-muted-foreground leading-normal">Music Creation</span>
             </div>
           </Link>
-          
+
           <div className="flex items-center gap-2 md:gap-3">
             <Link to="/shared-music" className="hidden md:block">
-              <Button 
-                variant={location.pathname === "/shared-music" ? "default" : "outline"}
-                size="sm" 
+              <Button
+                variant={location.pathname === '/shared-music' ? 'default' : 'outline'}
+                size="sm"
                 className="md:flex items-center gap-1 text-xs rounded-full px-4 relative overflow-hidden group"
               >
                 <FileMusic className="h-4 w-4" />
@@ -46,16 +48,14 @@ const Layout = ({ children }: LayoutProps) => {
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-accent/80 opacity-0 group-hover:opacity-100 transition-opacity -z-0"></div>
               </Button>
             </Link>
-            
+
             <UserNav />
           </div>
         </div>
       </header>
-      
+
       <main className="flex-grow container py-6 md:py-8 px-4 md:px-6 lg:px-8 relative z-10 mx-auto w-full">
-        <div className="h-full">
-        {children}
-        </div>
+        <div className="h-full">{children}</div>
       </main>
     </div>
   );

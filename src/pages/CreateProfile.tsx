@@ -31,7 +31,7 @@ const musicCategories = [
 ];
 
 const profileSchema = z.object({
-  bio: z.string().max(300, "La biographie ne doit pas dépasser 300 caractères"),
+  bio: z.string().max(300, 'La biographie ne doit pas dépasser 300 caractères'),
   profileImage: z.string().optional(),
   preferredCategories: z.array(z.string()).optional(),
 });
@@ -44,7 +44,7 @@ const CreateProfile = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    user?.preferredCategories as string[] || []
+    (user?.preferredCategories as string[]) || []
   );
   const [customCategories, setCustomCategories] = useState<{ id: string; label: string }[]>([]);
   const [isEditingCategory, setIsEditingCategory] = useState<string | null>(null);
@@ -53,8 +53,8 @@ const CreateProfile = () => {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      bio: user?.bio ?? "",
-      profileImage: user?.profileImage ?? "",
+      bio: user?.bio ?? '',
+      profileImage: user?.profileImage ?? '',
       preferredCategories: user?.preferredCategories ?? [],
     },
   });
@@ -70,7 +70,7 @@ const CreateProfile = () => {
     const file = event.target.files?.[0];
     if (file) {
       setIsUploading(true);
-      
+
       // Délai de téléchargement
       setTimeout(() => {
         const reader = new FileReader();
@@ -93,11 +93,11 @@ const CreateProfile = () => {
         return [...prev, category];
       }
     });
-    
+
     const updatedCategories = selectedCategories.includes(category)
       ? selectedCategories.filter(c => c !== category)
       : [...selectedCategories, category];
-      
+
     form.setValue('preferredCategories', updatedCategories);
   };
 
@@ -124,9 +124,11 @@ const CreateProfile = () => {
 
   const saveCustomCategoryName = (id: string) => {
     if (newCategoryName.trim()) {
-      setCustomCategories(customCategories.map(cat => 
-        cat.id === id ? { ...cat, label: newCategoryName.trim() } : cat
-      ));
+      setCustomCategories(
+        customCategories.map(cat =>
+          cat.id === id ? { ...cat, label: newCategoryName.trim() } : cat
+        )
+      );
       setIsEditingCategory(null);
     }
   };
@@ -136,7 +138,7 @@ const CreateProfile = () => {
       ...data,
       preferredCategories: selectedCategories as MusicCategory[],
     };
-    
+
     if (await updateProfile(formData)) {
       toast.success('Profil mis à jour avec succès');
       navigate('/profile');
@@ -148,9 +150,9 @@ const CreateProfile = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -159,37 +161,35 @@ const CreateProfile = () => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   // Fonction pour valider et nettoyer les URLs d'images
   const sanitizeImageUrl = (url: string | undefined): string | null => {
     if (!url) return null;
-    
+
     // Accepter les URLs de données base64
     if (url.startsWith('data:image/')) {
       return url;
     }
-    
+
     try {
       // Vérifier que l'URL est valide
       const parsedUrl = new URL(url);
-      
+
       // Vérifier que c'est une URL d'image
       const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
-      const isImage = imageExtensions.some(ext => 
-        parsedUrl.pathname.toLowerCase().endsWith(ext)
-      );
-      
+      const isImage = imageExtensions.some(ext => parsedUrl.pathname.toLowerCase().endsWith(ext));
+
       if (!isImage) return null;
-      
+
       // Vérifier que le protocole est sécurisé
       if (parsedUrl.protocol !== 'https:') return null;
-      
+
       return url;
     } catch {
       return null;
@@ -216,7 +216,9 @@ const CreateProfile = () => {
       >
         <motion.div variants={itemVariants} className="text-center mb-6">
           <h1 className="text-2xl md:text-3xl font-bold">Votre profil</h1>
-          <p className="text-muted-foreground mt-2">Personnalisez votre profil et vos préférences</p>
+          <p className="text-muted-foreground mt-2">
+            Personnalisez votre profil et vos préférences
+          </p>
         </motion.div>
 
         <motion.div variants={itemVariants}>
@@ -225,10 +227,10 @@ const CreateProfile = () => {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <div className="text-center">
                   <div className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-4 overflow-hidden rounded-full bg-secondary relative">
-                    {(imagePreview || user?.profileImage) ? (
-                      <img 
-                        src={sanitizeImageUrl(imagePreview ?? user?.profileImage) ?? ''} 
-                        alt="Aperçu du profil" 
+                    {imagePreview || user?.profileImage ? (
+                      <img
+                        src={sanitizeImageUrl(imagePreview ?? user?.profileImage) ?? ''}
+                        alt="Aperçu du profil"
                         className="w-full h-full object-cover"
                         crossOrigin="anonymous"
                         loading="lazy"
@@ -240,17 +242,17 @@ const CreateProfile = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   <FormItem>
                     <FormLabel className="cursor-pointer">
                       <div className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80">
                         <Upload className="mr-2 h-4 w-4" />
                         Choisir une photo
                       </div>
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
                         onChange={handleImageChange}
                         disabled={isUploading}
                       />
@@ -265,15 +267,13 @@ const CreateProfile = () => {
                     <FormItem>
                       <FormLabel>Biographie</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="Parlez-nous un peu de vous et de votre musique..." 
+                        <Textarea
+                          placeholder="Parlez-nous un peu de vous et de votre musique..."
                           className="min-h-[100px]"
-                          {...field} 
+                          {...field}
                         />
                       </FormControl>
-                      <FormDescription>
-                        {field.value?.length || 0}/300 caractères
-                      </FormDescription>
+                      <FormDescription>{field.value?.length || 0}/300 caractères</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -282,13 +282,13 @@ const CreateProfile = () => {
                 <div className="space-y-3">
                   <FormLabel>Catégories musicales préférées</FormLabel>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                    {musicCategories.map((category) => (
+                    {musicCategories.map(category => (
                       <label
                         key={category.id}
                         className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors rounded-md cursor-pointer ${
                           selectedCategories.includes(category.id)
-                            ? "border border-primary text-secondary-foreground hover:bg-secondary/80"
-                            : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                            ? 'border border-primary text-secondary-foreground hover:bg-secondary/80'
+                            : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
                         }`}
                       >
                         <input
@@ -297,11 +297,13 @@ const CreateProfile = () => {
                           checked={selectedCategories.includes(category.id)}
                           onChange={() => handleCategoryToggle(category.id)}
                         />
-                        <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
-                          selectedCategories.includes(category.id)
-                            ? "border border-primary"
-                            : "border border-muted-foreground"
-                        } mr-2`}>
+                        <div
+                          className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
+                            selectedCategories.includes(category.id)
+                              ? 'border border-primary'
+                              : 'border border-muted-foreground'
+                          } mr-2`}
+                        >
                           {selectedCategories.includes(category.id) && (
                             <div className="h-2 w-2 rounded-full bg-primary" />
                           )}
@@ -309,54 +311,54 @@ const CreateProfile = () => {
                         <span className="text-sm">{category.label}</span>
                       </label>
                     ))}
-                    
+
                     {/* Catégories personnalisées */}
-                    {customCategories.map((category) => (
-                      <div 
+                    {customCategories.map(category => (
+                      <div
                         key={category.id}
                         className={`relative inline-flex items-center justify-between px-4 py-2 text-sm font-medium transition-colors rounded-md ${
                           selectedCategories.includes(category.id)
-                            ? "border border-primary text-secondary-foreground hover:bg-secondary/80"
-                            : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                            ? 'border border-primary text-secondary-foreground hover:bg-secondary/80'
+                            : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
                         }`}
                       >
                         {isEditingCategory === category.id ? (
                           <input
                             type="text"
                             value={newCategoryName}
-                            onChange={(e) => setNewCategoryName(e.target.value)}
+                            onChange={e => setNewCategoryName(e.target.value)}
                             className="w-full bg-transparent border-none focus:outline-none text-sm"
                             autoFocus
-                            onKeyDown={(e) => {
+                            onKeyDown={e => {
                               if (e.key === 'Enter') saveCustomCategoryName(category.id);
                               if (e.key === 'Escape') setIsEditingCategory(null);
                             }}
                             onBlur={() => saveCustomCategoryName(category.id)}
                           />
                         ) : (
-                          <label
-                            className="flex items-center w-full cursor-pointer"
-                          >
+                          <label className="flex items-center w-full cursor-pointer">
                             <input
                               type="checkbox"
                               className="sr-only"
                               checked={selectedCategories.includes(category.id)}
                               onChange={() => handleCategoryToggle(category.id)}
                             />
-                            <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
-                              selectedCategories.includes(category.id)
-                                ? "border border-primary"
-                                : "border border-muted-foreground"
-                            } mr-2`}>
+                            <div
+                              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
+                                selectedCategories.includes(category.id)
+                                  ? 'border border-primary'
+                                  : 'border border-muted-foreground'
+                              } mr-2`}
+                            >
                               {selectedCategories.includes(category.id) && (
                                 <div className="h-2 w-2 rounded-full bg-primary" />
                               )}
                             </div>
-                            <button 
+                            <button
                               type="button"
                               className="text-sm flex-grow truncate mr-2 text-left"
                               aria-label={`Modifier la catégorie ${category.label}`}
-                              onClick={(e) => {
+                              onClick={e => {
                                 e.stopPropagation();
                                 startEditingCategory(category.id, category.label);
                               }}
@@ -375,7 +377,7 @@ const CreateProfile = () => {
                         </button>
                       </div>
                     ))}
-                    
+
                     {/* Bouton pour ajouter une catégorie personnalisée */}
                     {customCategories.length < 3 && (
                       <button

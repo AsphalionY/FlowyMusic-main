@@ -44,7 +44,7 @@ describe('App', () => {
     render(<App />);
     const navigation = screen.getByRole('navigation');
     const createButton = screen.getByRole('button', { name: /commencer à créer/i });
-    
+
     expect(navigation).toBeTruthy();
     expect(createButton).toBeTruthy();
   });
@@ -52,17 +52,17 @@ describe('App', () => {
   it('handles user interactions', async () => {
     render(<App />);
     const user = userEvent.setup();
-    
+
     // Test the "Commencer à créer" button
     const createButton = screen.getByRole('button', { name: /commencer à créer/i });
     await user.click(createButton);
     expect(createButton).toBeTruthy();
-    
+
     // Test navigation tabs
     const discoverTab = screen.getByRole('tab', { name: /découvrir/i });
     const searchTab = screen.getByRole('tab', { name: /rechercher/i });
     const playlistTab = screen.getByRole('tab', { name: /playlist/i });
-    
+
     expect(discoverTab).toBeTruthy();
     expect(searchTab).toBeTruthy();
     expect(playlistTab).toBeTruthy();
@@ -75,12 +75,11 @@ describe('App', () => {
       login: jest.fn(),
       logout: jest.fn(),
     };
-    
-    jest.spyOn(require('@/contexts/auth-context'), 'useAuth')
-      .mockImplementation(() => mockAuth);
-    
+
+    jest.spyOn(require('@/contexts/auth-context'), 'useAuth').mockImplementation(() => mockAuth);
+
     render(<App />);
     const userElement = screen.getByText(/test user/i);
     expect(userElement).toBeTruthy();
   });
-}); 
+});

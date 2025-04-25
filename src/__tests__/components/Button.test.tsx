@@ -30,7 +30,7 @@ describe('Button Component', () => {
     expect(screen.getByText('Large')).toHaveClass('h-11');
   });
 
-  it('devrait gérer l\'état désactivé', () => {
+  it("devrait gérer l'état désactivé", () => {
     render(<Button disabled>Disabled</Button>);
     const button = screen.getByText('Disabled');
     expect(button).toBeDisabled();
@@ -41,4 +41,4 @@ describe('Button Component', () => {
     render(<Button className="custom-class">Custom</Button>);
     expect(screen.getByText('Custom')).toHaveClass('custom-class');
   });
-}); 
+});

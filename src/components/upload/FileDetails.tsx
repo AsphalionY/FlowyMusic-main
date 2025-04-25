@@ -1,4 +1,3 @@
-
 import { X, FileMusic, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -13,14 +12,14 @@ interface FileDetailsProps {
   username: string;
 }
 
-const FileDetails = ({ 
-  file, 
-  title, 
-  onTitleChange, 
-  onRemoveFile, 
-  isUploading, 
-  uploadProgress, 
-  username
+const FileDetails = ({
+  file,
+  title,
+  onTitleChange,
+  onRemoveFile,
+  isUploading,
+  uploadProgress,
+  username,
 }: FileDetailsProps) => {
   return (
     <div className="space-y-5">
@@ -28,19 +27,17 @@ const FileDetails = ({
         <div className="h-12 w-12 rounded-md bg-primary/10 flex items-center justify-center flex-shrink-0">
           <FileMusic className="h-6 w-6 text-primary" />
         </div>
-        
+
         <div className="ml-3 flex-grow">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium truncate max-w-[200px]">
-                {file.name}
-              </p>
+              <p className="text-sm font-medium truncate max-w-[200px]">{file.name}</p>
               <p className="text-xs text-muted-foreground">
                 {(file.size / (1024 * 1024)).toFixed(2)} MB
               </p>
             </div>
-            
-            <button 
+
+            <button
               type="button"
               onClick={onRemoveFile}
               className="text-muted-foreground hover:text-foreground"
@@ -49,11 +46,11 @@ const FileDetails = ({
               <X className="h-5 w-5" />
             </button>
           </div>
-          
+
           {isUploading && (
             <div className="mt-2">
               <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-primary transition-all duration-300 ease-out rounded-full"
                   style={{ width: `${uploadProgress}%` }}
                 />
@@ -66,7 +63,7 @@ const FileDetails = ({
           )}
         </div>
       </div>
-      
+
       <div className="space-y-3">
         <div>
           <label htmlFor="title" className="block text-sm font-medium mb-1.5">
@@ -76,7 +73,7 @@ const FileDetails = ({
             id="title"
             type="text"
             value={title}
-            onChange={(e) => onTitleChange(e.target.value)}
+            onChange={e => onTitleChange(e.target.value)}
             placeholder="Saisissez un titre"
             className="w-full"
             disabled={isUploading}
@@ -84,7 +81,7 @@ const FileDetails = ({
             data-testid="title-input"
           />
         </div>
-        
+
         <div>
           <label htmlFor="artist" className="block text-sm font-medium mb-1.5">
             Artiste
@@ -101,10 +98,10 @@ const FileDetails = ({
           </p>
         </div>
       </div>
-      
+
       <div className="pt-2">
-        <Button 
-          type="submit" 
+        <Button
+          type="submit"
           className="w-full rounded-lg h-11 font-medium"
           disabled={isUploading || !title.trim()}
           data-testid="submit-upload"

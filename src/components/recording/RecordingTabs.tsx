@@ -33,32 +33,31 @@ const RecordingTabs = ({
   startRecording,
   pauseRecording,
   stopRecording,
-  onMusicImported
+  onMusicImported,
 }: RecordingTabsProps) => {
-
   return (
     <div className="flex-1 flex flex-col h-full">
       <div className="px-4 pt-3 flex justify-center gap-2">
-        <Button 
-          variant={activeTab === "recorder" ? "default" : "outline"}
-          onClick={() => setActiveTab("recorder")}
+        <Button
+          variant={activeTab === 'recorder' ? 'default' : 'outline'}
+          onClick={() => setActiveTab('recorder')}
           className="gap-2"
         >
           <Mic className="h-4 w-4" />
           Enregistreur
         </Button>
-        <Button 
-          variant={activeTab === "import" ? "default" : "outline"}
-          onClick={() => setActiveTab("import")}
+        <Button
+          variant={activeTab === 'import' ? 'default' : 'outline'}
+          onClick={() => setActiveTab('import')}
           className="gap-2"
         >
           <Music className="h-4 w-4" />
           Importer
         </Button>
       </div>
-      
+
       <div className="flex-1 overflow-y-auto p-4">
-        {activeTab === "recorder" && (
+        {activeTab === 'recorder' && (
           <RecorderPanel
             isRecording={isRecording}
             isPaused={isPaused}
@@ -70,8 +69,8 @@ const RecordingTabs = ({
             stopRecording={stopRecording}
           />
         )}
-        
-        {activeTab === "import" && (
+
+        {activeTab === 'import' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

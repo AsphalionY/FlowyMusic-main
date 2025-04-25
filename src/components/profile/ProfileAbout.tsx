@@ -23,7 +23,7 @@ const ProfileAbout = ({ user, formattedDate, categoryLabels }: ProfileAboutProps
             <p className="text-muted-foreground">{user.username}</p>
           </div>
         </div>
-        
+
         <div className="flex items-start gap-3">
           <Calendar className="h-5 w-5 text-muted-foreground mt-0.5" />
           <div>
@@ -31,15 +31,19 @@ const ProfileAbout = ({ user, formattedDate, categoryLabels }: ProfileAboutProps
             <p className="text-muted-foreground">{formattedDate}</p>
           </div>
         </div>
-        
+
         {user.preferredCategories && user.preferredCategories.length > 0 && (
           <div className="flex items-start gap-3">
             <Tag className="h-5 w-5 text-muted-foreground mt-0.5" />
             <div>
               <p className="font-medium">Genres préférés</p>
               <div className="flex flex-wrap gap-1.5 mt-1">
-                {user.preferredCategories.map((category) => (
-                  <Badge key={category} variant="outline" className="bg-primary/5 text-primary border-primary/30">
+                {user.preferredCategories.map(category => (
+                  <Badge
+                    key={category}
+                    variant="outline"
+                    className="bg-primary/5 text-primary border-primary/30"
+                  >
                     {categoryLabels[category] || category}
                   </Badge>
                 ))}

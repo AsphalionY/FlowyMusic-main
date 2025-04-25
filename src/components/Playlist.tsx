@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Plus, 
-  Music, 
-  Image as ImageIcon, 
-  X, 
-  Share2,
-  ListMusic,
-  ChevronLeft
-} from 'lucide-react';
+import { Plus, Music, Image as ImageIcon, X, Share2, ListMusic, ChevronLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -46,11 +38,11 @@ const Playlist = ({ className }: PlaylistProps) => {
     title: '',
     imageUrl: null,
     description: '',
-    songs: []
+    songs: [],
   });
   const [newSong, setNewSong] = useState<Partial<Song>>({
     title: '',
-    imageUrl: null
+    imageUrl: null,
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [songImagePreview, setSongImagePreview] = useState<string | null>(null);
@@ -61,7 +53,7 @@ const Playlist = ({ className }: PlaylistProps) => {
       title: '',
       imageUrl: null,
       description: '',
-      songs: []
+      songs: [],
     });
     setImagePreview(null);
   };
@@ -72,7 +64,7 @@ const Playlist = ({ className }: PlaylistProps) => {
       title: '',
       imageUrl: null,
       description: '',
-      songs: []
+      songs: [],
     });
     setImagePreview(null);
   };
@@ -105,7 +97,7 @@ const Playlist = ({ className }: PlaylistProps) => {
 
   const handleSaveItem = () => {
     if (!newItem.title) {
-      toast.error("Veuillez ajouter un titre à votre playlist");
+      toast.error('Veuillez ajouter un titre à votre playlist');
       return;
     }
 
@@ -114,7 +106,7 @@ const Playlist = ({ className }: PlaylistProps) => {
       title: newItem.title ?? 'Sans titre',
       imageUrl: newItem.imageUrl ?? null,
       description: newItem.description ?? '',
-      songs: []
+      songs: [],
     };
 
     setPlaylistItems([...playlistItems, item]);
@@ -123,15 +115,15 @@ const Playlist = ({ className }: PlaylistProps) => {
       title: '',
       imageUrl: null,
       description: '',
-      songs: []
+      songs: [],
     });
     setImagePreview(null);
-    toast.success("Playlist ajoutée");
+    toast.success('Playlist ajoutée');
   };
 
   const handleRemoveItem = (id: string) => {
     setPlaylistItems(playlistItems.filter(item => item.id !== id));
-    toast.info("Playlist supprimée");
+    toast.info('Playlist supprimée');
   };
 
   const handleOpenPlaylist = (playlist: PlaylistItem) => {
@@ -143,7 +135,7 @@ const Playlist = ({ className }: PlaylistProps) => {
     setIsAddingSong(false);
     setNewSong({
       title: '',
-      imageUrl: null
+      imageUrl: null,
     });
     setSongImagePreview(null);
   };
@@ -152,7 +144,7 @@ const Playlist = ({ className }: PlaylistProps) => {
     setIsAddingSong(true);
     setNewSong({
       title: '',
-      imageUrl: null
+      imageUrl: null,
     });
     setSongImagePreview(null);
   };
@@ -161,42 +153,42 @@ const Playlist = ({ className }: PlaylistProps) => {
     setIsAddingSong(false);
     setNewSong({
       title: '',
-      imageUrl: null
+      imageUrl: null,
     });
     setSongImagePreview(null);
   };
 
   const handleSaveSong = () => {
     if (!selectedPlaylist) return;
-    
+
     if (!newSong.title) {
-      toast.error("Veuillez ajouter un titre à votre musique");
+      toast.error('Veuillez ajouter un titre à votre musique');
       return;
     }
 
     const song: Song = {
       id: `song-${Date.now()}`,
       title: newSong.title ?? 'Sans titre',
-      imageUrl: newSong.imageUrl ?? null
+      imageUrl: newSong.imageUrl ?? null,
     };
 
     const updatedPlaylist = {
       ...selectedPlaylist,
-      songs: [...selectedPlaylist.songs, song]
+      songs: [...selectedPlaylist.songs, song],
     };
 
-    setPlaylistItems(playlistItems.map(item => 
-      item.id === selectedPlaylist.id ? updatedPlaylist : item
-    ));
-    
+    setPlaylistItems(
+      playlistItems.map(item => (item.id === selectedPlaylist.id ? updatedPlaylist : item))
+    );
+
     setSelectedPlaylist(updatedPlaylist);
     setIsAddingSong(false);
     setNewSong({
       title: '',
-      imageUrl: null
+      imageUrl: null,
     });
     setSongImagePreview(null);
-    toast.success("Musique ajoutée à la playlist");
+    toast.success('Musique ajoutée à la playlist');
   };
 
   const handleRemoveSong = (songId: string) => {
@@ -205,15 +197,15 @@ const Playlist = ({ className }: PlaylistProps) => {
     const updatedSongs = selectedPlaylist.songs.filter(song => song.id !== songId);
     const updatedPlaylist = {
       ...selectedPlaylist,
-      songs: updatedSongs
+      songs: updatedSongs,
     };
 
-    setPlaylistItems(playlistItems.map(item => 
-      item.id === selectedPlaylist.id ? updatedPlaylist : item
-    ));
-    
+    setPlaylistItems(
+      playlistItems.map(item => (item.id === selectedPlaylist.id ? updatedPlaylist : item))
+    );
+
     setSelectedPlaylist(updatedPlaylist);
-    toast.info("Musique supprimée de la playlist");
+    toast.info('Musique supprimée de la playlist');
   };
 
   const handleShareItem = (title: string) => {
@@ -226,9 +218,9 @@ const Playlist = ({ className }: PlaylistProps) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const itemVariants = {
@@ -237,22 +229,22 @@ const Playlist = ({ className }: PlaylistProps) => {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   return (
-    <motion.div 
-      className={cn("space-y-6", className)}
+    <motion.div
+      className={cn('space-y-6', className)}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* Résumé du profil */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-6 shadow-subtle"
       >
@@ -263,7 +255,7 @@ const Playlist = ({ className }: PlaylistProps) => {
               {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
             </AvatarFallback>
           </Avatar>
-          
+
           <div className="flex-1">
             <h2 className="text-xl font-semibold">{user?.username ?? 'Utilisateur'}</h2>
             <p className="text-muted-foreground text-sm">
@@ -271,9 +263,9 @@ const Playlist = ({ className }: PlaylistProps) => {
             </p>
             <div className="flex gap-2 mt-2">
               {user?.preferredCategories && user.preferredCategories.length > 0 ? (
-                user.preferredCategories.slice(0, 3).map((category) => (
-                  <span 
-                    key={`category-${category}`} 
+                user.preferredCategories.slice(0, 3).map(category => (
+                  <span
+                    key={`category-${category}`}
                     className="text-xs px-2 py-0.5 bg-primary/10 text-primary rounded-full"
                   >
                     {category}
@@ -298,12 +290,7 @@ const Playlist = ({ className }: PlaylistProps) => {
           className="space-y-4"
         >
           <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-8 w-8" 
-              onClick={handleClosePlaylist}
-            >
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleClosePlaylist}>
               <ChevronLeft className="h-4 w-4" />
             </Button>
             <h2 className="text-xl font-semibold">{selectedPlaylist.title}</h2>
@@ -313,9 +300,9 @@ const Playlist = ({ className }: PlaylistProps) => {
           <div className="flex items-center gap-4 bg-card p-4 rounded-lg">
             <div className="w-20 h-20 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden">
               {selectedPlaylist.imageUrl ? (
-                <img 
-                  src={selectedPlaylist.imageUrl} 
-                  alt={selectedPlaylist.title} 
+                <img
+                  src={selectedPlaylist.imageUrl}
+                  alt={selectedPlaylist.title}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -325,24 +312,17 @@ const Playlist = ({ className }: PlaylistProps) => {
             <div className="flex-1">
               <h3 className="font-medium">{selectedPlaylist.title}</h3>
               {selectedPlaylist.description && (
-                <p className="text-sm text-muted-foreground mt-1">
-                  {selectedPlaylist.description}
-                </p>
+                <p className="text-sm text-muted-foreground mt-1">{selectedPlaylist.description}</p>
               )}
               <div className="flex gap-2 mt-2">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="h-8" 
-                  onClick={handleAddSong}
-                >
+                <Button variant="outline" size="sm" className="h-8" onClick={handleAddSong}>
                   <Plus className="h-3.5 w-3.5 mr-1" />
                   Ajouter une musique
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="h-8" 
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8"
                   onClick={() => handleShareItem(selectedPlaylist.title)}
                 >
                   <Share2 className="h-3.5 w-3.5 mr-1" />
@@ -362,37 +342,39 @@ const Playlist = ({ className }: PlaylistProps) => {
             >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-medium">Ajouter une musique</h3>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="h-8 w-8" 
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
                   onClick={handleCancelAddSong}
                 >
                   <X className="h-4 w-4" />
                 </Button>
               </div>
-              
+
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="newSongTitle" className="block text-sm font-medium mb-1">Titre</label>
-                  <Input 
+                  <label htmlFor="newSongTitle" className="block text-sm font-medium mb-1">
+                    Titre
+                  </label>
+                  <Input
                     id="newSongTitle"
                     placeholder="Titre de la musique"
                     value={newSong.title ?? ''}
-                    onChange={(e) => setNewSong({ ...newSong, title: e.target.value })}
+                    onChange={e => setNewSong({ ...newSong, title: e.target.value })}
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="newSongImage" className="block text-sm font-medium mb-1">Image</label>
+                  <label htmlFor="newSongImage" className="block text-sm font-medium mb-1">
+                    Image
+                  </label>
                   <div className="flex items-center gap-4">
-                    <div 
-                      className="w-16 h-16 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden"
-                    >
+                    <div className="w-16 h-16 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden">
                       {songImagePreview ? (
-                        <img 
-                          src={songImagePreview} 
-                          alt="Aperçu" 
+                        <img
+                          src={songImagePreview}
+                          alt="Aperçu"
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -404,19 +386,23 @@ const Playlist = ({ className }: PlaylistProps) => {
                         <ImageIcon className="mr-2 h-3.5 w-3.5" />
                         Choisir une image
                       </div>
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
                         onChange={handleSongImageChange}
                       />
                     </label>
                   </div>
                 </div>
-                
+
                 <div className="flex justify-end gap-2">
-                  <Button variant="outline" size="sm" onClick={handleCancelAddSong}>Annuler</Button>
-                  <Button size="sm" onClick={handleSaveSong}>Ajouter</Button>
+                  <Button variant="outline" size="sm" onClick={handleCancelAddSong}>
+                    Annuler
+                  </Button>
+                  <Button size="sm" onClick={handleSaveSong}>
+                    Ajouter
+                  </Button>
                 </div>
               </div>
             </motion.div>
@@ -429,7 +415,7 @@ const Playlist = ({ className }: PlaylistProps) => {
                 Aucune musique dans cette playlist
               </div>
             ) : (
-              selectedPlaylist.songs.map((song) => (
+              selectedPlaylist.songs.map(song => (
                 <motion.div
                   key={song.id}
                   variants={itemVariants}
@@ -437,9 +423,9 @@ const Playlist = ({ className }: PlaylistProps) => {
                 >
                   <div className="w-10 h-10 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden">
                     {song.imageUrl ? (
-                      <img 
-                        src={song.imageUrl} 
-                        alt={song.title} 
+                      <img
+                        src={song.imageUrl}
+                        alt={song.title}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -450,18 +436,18 @@ const Playlist = ({ className }: PlaylistProps) => {
                     <h4 className="font-medium truncate">{song.title}</h4>
                   </div>
                   <div className="flex gap-1">
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="h-7 w-7" 
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-7 w-7"
                       onClick={() => handleShareItem(song.title)}
                     >
                       <Share2 className="h-3.5 w-3.5" />
                     </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="h-7 w-7 text-muted-foreground hover:text-destructive" 
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-7 w-7 text-muted-foreground hover:text-destructive"
                       onClick={() => handleRemoveSong(song.id)}
                     >
                       <X className="h-3.5 w-3.5" />
@@ -484,37 +470,34 @@ const Playlist = ({ className }: PlaylistProps) => {
             >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-medium">Ajouter une playlist</h3>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="h-8 w-8" 
-                  onClick={handleCancelAdd}
-                >
+                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleCancelAdd}>
                   <X className="h-4 w-4" />
                 </Button>
               </div>
-              
+
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="newPlaylistTitle" className="block text-sm font-medium mb-1">Titre</label>
-                  <Input 
+                  <label htmlFor="newPlaylistTitle" className="block text-sm font-medium mb-1">
+                    Titre
+                  </label>
+                  <Input
                     id="newPlaylistTitle"
                     placeholder="Titre de la playlist"
                     value={newItem.title ?? ''}
-                    onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
+                    onChange={e => setNewItem({ ...newItem, title: e.target.value })}
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="newPlaylistImage" className="block text-sm font-medium mb-1">Image</label>
+                  <label htmlFor="newPlaylistImage" className="block text-sm font-medium mb-1">
+                    Image
+                  </label>
                   <div className="flex items-center gap-4">
-                    <div 
-                      className="w-20 h-20 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden"
-                    >
+                    <div className="w-20 h-20 rounded-md bg-secondary/50 flex items-center justify-center overflow-hidden">
                       {imagePreview ? (
-                        <img 
-                          src={imagePreview} 
-                          alt="Aperçu" 
+                        <img
+                          src={imagePreview}
+                          alt="Aperçu"
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -526,29 +509,36 @@ const Playlist = ({ className }: PlaylistProps) => {
                         <ImageIcon className="mr-2 h-4 w-4" />
                         Choisir une image
                       </div>
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
                         onChange={handleImageChange}
                       />
                     </label>
                   </div>
                 </div>
-                
+
                 <div>
-                  <label htmlFor="newPlaylistDescription" className="block text-sm font-medium mb-1">Description</label>
-                  <Textarea 
+                  <label
+                    htmlFor="newPlaylistDescription"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Description
+                  </label>
+                  <Textarea
                     id="newPlaylistDescription"
                     placeholder="Description de la playlist (optionnel)"
                     value={newItem.description ?? ''}
-                    onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
+                    onChange={e => setNewItem({ ...newItem, description: e.target.value })}
                     className="min-h-[80px]"
                   />
                 </div>
-                
+
                 <div className="flex justify-end gap-2">
-                  <Button variant="outline" onClick={handleCancelAdd}>Annuler</Button>
+                  <Button variant="outline" onClick={handleCancelAdd}>
+                    Annuler
+                  </Button>
                   <Button onClick={handleSaveItem}>Ajouter</Button>
                 </div>
               </div>
@@ -557,7 +547,7 @@ const Playlist = ({ className }: PlaylistProps) => {
 
           {/* Liste des playlists */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mt-6">
-            {playlistItems.map((item) => (
+            {playlistItems.map(item => (
               <motion.div
                 key={item.id}
                 variants={itemVariants}
@@ -566,9 +556,9 @@ const Playlist = ({ className }: PlaylistProps) => {
               >
                 <div className="aspect-square bg-secondary/30 relative">
                   {item.imageUrl ? (
-                    <img 
-                      src={item.imageUrl} 
-                      alt={item.title} 
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -576,11 +566,11 @@ const Playlist = ({ className }: PlaylistProps) => {
                       <ListMusic className="h-10 w-10 text-muted-foreground" />
                     </div>
                   )}
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     className="absolute top-1 right-1 h-6 w-6 bg-background/80 hover:bg-background/90 rounded-full"
-                    onClick={(e) => {
+                    onClick={e => {
                       e.stopPropagation();
                       handleRemoveItem(item.id);
                     }}
@@ -594,11 +584,11 @@ const Playlist = ({ className }: PlaylistProps) => {
                     <span className="text-xs text-muted-foreground">
                       {item.songs.length} {item.songs.length > 1 ? 'titres' : 'titre'}
                     </span>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       className="h-6 w-6"
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation();
                         handleShareItem(item.title);
                       }}
@@ -609,7 +599,7 @@ const Playlist = ({ className }: PlaylistProps) => {
                 </div>
               </motion.div>
             ))}
-            
+
             {/* Carré avec + pour ajouter rapidement */}
             {!isAddingItem && (
               <motion.div

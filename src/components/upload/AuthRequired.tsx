@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,7 +9,7 @@ interface AuthRequiredProps {
 
 const AuthRequired = ({ className }: AuthRequiredProps) => {
   const navigate = useNavigate();
-  
+
   return (
     <div className={className}>
       <div className="text-center space-y-4">
@@ -21,11 +20,7 @@ const AuthRequired = ({ className }: AuthRequiredProps) => {
         <p className="text-muted-foreground max-w-md mx-auto">
           Vous devez être connecté pour télécharger et partager de la musique sur HarmonyBot.
         </p>
-        <Button 
-          onClick={() => navigate('/auth')}
-          size="lg"
-          className="mt-4"
-        >
+        <Button onClick={() => navigate('/auth')} size="lg" className="mt-4">
           Se connecter
         </Button>
       </div>

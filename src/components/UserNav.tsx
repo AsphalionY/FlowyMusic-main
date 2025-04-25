@@ -24,17 +24,17 @@ const UserNav = () => {
   if (!isAuthenticated) {
     return (
       <div className="flex items-center gap-2">
-        <Button 
-          variant="ghost" 
-          size="sm" 
+        <Button
+          variant="ghost"
+          size="sm"
           className="rounded-full px-4 hover:bg-primary/10"
           onClick={() => navigate('/auth')}
           data-testid="login-button"
         >
           Connexion
         </Button>
-        <Button 
-          variant="default" 
+        <Button
+          variant="default"
           size="sm"
           className="rounded-full px-4 bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-sm shadow-primary/20"
           onClick={() => navigate('/auth?tab=register')}
@@ -57,13 +57,17 @@ const UserNav = () => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 border-primary" align="center" alignOffset={-30} sideOffset={5} forceMount>
+      <DropdownMenuContent
+        className="w-56 border-primary"
+        align="center"
+        alignOffset={-30}
+        sideOffset={5}
+        forceMount
+      >
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user?.username}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user?.email}
-            </p>
+            <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

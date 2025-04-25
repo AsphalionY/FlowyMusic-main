@@ -17,9 +17,7 @@ jest.mock('@/hooks/use-mobile', () => ({
 const renderWithProviders = (component: React.ReactNode) => {
   return render(
     <BrowserRouter>
-      <AuthProvider>
-        {component}
-      </AuthProvider>
+      <AuthProvider>{component}</AuthProvider>
     </BrowserRouter>
   );
 };
@@ -27,16 +25,18 @@ const renderWithProviders = (component: React.ReactNode) => {
 describe('Index Component', () => {
   it('renders main sections', () => {
     renderWithProviders(<Index />);
-    
+
     // Vérifie les éléments principaux
-    expect(screen.getByRole('heading', { name: /créez, enregistrez, partagez/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /créez, enregistrez, partagez/i })
+    ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /commencer à créer/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /explorer la bibliothèque/i })).toBeInTheDocument();
   });
 
   it('renders navigation tabs', () => {
     renderWithProviders(<Index />);
-    
+
     // Vérifie les onglets de navigation
     expect(screen.getByRole('tab', { name: /découvrir/i })).toBeInTheDocument();
     expect(screen.getByRole('tab', { name: /rechercher/i })).toBeInTheDocument();
@@ -56,10 +56,10 @@ describe('Index Component', () => {
 
   it('renders header with navigation', () => {
     renderWithProviders(<Index />);
-    
+
     // Vérifie le header
     expect(screen.getByRole('banner')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /flowy music creation/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /bibliothèque/i })).toBeInTheDocument();
   });
-}); 
+});

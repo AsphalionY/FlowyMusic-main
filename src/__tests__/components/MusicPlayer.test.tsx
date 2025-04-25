@@ -29,7 +29,7 @@ describe('MusicPlayer Component', () => {
 
   it('renders player controls', () => {
     render(<MusicPlayer currentTrack={mockTrack} />);
-    
+
     expect(screen.getByRole('button', { name: /play/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /pause/i })).toBeInTheDocument();
     expect(screen.getByText(mockTrack.title)).toBeInTheDocument();
@@ -45,4 +45,4 @@ describe('MusicPlayer Component', () => {
 
     expect(screen.getByRole('button', { name: /pause/i })).toBeInTheDocument();
   });
-}); 
+});

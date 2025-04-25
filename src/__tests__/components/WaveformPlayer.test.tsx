@@ -100,4 +100,4 @@ describe('WaveformPlayer Component', () => {
     expect(mockWaveSurfer.seekTo).toHaveBeenCalled();
     expect(mockProps.onSeek).toHaveBeenCalled();
   });
-}); 
+});

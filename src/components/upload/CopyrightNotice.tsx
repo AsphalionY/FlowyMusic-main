@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { AlertCircle } from 'lucide-react';
 
@@ -8,7 +7,10 @@ const CopyrightNotice = () => {
       <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
       <div>
         <p className="font-medium mb-1">Droits d'auteur</p>
-        <p>Veuillez vous assurer que vous possédez les droits sur la musique que vous partagez ou qu'elle est libre de droits.</p>
+        <p>
+          Veuillez vous assurer que vous possédez les droits sur la musique que vous partagez ou
+          qu'elle est libre de droits.
+        </p>
       </div>
     </div>
   );

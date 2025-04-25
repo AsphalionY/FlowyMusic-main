@@ -18,7 +18,7 @@ describe('useAudioPlayer', () => {
     window.Audio = jest.fn(() => mockAudio);
   });
 
-  it('devrait initialiser correctement l\'état du lecteur', () => {
+  it("devrait initialiser correctement l'état du lecteur", () => {
     const { result } = renderHook(() => useAudioPlayer('test.mp3'));
 
     expect(result.current.isPlaying).toBe(false);
@@ -66,4 +66,4 @@ describe('useAudioPlayer', () => {
     expect(mockAudio.currentTime).toBe(30);
     expect(result.current.currentTime).toBe(30);
   });
-}); 
+});

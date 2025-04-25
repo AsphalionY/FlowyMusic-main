@@ -8,13 +8,7 @@ import MusicSearch from '@/components/MusicSearch';
 import RecordMusic from '@/components/recording/RecordMusic';
 import Playlist from '@/components/Playlist';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { 
-  Music, 
-  Search, 
-  Mic, 
-  ListMusic,
-  FilePlus 
-} from 'lucide-react';
+import { Music, Search, Mic, ListMusic, FilePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -23,7 +17,7 @@ const Index = () => {
   const isMobile = useIsMobile();
   const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState('discover');
-  
+
   const triggerRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
   const scrollWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -33,34 +27,34 @@ const Index = () => {
     const ref = triggerRefs.current[activeTab];
     if (ref && scrollWrapperRef.current) {
       ref.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "nearest"
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest',
       });
     }
   }, [activeTab, isMobile]);
-  
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
-        damping: 15
-      }
-    }
+        damping: 15,
+      },
+    },
   };
 
   const handleCreateClick = () => {
@@ -86,10 +80,10 @@ const Index = () => {
           <p className="text-base md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-2xl mx-auto">
             Votre studio musical en ligne pour composer, enregistrer et partager votre musique
           </p>
-          
+
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button 
-              size={isMobile ? "default" : "lg"} 
+            <Button
+              size={isMobile ? 'default' : 'lg'}
               className="rounded-full bg-gradient-to-r from-primary to-accent hover:opacity-90 shadow-md shadow-primary/20"
               onClick={handleCreateClick}
               data-testid="start-creating-button"
@@ -97,9 +91,9 @@ const Index = () => {
               <Mic className="mr-2 h-5 w-5" />
               Commencer à créer
             </Button>
-            <Button 
-              variant="outline" 
-              size={isMobile ? "default" : "lg"} 
+            <Button
+              variant="outline"
+              size={isMobile ? 'default' : 'lg'}
               className="rounded-full border-primary/20 hover:bg-primary/5"
               onClick={() => navigate('/shared-music')}
               data-testid="library-link"
@@ -109,41 +103,38 @@ const Index = () => {
             </Button>
           </div>
         </motion.div>
-        
-        <Tabs 
-          defaultValue="discover" 
+
+        <Tabs
+          defaultValue="discover"
           value={activeTab}
           onValueChange={setActiveTab}
           className="w-full"
         >
           <motion.div variants={itemVariants} className="px-4 md:px-0">
-            <div
-              ref={scrollWrapperRef}
-              className="flex justify-center mb-6 w-full"
-            >
+            <div ref={scrollWrapperRef} className="flex justify-center mb-6 w-full">
               <div
                 className={
-                  "relative w-full max-w-md mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] " +
-                  (isMobile ? "overflow-x-auto pr-2" : "")
+                  'relative w-full max-w-md mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ' +
+                  (isMobile ? 'overflow-x-auto pr-2' : '')
                 }
                 style={{
-                  WebkitOverflowScrolling: 'touch'
+                  WebkitOverflowScrolling: 'touch',
                 }}
               >
                 <TabsList
                   className={
-                    "relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] " +
-                    (isMobile ? "flex gap-1 min-w-fit px-0.5" : "gap-2")
+                    'relative bg-secondary/30 p-1 rounded-full border border-white/20 shadow-subtle flex-nowrap mx-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ' +
+                    (isMobile ? 'flex gap-1 min-w-fit px-0.5' : 'gap-2')
                   }
                   style={{
-                    width: isMobile ? "fit-content" : undefined,
-                    minWidth: isMobile ? "100%" : undefined
+                    width: isMobile ? 'fit-content' : undefined,
+                    minWidth: isMobile ? '100%' : undefined,
                   }}
                 >
                   <motion.div
                     className="absolute h-[calc(100%-8px)] top-1 rounded-full bg-white shadow-sm"
                     layoutId="activeTabBackground"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                   />
                   <TabsTrigger
                     value="discover"
@@ -166,8 +157,7 @@ const Index = () => {
                     ref={el => (triggerRefs.current['create'] = el)}
                     disabled={!isAuthenticated}
                     className={`relative rounded-full text-muted-foreground data-[state=active]:text-primary data-[state=active]:shadow-none
-                      ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
-                    }
+                      ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`}
                   >
                     <FilePlus className="h-4 w-4 mr-2" />
                     <span className="whitespace-nowrap">Créer</span>
@@ -177,8 +167,7 @@ const Index = () => {
                     ref={el => (triggerRefs.current['playlist'] = el)}
                     disabled={!isAuthenticated}
                     className={`relative rounded-full text-muted-foreground data-[state=active]:text-primary data-[state=active]:shadow-none
-                      ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`
-                    }
+                      ${!isAuthenticated ? 'bg-gray-200 text-gray-400 pointer-events-none' : ''}`}
                   >
                     <ListMusic className="h-4 w-4 mr-2" />
                     <span className="whitespace-nowrap">Playlist</span>
@@ -187,19 +176,19 @@ const Index = () => {
               </div>
             </div>
           </motion.div>
-          
+
           <TabsContent value="discover" className="px-4 md:px-0">
             <FeaturedMusic />
           </TabsContent>
-          
+
           <TabsContent value="search" className="px-4 md:px-0">
             <MusicSearch />
           </TabsContent>
-          
+
           <TabsContent value="create" className="px-4 md:px-0 overflow-hidden">
             <RecordMusic />
           </TabsContent>
-          
+
           <TabsContent value="playlist" className="px-4 md:px-0 overflow-hidden">
             <Playlist />
           </TabsContent>

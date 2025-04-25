@@ -9,9 +9,7 @@ interface UseUnsavedChangesWarningProps {
  * Hook pour détecter les tentatives de navigation lorsqu'il y a des changements non sauvegardés
  * et afficher une boîte de dialogue de confirmation.
  */
-const useUnsavedChangesWarning = ({ 
-  onSave 
-}: UseUnsavedChangesWarningProps) => {
+const useUnsavedChangesWarning = ({ onSave }: UseUnsavedChangesWarningProps) => {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [pendingNavigation, setPendingNavigation] = useState<string | null>(null);
@@ -22,12 +20,12 @@ const useUnsavedChangesWarning = ({
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
       if (isBlockingNavigation) {
         e.preventDefault(); // Modern browsers use this to show the confirmation dialog
-        
+
         // For older browsers (Chrome/Edge < 119) that don't fully support preventDefault() in beforeunload
         // We need to set returnValue as a fallback (the content is ignored by browsers)
         // @ts-ignore: TypeScript flags this as deprecated, which is correct but we need it for compatibility
         e.returnValue = ''; // Empty string is the standard practice for cross-browser compatibility
-        
+
         return true; // For very old browsers that require a return value
       }
     };
@@ -49,19 +47,25 @@ const useUnsavedChangesWarning = ({
   }, []);
 
   // Fonction pour naviguer directement sans confirmation
-  const navigateWithoutConfirmation = useCallback((path: string) => {
-    navigate(path);
-  }, [navigate]);
+  const navigateWithoutConfirmation = useCallback(
+    (path: string) => {
+      navigate(path);
+    },
+    [navigate]
+  );
 
   // Fonction pour naviguer avec confirmation si nécessaire
-  const navigateWithConfirmation = useCallback((path: string) => {
-    if (isBlockingNavigation) {
-      setPendingNavigation(path);
-      setShowDialog(true);
-    } else {
-      navigate(path);
-    }
-  }, [isBlockingNavigation, navigate]);
+  const navigateWithConfirmation = useCallback(
+    (path: string) => {
+      if (isBlockingNavigation) {
+        setPendingNavigation(path);
+        setShowDialog(true);
+      } else {
+        navigate(path);
+      }
+    },
+    [isBlockingNavigation, navigate]
+  );
 
   // Fonction pour confirmer la navigation sans sauvegarder
   const confirmNavigation = useCallback(() => {
@@ -98,7 +102,7 @@ const useUnsavedChangesWarning = ({
     navigateWithConfirmation,
     confirmNavigation,
     saveAndNavigate,
-    cancelNavigation
+    cancelNavigation,
   };
 };
 

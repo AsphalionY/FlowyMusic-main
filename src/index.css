@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,34 +8,24 @@
   :root {
     --background: 220 60% 98%;
     --foreground: 224 71% 4%;
-
     --card: 0 0% 100%;
     --card-foreground: 224 71% 4%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 224 71% 4%;
-
     --primary: 254 89% 64%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 220 34% 94%;
     --secondary-foreground: 222 47% 11%;
-
     --muted: 220 34% 94%;
     --muted-foreground: 220 9% 46%;
-
     --accent: 262 83% 74%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 220 13% 91%;
     --input: 220 13% 91%;
     --ring: 224 71% 4%;
-
     --radius: 1.25rem;
-
     --sidebar-background: 220 60% 98%;
     --sidebar-foreground: 224 71% 4%;
     --sidebar-primary: 254 89% 64%;
@@ -49,39 +39,34 @@
   .dark {
     --background: 224 71% 4%;
     --foreground: 210 40% 98%;
-
     --card: 224 71% 4%;
     --card-foreground: 210 40% 98%;
-
     --popover: 224 71% 4%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 254 89% 64%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 215 27% 16%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 215 27% 16%;
     --muted-foreground: 217 32% 70%;
-
     --accent: 262 83% 74%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62% 30%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 215 27% 16%;
     --input: 215 27% 16%;
     --ring: 216 34% 17%;
-}
+  }
 
-  html, body, #root {
+  html,
+  body,
+  #root {
     @apply h-full min-h-screen w-full m-0 p-0 overflow-x-hidden;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+
     font-feature-settings: "ss01", "ss03", "cv01", "cv02";
   }
 
@@ -101,7 +86,12 @@
     @apply bg-muted-foreground/30;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading tracking-tight;
   }
 
@@ -122,16 +112,14 @@
   }
 
   .shadow-subtle {
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px -2px rgb(0 0 0 / 5%);
   }
 
   .fade-mask-b {
-    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
   }
 
   .fade-mask-t {
-    -webkit-mask-image: linear-gradient(to top, black 85%, transparent 100%);
     mask-image: linear-gradient(to top, black 85%, transparent 100%);
   }
 
@@ -144,50 +132,52 @@
   .page-transition-enter {
     @apply opacity-0;
   }
-  
+
   .page-transition-enter-active {
     @apply opacity-100 transition-opacity duration-300 ease-swift-out;
   }
-  
+
   .page-transition-exit {
     @apply opacity-100;
   }
-  
+
   .page-transition-exit-active {
     @apply opacity-0 transition-opacity duration-200 ease-swift-out;
   }
 
   .music-card {
     @apply relative rounded-xl overflow-hidden border border-white/40 bg-white/30 backdrop-blur-md transition-all duration-300;
-    box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.1);
+
+    box-shadow: 0 4px 20px -8px rgb(0 0 0 / 10%);
   }
-  
+
   .music-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 28px -8px rgb(0 0 0 / 15%);
   }
-  
+
   .music-card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(155, 135, 245, 0.15), rgba(126, 105, 171, 0.05));
+    background: linear-gradient(45deg, rgb(155 135 245 / 15%), rgb(126 105 171 / 5%));
     z-index: -1;
   }
-  
+
   .music-control {
     @apply relative rounded-full flex items-center justify-center transition-all duration-200 bg-white shadow-md;
-    box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.1);
+
+    box-shadow: 0 4px 15px -3px rgb(0 0 0 / 10%);
   }
-  
+
   .music-control:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 20px -4px rgb(0 0 0 / 15%);
   }
-  
+
   .music-control:active {
     transform: scale(0.95);
   }
@@ -195,22 +185,25 @@
   .drum-pad {
     @apply relative rounded-xl border border-white/40 bg-white/60 backdrop-blur-sm shadow-md flex items-center justify-center cursor-pointer transition-all duration-150;
   }
-  
+
   .drum-pad:hover {
     @apply bg-white/80;
+
     transform: translateY(-2px);
   }
-  
-  .drum-pad:active, .drum-pad.active {
+
+  .drum-pad:active,
+  .drum-pad.active {
     @apply bg-primary/10;
+
     transform: scale(0.95);
   }
-  
+
   /* Utilités pour responsive */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -219,14 +212,33 @@
 
 /* Custom font family */
 html {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    Poppins,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
 }
 
 /* Flowy animations */
 @keyframes floating {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .floating {
@@ -234,9 +246,17 @@ html {
 }
 
 @keyframes wave {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(-25%); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-25%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .wave-bg {
@@ -245,23 +265,29 @@ html {
 }
 
 .music-pulse::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   padding: 2px;
   background: linear-gradient(120deg, #a78bfa, #818cf8, #60a5fa);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: xor;
   mask-composite: exclude;
   opacity: 0.7;
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
@@ -269,45 +295,51 @@ html {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Media queries pour mobile */
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .container {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   h1.text-4xl {
     font-size: 1.75rem;
   }
-  
+
   h1.text-5xl {
     font-size: 2.25rem;
   }
-  
+
   .text-xl {
     font-size: 1.125rem;
   }
-  
+
   .grid-cols-2 {
     grid-template-columns: 1fr;
   }
-  
+
   /* Ajuster les boutons pour mobile */
   .button-group {
     flex-direction: column;
     align-items: stretch;
     gap: 0.5rem;
   }
-  
+
   /* Réduire la taille des contrôles de musique */
   .music-control {
     transform: scale(0.9);
   }
-  
+
   /* Réduire l'espace du header */
   header.h-16 {
     height: 3.5rem;
