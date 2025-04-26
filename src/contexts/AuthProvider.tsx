@@ -23,8 +23,8 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         const token = localStorage.getItem('auth_token');
         if (token) {
           // Dans une vraie app, on vérifierait le token côté serveur
-          const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
-          if (userData && userData.id) {
+          const userData = JSON.parse(localStorage.getItem('user_data') ?? '{}');
+          if (userData?.id) {
             setUser(userData);
           }
         }

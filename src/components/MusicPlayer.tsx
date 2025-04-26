@@ -262,15 +262,15 @@ const MusicPlayer = ({ className, currentTrack }: MusicPlayerProps) => {
                 transition={{ duration: 0.2 }}
               >
                 <img
-                  src={currentTrack?.coverArt || "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                  src={currentTrack?.coverArt ?? "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                   alt="Album cover"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
 
               <div className="hidden sm:block">
-                <h4 className="font-medium text-sm line-clamp-1">{currentTrack?.title || "Titre de la musique"}</h4>
-                <p className="text-xs text-muted-foreground">{currentTrack?.artist || "Artiste"}</p>
+                <h4 className="font-medium text-sm line-clamp-1">{currentTrack?.title ?? "Titre de la musique"}</h4>
+                <p className="text-xs text-muted-foreground">{currentTrack?.artist ?? "Artiste"}</p>
               </div>
             </div>
 

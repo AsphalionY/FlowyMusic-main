@@ -68,10 +68,10 @@ describe('useAuth Hook', () => {
 
     const { result } = renderHook(() => useAuth(), { wrapper });
 
-    // Utiliser act sans await pour éviter la signature obsolète
-    act(() => {
-      // Appeler login sans await
-      result.current.login('test@example.com', 'password123');
+    // Utiliser act avec async/await pour éviter la signature obsolète
+    await act(async () => {
+      // Appeler login avec await
+      await result.current.login('test@example.com', 'password123');
     });
     
     // Attendre que la promesse soit résolue
