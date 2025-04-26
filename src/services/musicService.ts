@@ -1,6 +1,9 @@
 import { MusicCategory } from '../types/music';
+import { db } from '../config/database';
+import { Track } from '../types/database';
 
-interface SharedMusic {
+// Interface pour maintenir la compatibilité avec le code existant
+export interface SharedMusic {
   id: string;
   title: string;
   artist: string;
@@ -14,81 +17,171 @@ interface SharedMusic {
   category?: MusicCategory;
 }
 
-let sharedMusicCollection: SharedMusic[] = [];
-
-const initializeFromStorage = () => {
-  try {
-    const storedMusic = localStorage.getItem('shared-music');
-    if (storedMusic) {
-      const parsedMusic = JSON.parse(storedMusic);
-      sharedMusicCollection = parsedMusic.map(
-        (item: Omit<SharedMusic, 'uploadDate'> & { uploadDate: string }) => ({
-          ...item,
-          uploadDate: new Date(item.uploadDate),
-        })
-      );
-    }
-  } catch (error) {
-    console.error('Erreur lors du chargement des musiques:', error);
-  }
-};
-
-initializeFromStorage();
-
-const saveToStorage = () => {
-  try {
-    localStorage.setItem('shared-music', JSON.stringify(sharedMusicCollection));
-  } catch (error) {
-    console.error('Erreur lors de la sauvegarde des musiques:', error);
-  }
-};
-
-export const addSharedMusic = (music: Omit<SharedMusic, 'id' | 'plays' | 'uploadDate'>) => {
-  const newMusic: SharedMusic = {
-    ...music,
-    id: crypto.randomUUID(),
-    uploadDate: new Date(),
-    plays: 0,
+// Fonction pour convertir un Track de la base de données en SharedMusic
+const trackToSharedMusic = (track: any): SharedMusic => {
+  return {
+    id: track.track_id.toString(),
+    title: track.title,
+    artist: track.artist || track.username || '',
+    uploadDate: track.created_at,
+    audioUrl: track.audio_url,
+    coverArt: track.cover_art_url,
+    duration: track.duration,
+    uploadedBy: track.artist_id.toString(),
+    uploadedByName: track.artist || track.username || '',
+    plays: track.plays,
+    category: track.category
   };
-
-  sharedMusicCollection = [newMusic, ...sharedMusicCollection];
-  saveToStorage();
-  return newMusic;
 };
 
-export const getAllSharedMusic = (): SharedMusic[] => {
-  return [...sharedMusicCollection];
+// Fonction pour convertir un SharedMusic en objet compatible avec la base de données
+const sharedMusicToTrack = (music: Omit<SharedMusic, 'id' | 'plays' | 'uploadDate'>): Partial<Track> => {
+  return {
+    title: music.title,
+    artist_id: parseInt(music.uploadedBy),
+    audio_url: music.audioUrl,
+    cover_art_url: music.coverArt,
+    duration: music.duration,
+    category: music.category,
+    plays: 0,
+    is_remix: false,
+    original_track_id: undefined
+  };
 };
 
-export const getUserMusic = (userId: string): SharedMusic[] => {
-  return sharedMusicCollection.filter(music => music.uploadedBy === userId);
+export const addSharedMusic = async (music: Omit<SharedMusic, 'id' | 'plays' | 'uploadDate'>): Promise<SharedMusic> => {
+  try {
+    const trackData = sharedMusicToTrack(music);
+    
+    const newTrack = await db.one(`
+      INSERT INTO tracks 
+      (title, artist_id, audio_url, cover_art_url, duration, category, plays, is_remix, original_track_id)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      RETURNING *
+    `, [
+      trackData.title,
+      trackData.artist_id,
+      trackData.audio_url,
+      trackData.cover_art_url,
+      trackData.duration,
+      trackData.category,
+      trackData.plays || 0,
+      trackData.is_remix || false,
+      trackData.original_track_id
+    ]);
+    
+    // Récupérer les informations de l'artiste
+    const trackWithArtist = await db.one(`
+      SELECT t.*, u.username
+      FROM tracks t
+      JOIN users u ON t.artist_id = u.user_id
+      WHERE t.track_id = $1
+    `, [newTrack.track_id]);
+    
+    return trackToSharedMusic(trackWithArtist);
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de la musique:', error);
+    throw error;
+  }
 };
 
-export const getMusicByCategory = (category: MusicCategory): SharedMusic[] => {
-  return sharedMusicCollection.filter(music => music.category === category);
+export const getAllSharedMusic = async (): Promise<SharedMusic[]> => {
+  try {
+    const tracks = await db.any(`
+      SELECT t.*, u.username
+      FROM tracks t
+      JOIN users u ON t.artist_id = u.user_id
+      ORDER BY t.created_at DESC
+    `);
+    
+    return tracks.map(trackToSharedMusic);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des musiques:', error);
+    return [];
+  }
 };
 
-export const searchMusic = (query: string): SharedMusic[] => {
+export const getUserMusic = async (userId: string): Promise<SharedMusic[]> => {
+  try {
+    const tracks = await db.any(`
+      SELECT t.*, u.username
+      FROM tracks t
+      JOIN users u ON t.artist_id = u.user_id
+      WHERE t.artist_id = $1
+      ORDER BY t.created_at DESC
+    `, [parseInt(userId)]);
+    
+    return tracks.map(trackToSharedMusic);
+  } catch (error) {
+    console.error(`Erreur lors de la récupération des musiques de l'utilisateur ${userId}:`, error);
+    return [];
+  }
+};
+
+export const getMusicByCategory = async (category: MusicCategory): Promise<SharedMusic[]> => {
+  try {
+    const tracks = await db.any(`
+      SELECT t.*, u.username
+      FROM tracks t
+      JOIN users u ON t.artist_id = u.user_id
+      WHERE t.category = $1
+      ORDER BY t.created_at DESC
+    `, [category]);
+    
+    return tracks.map(trackToSharedMusic);
+  } catch (error) {
+    console.error(`Erreur lors de la récupération des musiques de catégorie ${category}:`, error);
+    return [];
+  }
+};
+
+export const searchMusic = async (query: string): Promise<SharedMusic[]> => {
   if (!query.trim()) return [];
 
-  const searchTerm = query.toLowerCase().trim();
-  return sharedMusicCollection.filter(
-    music =>
-      music.title.toLowerCase().includes(searchTerm) ||
-      music.artist.toLowerCase().includes(searchTerm) ||
-      music.uploadedByName.toLowerCase().includes(searchTerm)
-  );
+  try {
+    const searchTerm = `%${query.toLowerCase()}%`;
+    const tracks = await db.any(`
+      SELECT t.*, u.username
+      FROM tracks t
+      JOIN users u ON t.artist_id = u.user_id
+      WHERE 
+        LOWER(t.title) LIKE $1 OR
+        LOWER(u.username) LIKE $1
+      ORDER BY t.created_at DESC
+    `, [searchTerm]);
+    
+    return tracks.map(trackToSharedMusic);
+  } catch (error) {
+    console.error(`Erreur lors de la recherche de musiques avec la requête "${query}":`, error);
+    return [];
+  }
 };
 
-export const getSharedMusicById = (id: string): SharedMusic | undefined => {
-  return sharedMusicCollection.find(music => music.id === id);
+export const getSharedMusicById = async (id: string): Promise<SharedMusic | undefined> => {
+  try {
+    const track = await db.oneOrNone(`
+      SELECT t.*, u.username
+      FROM tracks t
+      JOIN users u ON t.artist_id = u.user_id
+      WHERE t.track_id = $1
+    `, [parseInt(id)]);
+    
+    return track ? trackToSharedMusic(track) : undefined;
+  } catch (error) {
+    console.error(`Erreur lors de la récupération de la musique ${id}:`, error);
+    return undefined;
+  }
 };
 
-export const incrementPlayCount = (id: string): void => {
-  const musicIndex = sharedMusicCollection.findIndex(music => music.id === id);
-  if (musicIndex !== -1) {
-    sharedMusicCollection[musicIndex].plays += 1;
-    saveToStorage();
+export const incrementPlayCount = async (id: string): Promise<void> => {
+  try {
+    await db.none(`
+      UPDATE tracks
+      SET plays = plays + 1
+      WHERE track_id = $1
+    `, [parseInt(id)]);
+  } catch (error) {
+    console.error(`Erreur lors de l'incrémentation du nombre de lectures pour la musique ${id}:`, error);
   }
 };
 
@@ -134,4 +227,4 @@ export const handleMusicError = (error: MusicError): void => {
   // ... existing code ...
 };
 
-export type { SharedMusic };
+// L'interface SharedMusic est déjà exportée au début du fichier

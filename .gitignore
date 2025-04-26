@@ -33,6 +33,9 @@ lerna-debug.log*
 
 # Misc
 .DS_Store
+
+# Environment variables
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -57,3 +60,27 @@ lerna-debug.log*
 
 # Netlify
 .netlify
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+*.sql.gz
+*.dump
+
+# PostgreSQL
+*.pgsql
+*.backup
+pg_dump*
+*.pgdump
+*.dat
+postgresql.conf
+pg_hba.conf
+postgresql-*.log
+
+# Scripts temporaires
+scripts/temp*.js
+
+# Types personnalisés
+# Conserver les déclarations de types pour le développement, mais les exclure des commits si nécessaire
+# src/types/declarations
