@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# Flowy
-=======
->>>>>>> 3a737a013710cb9b02d9d477062afedf07a7b011
+# Flowy Music
 
 ![HTML](https://img.shields.io/badge/HTML-5-orange?logo=html5&style=flat)
 ![TAILWIND CSS](https://img.shields.io/badge/TAILWIND-CSS-blue?logo=tailwindcss&style=flat)
@@ -29,8 +26,30 @@
 **Pourquoi choisir Flowy** —
  Flowy ne se contente pas de vous permettre de créer de la musique, elle transforme la manière dont vous partagez vos créations. Grâce à sa technologie moderne (Vite, Tailwind CSS, TypeScript), l’application est non seulement ultra-rapide mais aussi parfaitement optimisée pour les performances sur tous les appareils. Vous pouvez vous concentrer sur votre art, sans être limité par la technologie.
 
-<<<<<<< HEAD
  **Pour qui?** — Flowy est conçu pour tout le monde. Si vous êtes un créateur de musique qui souhaite partager ses œuvres sans complications techniques, ou un professionnel à la recherche d'un outil simple pour collaborer avec d'autres artistes, Flowy est l'outil qu'il vous faut.
-=======
- **Pour qui?** — Flowy est conçu pour tout le monde. Si vous êtes un créateur de musique qui souhaite partager ses œuvres sans complications techniques, ou un professionnel à la recherche d'un outil simple pour collaborer avec d'autres artistes, Flowy est l'outil qu'il vous faut.
->>>>>>> 3a737a013710cb9b02d9d477062afedf07a7b011
+
+## Déploiement sur Vercel
+
+FlowyMusic est optimisé pour être déployé facilement sur Vercel. Pour assurer un déploiement sans problème, suivez ces étapes :
+
+### Configuration des variables d'environnement
+
+Ces variables sont **obligatoires** pour que l'application fonctionne correctement :
+
+1. **VITE_SUPABASE_URL** - L'URL de votre projet Supabase
+2. **VITE_SUPABASE_ANON_KEY** - La clé anonyme de votre projet Supabase
+
+### Pour configurer sur Vercel
+
+1. Depuis le tableau de bord de votre projet Vercel
+2. Allez dans "Settings" -> "Environment Variables"
+3. Ajoutez ces deux variables avec leurs valeurs respectives
+
+### Déploiement local vs production
+
+Pour tester localement :
+- Créez un fichier `.env` à la racine du projet
+- Ajoutez-y les variables mentionnées ci-dessus
+- Exécutez `npm run dev`
+
+Le déploiement sur Vercel se fera automatiquement à partir de votre dépôt Git.
