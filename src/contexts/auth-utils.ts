@@ -30,14 +30,25 @@ export interface AuthContextType {
   updateProfile: (profileData: Partial<User>) => Promise<boolean>;
 }
 
-// Fonction de hachage simple (à remplacer par une vraie fonction de hachage côté serveur)
+// Fonction de hachage simple compatible entre différentes plateformes
 export const hashPassword = async (password: string): Promise<string> => {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hash = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(hash))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+  // Implémentation cross-plateforme simple basée sur un algorithme de hachage de chaîne standard
+  let hash = 0;
+  // Algorithme simple de hachage de chaîne qui fonctionnera de manière identique sur toutes les plateformes
+  for (let i = 0; i < password.length; i++) {
+    const char = password.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Conversion en 32bit integer
+  }
+  
+  // Convertir en string hexadécimal
+  let hashStr = (hash >>> 0).toString(16);
+  
+  // Ajouter du padding pour assurer une longueur constante
+  while (hashStr.length < 8) hashStr = '0' + hashStr;
+  
+  // Préfixe pour identifier que c'est un hachage cross-plateforme
+  return `xp_${hashStr}`;
 };
 
 // Fonctions de chiffrement/déchiffrement avec Web Crypto API
