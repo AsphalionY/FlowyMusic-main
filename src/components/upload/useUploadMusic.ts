@@ -84,7 +84,7 @@ export const useUploadMusic = () => {
       }, 300);
 
       // Ajouter le morceau à la collection partagée
-      const newMusic = addSharedMusic({
+      const newMusic = await addSharedMusic({
         title: title.trim(),
         artist: user.username, // Utilisation automatique du nom d'utilisateur
         audioUrl: audioBase64,
