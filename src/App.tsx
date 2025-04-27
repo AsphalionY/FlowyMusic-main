@@ -10,13 +10,13 @@ import Auth from './pages/Auth';
 import Profile from './pages/Profile';
 import CreateProfile from './pages/CreateProfile';
 import SharedMusic from './pages/SharedMusic';
-import { AuthProvider } from './contexts';
+import { SupabaseAuthProvider } from './contexts';
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
+    <SupabaseAuthProvider>
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -34,7 +34,7 @@ const App = () => (
           </AnimatePresence>
         </BrowserRouter>
       </TooltipProvider>
-    </AuthProvider>
+    </SupabaseAuthProvider>
   </QueryClientProvider>
 );
 
