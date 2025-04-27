@@ -35,7 +35,9 @@ lerna-debug.log*
 .DS_Store
 
 # Environment variables
-.env
+# .env est désormais suivi pour simplifier la configuration
+# .env.example est ignoré car il contient des informations d'exemple
+.env.example
 .env.local
 .env.development.local
 .env.test.local

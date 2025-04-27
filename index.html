@@ -15,6 +15,14 @@
     <meta name="twitter:site" content="@flowymusic"/>
     <!-- TITRE -->
     <title>Flowy Music</title>
+    
+    <!-- SCRIPT POUR VARIABLES D'ENVIRONNEMENT SUPABASE (Vercel) -->
+    <script>
+      window.ENV = {
+        VITE_SUPABASE_URL: '%VITE_SUPABASE_URL%',
+        VITE_SUPABASE_ANON_KEY: '%VITE_SUPABASE_ANON_KEY%'
+      };
+    </script>
   </head>
   <body>
     <!-- NECESSAIRE -->

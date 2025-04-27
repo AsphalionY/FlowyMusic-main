@@ -20,6 +20,15 @@ export default defineConfig(({ mode }) => ({
       gzipSize: true,
       brotliSize: true,
     }),
+    // Plugin pour remplacer les variables d'environnement dans index.html
+    {
+      name: 'html-env-transform',
+      transformIndexHtml(html: string): string {
+        return html
+          .replace('%VITE_SUPABASE_URL%', process.env.VITE_SUPABASE_URL || '')
+          .replace('%VITE_SUPABASE_ANON_KEY%', process.env.VITE_SUPABASE_ANON_KEY || '');
+      }
+    },
   ].filter(Boolean),
   resolve: {
     alias: {
