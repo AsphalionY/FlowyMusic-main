@@ -227,4 +227,3 @@ export const handleMusicError = (error: MusicError): void => {
   // ... existing code ...
 };
 
-// L'interface SharedMusic est déjà exportée au début du fichier

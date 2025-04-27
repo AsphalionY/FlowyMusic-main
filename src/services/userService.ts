@@ -1,4 +1,5 @@
-import { db } from '../config/database';
+// Import Supabase au lieu de pg-promise
+import { supabase } from '../config/supabase';
 import { User } from '../types/database';
 
 export const createUser = async (userData: {
@@ -9,17 +10,24 @@ export const createUser = async (userData: {
   bio?: string;
 }): Promise<User> => {
   try {
-    return db.one(`
-      INSERT INTO users (username, email, password_hash, profile_image_url, bio)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING *
-    `, [
-      userData.username,
-      userData.email,
-      userData.password_hash,
-      userData.profile_image_url,
-      userData.bio
-    ]);
+    // Utiliser Supabase insert plutôt que pg-promise
+    const { data, error } = await supabase
+      .from('users')
+      .insert({
+        username: userData.username,
+        email: userData.email,
+        password_hash: userData.password_hash,
+        profile_image_url: userData.profile_image_url,
+        bio: userData.bio
+      })
+      .select()
+      .single();
+    
+    if (error) {
+      throw error;
+    }
+    
+    return data as User;
   } catch (error) {
     console.error('Erreur lors de la création de l\'utilisateur:', error);
     throw error;
@@ -28,7 +36,18 @@ export const createUser = async (userData: {
 
 export const getUserById = async (userId: number): Promise<User | null> => {
   try {
-    return db.oneOrNone('SELECT * FROM users WHERE user_id = $1', userId);
+    // Utiliser Supabase select avec filtres
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('user_id', userId)
+      .single();
+    
+    if (error) {
+      throw error;
+    }
+    
+    return data as User;
   } catch (error) {
     console.error(`Erreur lors de la récupération de l'utilisateur ${userId}:`, error);
     return null;
@@ -37,7 +56,18 @@ export const getUserById = async (userId: number): Promise<User | null> => {
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {
   try {
-    return db.oneOrNone('SELECT * FROM users WHERE email = $1', email);
+    // Utiliser Supabase select avec filtres sur email
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .single();
+    
+    if (error) {
+      throw error;
+    }
+    
+    return data as User;
   } catch (error) {
     console.error(`Erreur lors de la récupération de l'utilisateur avec l'email ${email}:`, error);
     return null;
@@ -49,37 +79,36 @@ export const updateUser = async (
   userData: Partial<Omit<User, 'user_id' | 'created_at' | 'updated_at'>>
 ): Promise<User | null> => {
   try {
-    // Construire dynamiquement la requête de mise à jour
-    const updateFields: string[] = [];
-    const values: any[] = [];
-    let paramIndex = 1;
-
-    // Ajouter chaque champ non nul à la requête
+    // Filtrer les champs non définis
+    const updateData: Record<string, any> = {};
+    
     Object.entries(userData).forEach(([key, value]) => {
       if (value !== undefined) {
-        updateFields.push(`${key} = $${paramIndex}`);
-        values.push(value);
-        paramIndex++;
+        updateData[key] = value;
       }
     });
-
-    // Ajouter l'ID utilisateur comme dernier paramètre
-    values.push(userId);
-
+    
     // Si aucun champ à mettre à jour, retourner l'utilisateur actuel
-    if (updateFields.length === 0) {
+    if (Object.keys(updateData).length === 0) {
       return getUserById(userId);
     }
-
-    // Construire et exécuter la requête
-    const query = `
-      UPDATE users
-      SET ${updateFields.join(', ')}, updated_at = CURRENT_TIMESTAMP
-      WHERE user_id = $${paramIndex}
-      RETURNING *
-    `;
-
-    return db.oneOrNone(query, values);
+    
+    // Ajouter updated_at
+    updateData.updated_at = new Date().toISOString();
+    
+    // Utiliser Supabase update
+    const { data, error } = await supabase
+      .from('users')
+      .update(updateData)
+      .eq('user_id', userId)
+      .select()
+      .single();
+    
+    if (error) {
+      throw error;
+    }
+    
+    return data as User;
   } catch (error) {
     console.error(`Erreur lors de la mise à jour de l'utilisateur ${userId}:`, error);
     return null;
@@ -88,8 +117,18 @@ export const updateUser = async (
 
 export const deleteUser = async (userId: number): Promise<boolean> => {
   try {
-    const result = await db.result('DELETE FROM users WHERE user_id = $1', userId);
-    return result.rowCount > 0;
+    // Utiliser Supabase delete
+    const { error, count } = await supabase
+      .from('users')
+      .delete()
+      .eq('user_id', userId)
+      .select('count');
+    
+    if (error) {
+      throw error;
+    }
+    
+    return count !== null && count > 0;
   } catch (error) {
     console.error(`Erreur lors de la suppression de l'utilisateur ${userId}:`, error);
     return false;

@@ -38,6 +38,16 @@ export default defineConfig(({ mode }) => ({
   build: {
     sourcemap: true,
     rollupOptions: {
+      // Exclure les modules PostgreSQL qui ne sont pas compatibles avec le navigateur/Vercel
+      external: [
+        'pg', 
+        'pg-promise', 
+        'pg-native', 
+        'pg-cloudflare', 
+        'cloudflare:sockets', 
+        'pg-pool',
+        'pgpass'
+      ],
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
