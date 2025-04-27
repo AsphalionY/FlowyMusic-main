@@ -31,21 +31,30 @@ const MusicSearch = ({ onSearch, onSelect, isLoading = false }: MusicSearchProps
   const [hasSearched, setHasSearched] = useState(false);
 
   // Définir performSearch avec useCallback pour éviter qu'elle soit recréée à chaque rendu
-  const performSearch = useCallback(() => {
+  const performSearch = useCallback(async () => {
     setIsSearching(true);
     setHasSearched(true);
 
-    // Utiliser le service de recherche
-    const results = searchMusic(searchQuery);
-    setSearchResults(results);
-    setIsSearching(false);
+    try {
+      // Utiliser le service de recherche (maintenant asynchrone)
+      const results = await searchMusic(searchQuery);
+      setSearchResults(results);
+    } catch (error) {
+      console.error('Erreur lors de la recherche:', error);
+      toast.error('Erreur lors de la recherche', {
+        description: 'Impossible de récupérer les résultats'
+      });
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
   }, [searchQuery, setIsSearching, setHasSearched, setSearchResults]);
 
   // Effectuer une recherche lorsque l'utilisateur tape
   useEffect(() => {
-    const searchTimer = setTimeout(() => {
+    const searchTimer = setTimeout(async () => {
       if (searchQuery.trim().length >= 2) {
-        performSearch();
+        await performSearch();
         if (onSearch) onSearch(searchQuery);
       } else if (searchQuery.trim().length === 0) {
         setSearchResults([]);
@@ -57,10 +66,10 @@ const MusicSearch = ({ onSearch, onSelect, isLoading = false }: MusicSearchProps
     return () => clearTimeout(searchTimer);
   }, [searchQuery, onSearch, performSearch]);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      performSearch();
+      await performSearch();
       if (onSearch) onSearch(searchQuery);
     }
   };

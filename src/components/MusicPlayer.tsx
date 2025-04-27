@@ -118,17 +118,26 @@ const MusicPlayer = ({ className, currentTrack }: MusicPlayerProps) => {
         }
         toast.info('Lecture en pause');
       },
-      playTrack: (track: SharedMusic) => {
+      playTrack: async (track: SharedMusic) => {
         if (audioRef.current) {
+          // Changer la source de l'audio
           audioRef.current.src = track.audioUrl;
           audioRef.current.load();
-          audioRef.current.play().catch(err => {
-            console.error('Erreur de lecture:', err);
-            toast.error('Erreur lors de la lecture');
-          });
 
-          // Incrémenter le compteur de lecture
-          incrementPlayCount(track.id);
+          // Lire après le chargement
+          setIsPlaying(true);
+          setProgress(0);
+
+          // Mettre à jour l'état avec la nouvelle piste
+          // ... autres logiques pour mettre à jour l'interface
+
+          // Incrémenter le compteur de lecture (maintenant asynchrone)
+          try {
+            await incrementPlayCount(track.id);
+          } catch (error) {
+            console.error('Erreur lors de l\'incrément du compteur:', error);
+            // Ne pas bloquer la lecture en cas d'échec
+          }
 
           setIsPlaying(true);
           setProgress(0);

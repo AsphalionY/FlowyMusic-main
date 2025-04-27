@@ -35,9 +35,5 @@ export default defineConfig({
       codeCoverage(on, config);
       return config;
     }
-  },
-  coverageDirectory: 'coverage/cypress',
-  typescript: {
-    tsconfig: 'tsconfig.cypress.json'
   }
 }); 
