@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import { searchMusic, SharedMusic } from '@/services/musicService';
+import { searchMusic, SharedMusic } from '@/services/musicServiceIndex';
 
 // Interface pour les props du composant MusicSearch
 interface MusicSearchProps {

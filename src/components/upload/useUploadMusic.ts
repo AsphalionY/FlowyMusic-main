@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts';
-import { addSharedMusic, fileToBase64, calculateAudioDuration } from '@/services/musicService';
+import { addSharedMusic, fileToBase64, calculateAudioDuration } from '@/services/musicServiceIndex';
 
 export const useUploadMusic = () => {
   const { user, isAuthenticated } = useAuth();

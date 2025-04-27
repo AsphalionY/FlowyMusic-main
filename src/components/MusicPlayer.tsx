@@ -17,7 +17,7 @@ import {
 import { cn } from '@/lib/utils';
 import { Slider } from '@/components/ui/slider';
 import { toast } from 'sonner';
-import { incrementPlayCount, SharedMusic } from '@/services/musicService';
+import { incrementPlayCount, SharedMusic } from '@/services/musicServiceIndex';
 import WaveformPlayer from './WaveformPlayer';
 
 // Extend Window interface to include musicPlayer property
