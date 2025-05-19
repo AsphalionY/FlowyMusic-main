@@ -4,7 +4,6 @@ declare module 'pg-promise' {
       any<T = any>(query: string, values?: any): Promise<T[]>;
       one<T = any>(query: string, values?: any): Promise<T>;
       none(query: string, values?: any): Promise<null>;
-      // Ajoutez d'autres méthodes selon vos besoins
     }
   }
 

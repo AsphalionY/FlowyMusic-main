@@ -1,4 +1,4 @@
-# Guide de configuration FlowyMusic avec Vercel et Supabase
+ # Guide de configuration FlowyMusic avec Vercel et Supabase
 
 Ce guide explique comment configurer votre application FlowyMusic pour utiliser Vercel (frontend) et Supabase (backend/BDD).
 

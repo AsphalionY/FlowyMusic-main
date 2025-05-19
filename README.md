@@ -6,7 +6,47 @@
 ![TYPESCRIPT](https://img.shields.io/badge/Type-Script-blue?logo=Typescript&style=flat)
 ![TSX](https://img.shields.io/badge/TSX-TypeScript%20+%20JSX-blue?logo=typescript&style=flat)
 
-##### Flowy est une application créée par l'organisation Codek. Flowy permet de créer et partager sa musique en ligne, sans problèmes. Il suffit d'un clic et votre musique est publiée instantanément !
+##### Flowy est une application créée par l'organisation Codek.
+
+Application de création et partage de musique avec architecture frontend/backend distincte.
+
+## Nouvelle structure du projet
+
+Le projet a été réorganisé avec une séparation claire entre le frontend et le backend :
+
+```
+FlowyMusic/
+├── frontend/           # Interface utilisateur React
+│   ├── src/            # Code source frontend
+│   │   ├── components/ # Composants UI par fonctionnalité
+│   │   ├── pages/      # Pages de l'application
+│   │   ├── hooks/      # Hooks React personnalisés
+│   │   ├── contexts/   # Contextes pour la gestion d'état
+│   │   └── utils/      # Utilitaires frontend
+│   └── public/         # Ressources statiques
+│
+├── backend/            # Serveur et API
+│   ├── api/            # Points d'entrée API
+│   ├── models/         # Modèles de données
+│   ├── services/       # Services métier
+│   └── utils/          # Utilitaires backend
+│
+├── database/           # Scripts et schémas de base de données
+└── supabase/           # Configuration et migrations Supabase
+```
+
+## Technologies utilisées
+
+### Frontend
+- React avec TypeScript
+- Tailwind CSS pour le styling
+- Framer Motion pour les animations
+- Radix UI pour les composants accessibles
+
+### Backend
+- Node.js avec Express
+- TypeScript
+- PostgreSQL via Supabase
 
 ##### Avec une interface simple, intuitive et rapide, Flowy transforme la création musicale en une expérience fluide et sans effort. Que vous soyez un musicien en herbe ou un pro, Flowy vous offre tout ce qu'il vous faut pour partager vos œuvres avec le monde entier.
 

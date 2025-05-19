@@ -1,0 +1,32 @@
+{
+  "name": "flowymusic",
+  "version": "1.0.0",
+  "description": "Application complète FlowyMusic avec architecture frontend/backend",
+  "main": "index.js",
+  "scripts": {
+    "frontend:install": "cd frontend && npm install",
+    "backend:install": "cd backend && npm install",
+    "install-all": "npm install && npm run frontend:install && npm run backend:install",
+    "frontend:dev": "cd frontend && npm run dev",
+    "backend:dev": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run backend:dev\" \"npm run frontend:dev\"",
+    "frontend:build": "cd frontend && npm run build",
+    "backend:build": "cd backend && npm run build",
+    "build": "npm run frontend:build && npm run backend:build",
+    "start": "cd backend && npm start",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
