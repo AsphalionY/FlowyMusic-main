@@ -22,13 +22,9 @@ export const AppRoutes: React.FC = () => {
       <Route 
         path="/" 
         element={
-          isAuthenticated ? (
-            <Layout>
-              <Index />
-            </Layout>
-          ) : (
-            <Navigate to="/auth" replace />
-          )
+          <Layout>
+            <Index />
+          </Layout>
         } 
       />
 
