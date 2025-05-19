@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Layout from '@/components/Layout';
 import FeaturedMusic from '@/components/FeaturedMusic';
 import MusicSearch from '@/components/MusicSearch';
 import RecordMusic from '@/components/recording/RecordMusic';
@@ -66,7 +65,6 @@ const Index = () => {
   };
 
   return (
-    <Layout>
       <motion.div
         className="pb-24 max-w-full overflow-x-hidden"
         variants={containerVariants}
@@ -194,7 +192,6 @@ const Index = () => {
           </TabsContent>
         </Tabs>
       </motion.div>
-    </Layout>
   );
 };
 
