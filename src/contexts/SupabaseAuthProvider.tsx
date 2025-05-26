@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { toast } from 'sonner';
 import { User } from './auth-utils';
 import { AuthContext } from './auth-context';
-import { supabase } from '@/config/supabase';
+import { supabase, supabaseUrl } from '@/config/supabase';
 
 // Interface pour les données d'utilisateur Supabase
 interface SupabaseUserData {
@@ -126,6 +126,10 @@ const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     try {
       setIsLoading(true);
       
+      // Logs de débogage détaillés
+      console.log('🔄 Tentative d\'inscription avec Supabase:', { email, username });
+      console.log('🔍 URL Supabase utilisée:', supabaseUrl);
+      
       // Inscription avec Supabase
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -137,8 +141,12 @@ const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         },
       });
       
+      // Log de la réponse complète
+      console.log('📊 Réponse Supabase:', { data, error });
+      
       if (error) {
         console.error('❌ Erreur d\'inscription:', error.message);
+        console.error('📝 Détails de l\'erreur:', error);
         toast.error(error.message || 'Erreur lors de l\'inscription');
         return false;
       }
@@ -148,8 +156,11 @@ const SupabaseAuthProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         const userData = transformSupabaseUser(data.user as unknown as SupabaseUserData);
         setUser(userData);
         
+        console.log('✅ Inscription réussie:', userData);
         toast.success('Inscription réussie! Vérifiez votre email pour confirmer votre compte.');
         return true;
+      } else {
+        console.warn('⚠️ Aucun utilisateur retourné dans la réponse d\'inscription');
       }
       
       return false;
