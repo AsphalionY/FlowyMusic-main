@@ -4,13 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Effet de contour de texte - visible uniquement au survol/appui */
+/* Effet de contour de texte très fin - visible uniquement au survol/appui */
 .hover\:text-shadow-primary:hover, .active\:text-shadow-primary:active {
+  /* Contour ultra-fin avec la même couleur que le contour du bouton */
   text-shadow: 
-    -1px -1px 0 hsl(var(--primary)),
-    1px -1px 0 hsl(var(--primary)),
-    -1px 1px 0 hsl(var(--primary)),
-    1px 1px 0 hsl(var(--primary));
+    -0.25px -0.25px 0 hsla(var(--primary), 0.7),
+    0.25px -0.25px 0 hsla(var(--primary), 0.7),
+    -0.25px 0.25px 0 hsla(var(--primary), 0.7),
+    0.25px 0.25px 0 hsla(var(--primary), 0.7);
+  /* Conserve la couleur blanche du texte */
+  color: white;
 }
 
 @layer base {

@@ -55,6 +55,15 @@ export const AppRoutes: React.FC = () => {
       />
       
       <Route 
+        path="/shared-music" 
+        element={
+          <Layout>
+            <SharedMusic />
+          </Layout>
+        } 
+      />
+      
+      <Route 
         path="/shared/:id" 
         element={
           <Layout>
