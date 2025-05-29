@@ -4,12 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Effet de contour de texte */
-.text-shadow-primary {
+/* Effet de contour de texte - visible uniquement au survol/appui */
+.hover\:text-shadow-primary:hover, .active\:text-shadow-primary:active {
   text-shadow: 
-    0 0 1px hsl(var(--primary)),
-    0 0 1px hsl(var(--primary)),
-    0 0 1px hsl(var(--primary));
+    -1px -1px 0 hsl(var(--primary)),
+    1px -1px 0 hsl(var(--primary)),
+    -1px 1px 0 hsl(var(--primary)),
+    1px 1px 0 hsl(var(--primary));
 }
 
 @layer base {
