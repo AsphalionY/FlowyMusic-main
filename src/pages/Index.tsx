@@ -92,7 +92,7 @@ const Index = () => {
             <Button
               variant="outline"
               size={isMobile ? 'default' : 'lg'}
-              className="rounded-full border-primary/20 hover:bg-primary/5"
+              className="rounded-full border-primary/20 hover:bg-primary/5 hover:text-shadow-primary active:text-shadow-primary transition-all duration-200"
               onClick={() => navigate('/shared-music')}
               data-testid="library-link"
             >

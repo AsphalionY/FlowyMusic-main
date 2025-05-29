@@ -27,7 +27,7 @@ const UserNav = () => {
         <Button
           variant="ghost"
           size="sm"
-          className="rounded-full px-4 hover:bg-primary/10"
+          className="rounded-full px-4 hover:bg-primary/10 hover:text-shadow-primary active:text-shadow-primary transition-all duration-200"
           onClick={() => navigate('/auth')}
           data-testid="login-button"
         >
