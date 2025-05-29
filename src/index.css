@@ -4,23 +4,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Vrai contour de police très fin - visible uniquement au survol/appui */
+/* Vrai contour de police avec préservation de la taille - visible uniquement au survol/appui */
 .hover\:text-shadow-primary:hover, .active\:text-shadow-primary:active {
-  /* Contour ultra-fin avec la même couleur que le contour du bouton (primary/20) */
-  -webkit-text-stroke: 0.3px hsla(var(--primary), 0.2);
+  /* Vrai contour de texte pour les navigateurs webkit */
+  -webkit-text-stroke: 0.7px hsl(var(--primary));
   /* Fallback pour les navigateurs qui ne supportent pas webkit-text-stroke */
   text-shadow: 
-    -0.3px -0.3px 0 hsla(var(--primary), 0.2),
-    0.3px -0.3px 0 hsla(var(--primary), 0.2),
-    -0.3px 0.3px 0 hsla(var(--primary), 0.2),
-    0.3px 0.3px 0 hsla(var(--primary), 0.2);
+    -0.7px -0.7px 0 hsl(var(--primary)),
+    0.7px -0.7px 0 hsl(var(--primary)),
+    -0.7px 0.7px 0 hsl(var(--primary)),
+    0.7px 0.7px 0 hsl(var(--primary));
   /* Garde le texte en blanc */
   color: white;
-  /* Assure que le bouton ne change pas de taille */
-  transform: scale(1);
-  /* Pas de changement de padding ou margin */
-  padding: inherit;
-  margin: inherit;
+  /* Préservation de la taille originale du bouton */
+  transform: none !important;
+  font-size: inherit !important;
+  box-sizing: border-box !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  /* Assure que le texte reste de la même taille */
+  letter-spacing: normal !important;
+  /* Transition plus douce */
+  transition: all 0.2s ease !important;
 }
 
 @layer base {
