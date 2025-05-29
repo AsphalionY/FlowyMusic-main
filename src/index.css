@@ -4,20 +4,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Vrai contour de police - visible uniquement au survol/appui */
+/* Vrai contour de police très fin - visible uniquement au survol/appui */
 .hover\:text-shadow-primary:hover, .active\:text-shadow-primary:active {
-  /* Vrai contour de texte pour les navigateurs webkit */
-  -webkit-text-stroke: 1px hsl(var(--primary));
+  /* Contour ultra-fin avec la même couleur que le contour du bouton (primary/20) */
+  -webkit-text-stroke: 0.3px hsla(var(--primary), 0.2);
   /* Fallback pour les navigateurs qui ne supportent pas webkit-text-stroke */
   text-shadow: 
-    -1px -1px 0 hsl(var(--primary)),
-    1px -1px 0 hsl(var(--primary)),
-    -1px 1px 0 hsl(var(--primary)),
-    1px 1px 0 hsl(var(--primary));
+    -0.3px -0.3px 0 hsla(var(--primary), 0.2),
+    0.3px -0.3px 0 hsla(var(--primary), 0.2),
+    -0.3px 0.3px 0 hsla(var(--primary), 0.2),
+    0.3px 0.3px 0 hsla(var(--primary), 0.2);
   /* Garde le texte en blanc */
   color: white;
-  /* Ajout de font-weight pour rendre l'effet plus visible */
-  font-weight: bold;
+  /* Assure que le bouton ne change pas de taille */
+  transform: scale(1);
+  /* Pas de changement de padding ou margin */
+  padding: inherit;
+  margin: inherit;
 }
 
 @layer base {
