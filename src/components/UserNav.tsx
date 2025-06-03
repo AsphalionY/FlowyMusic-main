@@ -60,7 +60,7 @@ const UserNav = () => {
       <DropdownMenuContent
         className="w-56 border-primary"
         align="center"
-        alignOffset={-30}
+        alignOffset={-50}
         sideOffset={5}
         forceMount
       >
