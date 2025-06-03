@@ -59,8 +59,8 @@ const UserNav = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-56 border-primary"
-        align="center"
-        alignOffset={-50}
+        style={{ transform: 'translateX(-30px)' }}
+        align="start"
         sideOffset={5}
         forceMount
       >
