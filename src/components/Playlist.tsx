@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Plus, Music, Image as ImageIcon, X, Share2, ListMusic, ChevronLeft } from 'lucide-react';
+import { Plus, Music, Image as ImageIcon, X, Share2, ListMusic, ChevronLeft, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -9,6 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/contexts';
 import { toast } from 'sonner';
 import { MusicCategory } from '@/types/music';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 interface PlaylistProps {
   className?: string;
@@ -20,6 +22,8 @@ interface PlaylistItem {
   imageUrl: string | null;
   description: string;
   songs: Song[];
+  userId?: string;
+  isDefault?: boolean;
 }
 
 interface Song {
@@ -34,7 +38,9 @@ const Playlist = ({ className }: PlaylistProps) => {
   const [playlistItems, setPlaylistItems] = useState<PlaylistItem[]>([]);
   const [isAddingItem, setIsAddingItem] = useState(false);
   const [isAddingSong, setIsAddingSong] = useState(false);
+  const [isSavingToPlaylists, setIsSavingToPlaylists] = useState(false);
   const [selectedPlaylist, setSelectedPlaylist] = useState<PlaylistItem | null>(null);
+  const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
   const [newItem, setNewItem] = useState<Partial<PlaylistItem>>({
     title: '',
     imageUrl: null,
@@ -45,8 +51,46 @@ const Playlist = ({ className }: PlaylistProps) => {
     title: '',
     imageUrl: null,
   });
+  const [tempSong, setTempSong] = useState<Partial<Song> | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [songImagePreview, setSongImagePreview] = useState<string | null>(null);
+  
+  // Charger les playlists au démarrage et créer "Mes morceaux" si elle n'existe pas
+  useEffect(() => {
+    if (user) {
+      // Charger les playlists depuis localStorage
+      const storedPlaylists = localStorage.getItem('playlists');
+      let playlists: PlaylistItem[] = storedPlaylists ? JSON.parse(storedPlaylists) : [];
+      
+      // Filtrer les playlists de l'utilisateur actuel
+      const userPlaylists = playlists.filter(p => !p.userId || p.userId === user.id);
+      
+      // Vérifier si "Mes morceaux" existe déjà pour cet utilisateur
+      const hasDefaultPlaylist = userPlaylists.some(p => p.isDefault && p.userId === user.id);
+      
+      if (!hasDefaultPlaylist) {
+        // Créer la playlist par défaut "Mes morceaux"
+        const defaultPlaylist: PlaylistItem = {
+          id: `playlist-${Date.now()}`,
+          title: "Mes morceaux",
+          imageUrl: null,
+          description: "Ma playlist personnelle",
+          songs: [],
+          userId: user.id,
+          isDefault: true
+        };
+        
+        // Ajouter à la liste complète des playlists
+        playlists.push(defaultPlaylist);
+        localStorage.setItem('playlists', JSON.stringify(playlists));
+        
+        // Mettre à jour les playlists locales
+        userPlaylists.push(defaultPlaylist);
+      }
+      
+      setPlaylistItems(userPlaylists);
+    }
+  }, [user]);
 
   const handleAddItem = () => {
     setIsAddingItem(true);
@@ -108,9 +152,23 @@ const Playlist = ({ className }: PlaylistProps) => {
       imageUrl: newItem.imageUrl ?? null,
       description: newItem.description ?? '',
       songs: [],
+      userId: user?.id
     };
 
-    setPlaylistItems([...playlistItems, item]);
+    // Mettre à jour la liste locale
+    const updatedPlaylistItems = [...playlistItems, item];
+    setPlaylistItems(updatedPlaylistItems);
+    
+    // Sauvegarder dans localStorage
+    const storedPlaylists = localStorage.getItem('playlists');
+    let allPlaylists: PlaylistItem[] = storedPlaylists ? JSON.parse(storedPlaylists) : [];
+    
+    // Filtrer les playlists qui n'appartiennent pas à l'utilisateur actuel
+    const otherPlaylists = allPlaylists.filter(p => p.userId && p.userId !== user?.id);
+    
+    // Combiner avec les playlists mises à jour
+    localStorage.setItem('playlists', JSON.stringify([...otherPlaylists, ...updatedPlaylistItems]));
+    
     setIsAddingItem(false);
     setNewItem({
       title: '',
@@ -123,7 +181,25 @@ const Playlist = ({ className }: PlaylistProps) => {
   };
 
   const handleRemoveItem = (id: string) => {
-    setPlaylistItems(playlistItems.filter(item => item.id !== id));
+    // Ne pas supprimer si c'est la playlist par défaut "Mes morceaux"
+    const playlist = playlistItems.find(item => item.id === id);
+    if (playlist?.isDefault) {
+      toast.error('Impossible de supprimer la playlist par défaut "Mes morceaux"');
+      return;
+    }
+    
+    // Supprimer de la liste locale
+    const updatedPlaylistItems = playlistItems.filter(item => item.id !== id);
+    setPlaylistItems(updatedPlaylistItems);
+    
+    // Supprimer de localStorage
+    const storedPlaylists = localStorage.getItem('playlists');
+    if (storedPlaylists) {
+      const allPlaylists: PlaylistItem[] = JSON.parse(storedPlaylists);
+      const filteredPlaylists = allPlaylists.filter(item => item.id !== id);
+      localStorage.setItem('playlists', JSON.stringify(filteredPlaylists));
+    }
+    
     toast.info('Playlist supprimée');
   };
 
@@ -158,6 +234,83 @@ const Playlist = ({ className }: PlaylistProps) => {
     });
     setSongImagePreview(null);
   };
+  
+  // Fonction pour ouvrir l'interface de sélection de playlists
+  const handleSaveToPlaylists = (song: Partial<Song>) => {
+    setTempSong(song);
+    setIsSavingToPlaylists(true);
+    setSelectedPlaylists([]); // Réinitialiser la sélection
+  };
+  
+  // Gérer la sélection/désélection d'une playlist
+  const togglePlaylistSelection = (playlistId: string) => {
+    setSelectedPlaylists(prev => {
+      if (prev.includes(playlistId)) {
+        return prev.filter(id => id !== playlistId);
+      } else {
+        return [...prev, playlistId];
+      }
+    });
+  };
+  
+  // Annuler la sélection de playlists
+  const handleCancelPlaylistSelection = () => {
+    setIsSavingToPlaylists(false);
+    setTempSong(null);
+    setSelectedPlaylists([]);
+  };
+  
+  // Ajouter la chanson aux playlists sélectionnées
+  const handleAddToSelectedPlaylists = () => {
+    if (!tempSong || !tempSong.title || selectedPlaylists.length === 0) {
+      toast.error('Veuillez sélectionner au moins une playlist');
+      return;
+    }
+    
+    const song: Song = {
+      id: `song-${Date.now()}`,
+      title: tempSong.title,
+      imageUrl: tempSong.imageUrl ?? null,
+      audioUrl: tempSong.audioUrl
+    };
+    
+    // Mettre à jour les playlists sélectionnées
+    const updatedPlaylists = playlistItems.map(item => {
+      if (selectedPlaylists.includes(item.id)) {
+        return {
+          ...item,
+          songs: [...item.songs, song]
+        };
+      }
+      return item;
+    });
+    
+    setPlaylistItems(updatedPlaylists);
+    
+    // Sauvegarder dans localStorage
+    const storedPlaylists = localStorage.getItem('playlists');
+    if (storedPlaylists) {
+      const allPlaylists: PlaylistItem[] = JSON.parse(storedPlaylists);
+      
+      // Mettre à jour les playlists concernées
+      const updatedAllPlaylists = allPlaylists.map(item => {
+        if (selectedPlaylists.includes(item.id)) {
+          return {
+            ...item,
+            songs: [...(item.songs || []), song]
+          };
+        }
+        return item;
+      });
+      
+      localStorage.setItem('playlists', JSON.stringify(updatedAllPlaylists));
+    }
+    
+    setIsSavingToPlaylists(false);
+    setTempSong(null);
+    setSelectedPlaylists([]);
+    toast.success(`Morceau ajouté à ${selectedPlaylists.length} playlist(s)`);
+  };
 
   const handleSaveSong = () => {
     if (!selectedPlaylist) return;
@@ -167,29 +320,19 @@ const Playlist = ({ className }: PlaylistProps) => {
       return;
     }
 
-    const song: Song = {
-      id: `song-${Date.now()}`,
-      title: newSong.title ?? 'Sans titre',
-      imageUrl: newSong.imageUrl ?? null,
-    };
-
-    const updatedPlaylist = {
-      ...selectedPlaylist,
-      songs: [...selectedPlaylist.songs, song],
-    };
-
-    setPlaylistItems(
-      playlistItems.map(item => (item.id === selectedPlaylist.id ? updatedPlaylist : item))
-    );
-
-    setSelectedPlaylist(updatedPlaylist);
+    // Ouvrir l'interface de sélection de playlists
+    handleSaveToPlaylists(newSong);
+    
+    // Pré-sélectionner la playlist actuelle
+    setSelectedPlaylists([selectedPlaylist.id]);
+    
+    // Nettoyer l'interface d'ajout de chanson
     setIsAddingSong(false);
     setNewSong({
       title: '',
       imageUrl: null,
     });
     setSongImagePreview(null);
-    toast.success('Musique ajoutée à la playlist');
   };
 
   const handleRemoveSong = (songId: string) => {
@@ -283,6 +426,107 @@ const Playlist = ({ className }: PlaylistProps) => {
       </motion.div>
 
       {/* Vue d'une playlist spécifique */}
+      {isSavingToPlaylists && (
+        <motion.div
+          className="absolute inset-0 bg-background/90 z-20 flex flex-col p-6"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <div className="flex items-center mb-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="mr-2"
+              onClick={handleCancelPlaylistSelection}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <h2 className="text-xl font-bold">Ajouter à des playlists</h2>
+          </div>
+          
+          {tempSong && (
+            <div className="mb-4 bg-card p-3 rounded-lg shadow-sm">
+              <div className="flex items-center">
+                {tempSong.imageUrl ? (
+                  <img
+                    src={tempSong.imageUrl}
+                    alt={tempSong.title}
+                    className="w-12 h-12 rounded-md object-cover mr-3"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-md bg-secondary/30 flex items-center justify-center mr-3">
+                    <Music className="h-6 w-6 text-muted-foreground" />
+                  </div>
+                )}
+                <div>
+                  <h3 className="font-medium">{tempSong.title}</h3>
+                  <p className="text-sm text-muted-foreground">Sélectionnez les playlists</p>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <div className="grid grid-cols-1 gap-2 mb-4 max-h-[60vh] overflow-y-auto">
+            {playlistItems.map(playlist => (
+              <div 
+                key={playlist.id}
+                className={cn(
+                  "flex items-center p-2 rounded-lg cursor-pointer transition-colors",
+                  selectedPlaylists.includes(playlist.id) 
+                    ? "bg-primary/10 border border-primary/30" 
+                    : "hover:bg-secondary/20 border border-transparent"
+                )}
+                onClick={() => togglePlaylistSelection(playlist.id)}
+              >
+                <div className="w-10 h-10 rounded-md bg-secondary/30 relative mr-3 flex-shrink-0">
+                  {playlist.imageUrl ? (
+                    <img
+                      src={playlist.imageUrl}
+                      alt={playlist.title}
+                      className="w-full h-full object-cover rounded-md"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <ListMusic className="h-5 w-5 text-muted-foreground" />
+                    </div>
+                  )}
+                  {selectedPlaylists.includes(playlist.id) && (
+                    <div className="absolute -top-1 -right-1 bg-primary text-white rounded-full h-5 w-5 flex items-center justify-center">
+                      <Check className="h-3 w-3" />
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex-grow">
+                  <h3 className="font-medium text-sm">{playlist.title}</h3>
+                  <p className="text-xs text-muted-foreground">
+                    {playlist.songs.length} {playlist.songs.length > 1 ? 'titres' : 'titre'}
+                  </p>
+                </div>
+                
+                <Checkbox 
+                  checked={selectedPlaylists.includes(playlist.id)}
+                  className="ml-2 data-[state=checked]:bg-primary data-[state=checked]:text-white"
+                  onCheckedChange={() => togglePlaylistSelection(playlist.id)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-auto flex justify-end gap-2">
+            <Button variant="outline" onClick={handleCancelPlaylistSelection}>Annuler</Button>
+            <Button 
+              onClick={handleAddToSelectedPlaylists}
+              disabled={selectedPlaylists.length === 0}
+            >
+              Ajouter aux {selectedPlaylists.length} playlist{selectedPlaylists.length !== 1 ? 's' : ''}
+            </Button>
+          </div>
+        </motion.div>
+      )}
+      
       {selectedPlaylist ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}

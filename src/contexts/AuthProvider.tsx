@@ -11,6 +11,16 @@ import {
 // Import du contexte depuis auth-context.ts
 import { AuthContext } from './auth-context';
 
+// Interface pour les playlists
+interface PlaylistItem {
+  id: string;
+  title: string;
+  imageUrl: string | null;
+  description: string;
+  songs: any[];
+  userId: string;
+}
+
 // Le composant AuthProvider est le seul export de ce fichier
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -196,6 +206,24 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
       // Ajouter l'utilisateur à la liste
       users.push(newUserWithSensitiveData);
       localStorage.setItem('users', JSON.stringify(users));
+
+      // Créer une playlist par défaut "Mes morceaux" pour le nouvel utilisateur
+      const defaultPlaylist: PlaylistItem = {
+        id: `playlist-${Date.now()}`,
+        title: "Mes morceaux",
+        imageUrl: null,
+        description: "Ma playlist personnelle",
+        songs: [],
+        userId: newUserWithSensitiveData.id
+      };
+      
+      // Récupérer les playlists existantes
+      const playlistsData = localStorage.getItem('playlists');
+      const playlists: PlaylistItem[] = playlistsData ? JSON.parse(playlistsData) : [];
+      
+      // Ajouter la playlist par défaut
+      playlists.push(defaultPlaylist);
+      localStorage.setItem('playlists', JSON.stringify(playlists));
 
       // Connecter automatiquement l'utilisateur
       localStorage.setItem('auth_token', 'fake_token_' + Date.now());
